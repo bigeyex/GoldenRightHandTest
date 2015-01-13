@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>9</integer>
+	<integer>11</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -74,7 +74,7 @@
 						<key>value</key>
 						<array>
 							<real>0.0</real>
-							<real>0.0</real>
+							<real>-0.58757185935974121</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -149,7 +149,7 @@
 				<array>
 					<dict>
 						<key>UUID</key>
-						<integer>8</integer>
+						<integer>10</integer>
 						<key>baseClass</key>
 						<string>CCBFile</string>
 						<key>children</key>
@@ -157,9 +157,9 @@
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>CCBFile</string>
+						<string>Monster</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>_monster</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -179,8 +179,8 @@
 								<string>Position</string>
 								<key>value</key>
 								<array>
+									<real>446</real>
 									<real>252</real>
-									<real>96.000007629394531</real>
 									<integer>0</integer>
 									<integer>0</integer>
 									<integer>0</integer>
@@ -205,23 +205,25 @@
 								<key>type</key>
 								<string>CCBFile</string>
 								<key>value</key>
-								<string>hand.ccb</string>
+								<string>Monster.ccb</string>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>5</integer>
+						<integer>9</integer>
 						<key>baseClass</key>
-						<string>CCSprite</string>
+						<string>CCBFile</string>
 						<key>children</key>
 						<array/>
 						<key>customClass</key>
 						<string></string>
 						<key>displayName</key>
-						<string>body</string>
+						<string>Player</string>
 						<key>memberVarAssignmentName</key>
-						<string></string>
+						<string>_player</string>
 						<key>memberVarAssignmentType</key>
 						<integer>1</integer>
 						<key>properties</key>
@@ -232,7 +234,7 @@
 								<key>type</key>
 								<string>StringSimple</string>
 								<key>value</key>
-								<string></string>
+								<string>Player</string>
 							</dict>
 							<dict>
 								<key>name</key>
@@ -241,22 +243,11 @@
 								<string>Position</string>
 								<key>value</key>
 								<array>
-									<real>283</real>
-									<real>94</real>
+									<real>284</real>
+									<real>80</real>
 									<integer>0</integer>
 									<integer>0</integer>
 									<integer>0</integer>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>anchorPoint</string>
-								<key>type</key>
-								<string>Point</string>
-								<key>value</key>
-								<array>
-									<real>0.5</real>
-									<real>0.5</real>
 								</array>
 							</dict>
 							<dict>
@@ -266,7 +257,7 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>0.90363872051239014</real>
+									<real>1</real>
 									<real>1</real>
 									<false/>
 									<integer>0</integer>
@@ -274,46 +265,11 @@
 							</dict>
 							<dict>
 								<key>name</key>
-								<string>spriteFrame</string>
+								<string>ccbFile</string>
 								<key>type</key>
-								<string>SpriteFrame</string>
+								<string>CCBFile</string>
 								<key>value</key>
-								<array>
-									<string></string>
-									<string>InkMan/body.png</string>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>normalMapSpriteFrame</string>
-								<key>type</key>
-								<string>SpriteFrame</string>
-								<key>value</key>
-								<array>
-									<string></string>
-									<string></string>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>color</string>
-								<key>type</key>
-								<string>Color3</string>
-								<key>value</key>
-								<array>
-									<real>1</real>
-									<real>1</real>
-									<real>1</real>
-									<real>1</real>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>effects</string>
-								<key>type</key>
-								<string>EffectControl</string>
-								<key>value</key>
-								<array/>
+								<string>Player.ccb</string>
 							</dict>
 						</array>
 					</dict>
@@ -407,8 +363,6 @@
 						<real>0.5</real>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
