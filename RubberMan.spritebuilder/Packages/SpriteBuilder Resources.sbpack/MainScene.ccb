@@ -73,8 +73,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.0</real>
-							<real>-0.58757185935974121</real>
+							<real>-1</real>
+							<real>-1.5875718593597412</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -139,6 +139,8 @@
 						<real>1</real>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -208,8 +210,6 @@
 								<string>Monster.ccb</string>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 					</dict>
 					<dict>
 						<key>UUID</key>
@@ -243,8 +243,8 @@
 								<string>Position</string>
 								<key>value</key>
 								<array>
-									<real>284</real>
-									<real>80</real>
+									<real>150</real>
+									<real>89</real>
 									<integer>0</integer>
 									<integer>0</integer>
 									<integer>0</integer>
@@ -257,9 +257,9 @@
 								<string>ScaleLock</string>
 								<key>value</key>
 								<array>
-									<real>1</real>
-									<real>1</real>
-									<false/>
+									<real>0.40000000596046448</real>
+									<real>0.40000000596046448</real>
+									<true/>
 									<integer>0</integer>
 								</array>
 							</dict>

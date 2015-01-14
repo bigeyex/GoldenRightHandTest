@@ -16,7 +16,7 @@ double collisionThreshold = 1000.0;
     self.userInteractionEnabled = TRUE;
     
     // visualize physics bodies & joints
-    //_physicsNode.debugDraw = YES;
+    _physicsNode.debugDraw = YES;
     
     // sign up as the collision delegate of physics node
     _physicsNode.collisionDelegate = self;
