@@ -7,13 +7,15 @@
 //
 
 #import "Player.h"
+#import "Hand.h"
 
 @implementation Player{
-    CCNode *_hand;
+    Hand *_hand;
     CCNode *_body;
     CCNode *_mouseJointNode;
     CCNode *_centerJointNode;
     CCPhysicsJoint *_mouseJoint;
+    CCPhysicsJoint *_handJoint;
     CGPoint _shootDirection;
     BOOL isTouched;
     BOOL isReleased;
@@ -28,7 +30,23 @@ double fThreshold = 1;
     _mouseJointNode.physicsBody.collisionMask = @[];
     _body.physicsBody.collisionMask = @[];
     _centerJointNode.physicsBody.collisionMask = @[];
+
+    // create a hand from the ccb-file
+    _hand = (Hand *)[CCBReader load:@"Hand"];
+    _hand.position = ccp(-138,-49);
     
+    // add the hand to the player
+    [self addChild:_hand];
+    
+    // set up the hand type
+    _hand.handType = @"normal";
+    _hand.range = 50.0;
+    
+    // set up collision type
+    _hand.physicsBody.collisionType = @"hand";
+    
+    // create a joint with the centerJointNode
+    _handJoint=[CCPhysicsJoint connectedSpringJointWithBodyA:_hand.physicsBody bodyB:_centerJointNode.physicsBody anchorA:ccp(_hand.contentSizeInPoints.width/2,_hand.contentSizeInPoints.height/2) anchorB:ccp(0,0) restLength:80.f stiffness:4.f damping:1.f];
     // set up initial parameters
     isTouched = NO;
     isReleased = NO;
