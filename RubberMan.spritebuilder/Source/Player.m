@@ -20,8 +20,8 @@
     CGPoint _initialPosition;
 }
 
-double vThreshold = 1e-1;
-double fThreshold = 1e-1;
+double vThreshold = 1;
+double fThreshold = 1;
 
 -(void)didLoadFromCCB{
     // nothing shall collide with static point
@@ -45,10 +45,10 @@ double fThreshold = 1e-1;
         double velocity = _hand.physicsBody.velocity.x * _shootDirection.x + _hand.physicsBody.velocity.y * _shootDirection.y;
         double deltaVx = velocity * _shootDirection.x - _hand.physicsBody.velocity.x;
         double deltaVy = velocity * _shootDirection.y - _hand.physicsBody.velocity.y;
-        [_hand.physicsBody applyImpulse:ccp(deltaVx*_hand.physicsBody.mass,deltaVy*_hand.physicsBody.mass) atLocalPoint:ccp(8,8)];
+        [_hand.physicsBody applyImpulse:ccp(deltaVx*_hand.physicsBody.mass,deltaVy*_hand.physicsBody.mass) atLocalPoint:ccp(_hand.contentSizeInPoints.width/2,_hand.contentSizeInPoints.height/2)];
         
         //reset the hand position after its velocity and force drops below vThreshold and fThreshold
-        if(abs(_hand.physicsBody.velocity.x)<vThreshold & abs(_hand.physicsBody.force.x)<fThreshold & abs(_hand.physicsBody.velocity.y)<vThreshold & abs(_hand.physicsBody.force.y)<fThreshold){
+        if(fabs(_hand.physicsBody.velocity.x)<vThreshold & fabs(_hand.physicsBody.force.x)<fThreshold & fabs(_hand.physicsBody.velocity.y)<vThreshold & fabs(_hand.physicsBody.force.y)<fThreshold){
             _hand.position = _initialPosition;
         }
         
@@ -65,7 +65,7 @@ double fThreshold = 1e-1;
         _hand.position = touchLocation;
         
         // setup a spring joint between the mouseJointNode and the hand
-        _mouseJoint = [CCPhysicsJoint connectedSpringJointWithBodyA:_mouseJointNode.physicsBody bodyB:_hand.physicsBody anchorA:ccp(0, 0) anchorB:ccp(8,8) restLength:0.f stiffness:3000.f damping:150.f];
+        _mouseJoint = [CCPhysicsJoint connectedSpringJointWithBodyA:_mouseJointNode.physicsBody bodyB:_hand.physicsBody anchorA:ccp(0, 0) anchorB:ccp(_hand.contentSizeInPoints.width/2,_hand.contentSizeInPoints.height/2) restLength:0.f stiffness:3000.f damping:150.f];
         isTouched = YES;
         isReleased = NO;
     }
@@ -90,7 +90,7 @@ double fThreshold = 1e-1;
         double distance = sqrt(deltaX*deltaX+deltaY*deltaY);
         _shootDirection.x = deltaX / distance;
         _shootDirection.y = deltaY / distance;
-        [_hand.physicsBody applyImpulse:ccp(_shootDirection.x*distance*impulseScale,_shootDirection.y*distance*impulseScale) atLocalPoint:ccp(8,8)];
+        [_hand.physicsBody applyImpulse:ccp(_shootDirection.x*distance*impulseScale,_shootDirection.y*distance*impulseScale) atLocalPoint:ccp(_hand.contentSizeInPoints.width/2,_hand.contentSizeInPoints.height/2)];
         
         if (_mouseJoint != nil){
             [_mouseJoint invalidate];

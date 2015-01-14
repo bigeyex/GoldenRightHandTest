@@ -55,8 +55,8 @@
 					<string>Position</string>
 					<key>value</key>
 					<array>
-						<real>-131.75575256347656</real>
-						<real>-54.667453765869141</real>
+						<real>-138</real>
+						<real>-49</real>
 						<integer>0</integer>
 						<integer>0</integer>
 						<integer>0</integer>
@@ -93,8 +93,8 @@
 					<string>Point</string>
 					<key>value</key>
 					<array>
-						<real>72.244247436523438</real>
-						<real>86.832542419433594</real>
+						<real>66</real>
+						<real>92.5</real>
 					</array>
 				</dict>
 				<dict>
@@ -137,7 +137,7 @@
 					<string>EnabledFloat</string>
 					<key>value</key>
 					<array>
-						<real>0.0</real>
+						<real>154.39999389648438</real>
 						<true/>
 					</array>
 				</dict>
@@ -1097,8 +1097,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>-66.334495544433594</real>
-							<real>-10.638545036315918</real>
+							<real>-212.33450317382812</real>
+							<real>60.361454010009766</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
