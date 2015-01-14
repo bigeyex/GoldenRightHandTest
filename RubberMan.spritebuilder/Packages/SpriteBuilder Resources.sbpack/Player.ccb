@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>14</integer>
+	<integer>16</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -55,8 +55,8 @@
 					<string>Position</string>
 					<key>value</key>
 					<array>
-						<real>-196</real>
-						<real>-133.5</real>
+						<real>-131.75575256347656</real>
+						<real>-54.667453765869141</real>
 						<integer>0</integer>
 						<integer>0</integer>
 						<integer>0</integer>
@@ -93,8 +93,8 @@
 					<string>Point</string>
 					<key>value</key>
 					<array>
-						<real>8</real>
-						<real>8</real>
+						<real>72.244247436523438</real>
+						<real>86.832542419433594</real>
 					</array>
 				</dict>
 				<dict>
@@ -137,7 +137,7 @@
 					<string>EnabledFloat</string>
 					<key>value</key>
 					<array>
-						<real>37.370613098144531</real>
+						<real>0.0</real>
 						<true/>
 					</array>
 				</dict>
@@ -158,6 +158,8 @@
 					<real>4</real>
 				</dict>
 			</array>
+			<key>selected</key>
+			<true/>
 		</dict>
 	</array>
 	<key>jsControlled</key>
@@ -200,8 +202,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>76.251594543457031</real>
-							<real>-6.7280817031860352</real>
+							<real>117.25159454345703</real>
+							<real>5.2719192504882812</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -383,6 +385,8 @@
 						<array/>
 					</dict>
 				</array>
+				<key>seqExpanded</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
