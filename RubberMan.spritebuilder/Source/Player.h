@@ -7,8 +7,11 @@
 //
 
 #import "CCNode.h"
+#import "Hand.h"
 
 @interface Player : CCNode
+
+@property Hand *hand;
 
 - (void)touchAtLocation:(CGPoint) touchLocation;
 - (void)updateTouchLocation:(CGPoint) touchLocation;

@@ -10,4 +10,9 @@
 
 @implementation Hand
 
+-(void)didLoadFromCCB{
+    // set up collision type
+    self.physicsBody.collisionType = @"hand";
+}
+
 @end
