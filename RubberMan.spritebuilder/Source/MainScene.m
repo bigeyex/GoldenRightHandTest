@@ -61,6 +61,8 @@ double collisionThreshold = 1000.0;
     if (energy > collisionThreshold) {
         [[_physicsNode space] addPostStepBlock:^{
             [nodeA removeFromParent];
+            _player.isMonsterHit = YES;
+            _player.isStopTimeReached = NO;
         } key:nodeA];
     }
 }

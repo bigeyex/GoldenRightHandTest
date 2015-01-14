@@ -179,8 +179,8 @@
 								<string>Position</string>
 								<key>value</key>
 								<array>
-									<real>446</real>
-									<real>252</real>
+									<real>300</real>
+									<real>206</real>
 									<integer>0</integer>
 									<integer>0</integer>
 									<integer>0</integer>
@@ -208,6 +208,8 @@
 								<string>Monster.ccb</string>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 					</dict>
 					<dict>
 						<key>UUID</key>

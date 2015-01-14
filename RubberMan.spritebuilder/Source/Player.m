@@ -19,7 +19,6 @@
     BOOL isTouched;
     BOOL isReleased;
     BOOL isRangeReached;
-    BOOL isStopTimeReached;
     BOOL isGoBack;
     double _stopTime;
     CGPoint _initialPosition;
@@ -70,7 +69,7 @@ static float stopDuration = 0.3;
         // check whether the hand has reached its range
         if((handDist>=_hand.range)&& ~isRangeReached){
             isRangeReached = YES;
-            isStopTimeReached = NO;
+            _isStopTimeReached = NO;
         }
         
         // check whether the hand has been back to the origin;
@@ -81,11 +80,12 @@ static float stopDuration = 0.3;
         }
         
         // set the velocity to zero for stopDuration
-        if(isRangeReached){
-            if(~isStopTimeReached){
+        if(isRangeReached||_isMonsterHit){
+            if(~_isStopTimeReached){
                 
                 _hand.physicsBody.velocity=ccp(0,0);
-                _hand.position = ccpAdd(ccp(_hand.range*_shootDirection.x,_hand.range*_shootDirection.y),_centerJointNode.position);
+                if(isRangeReached){
+                    _hand.position = ccpAdd(ccp(_hand.range*_shootDirection.x,_hand.range*_shootDirection.y),_centerJointNode.position);}
                 _stopTime = _stopTime + delta;
                 
                 // load particle effect
@@ -98,7 +98,8 @@ static float stopDuration = 0.3;
                     double impulseScale = _hand.physicsBody.mass*1000;
                     [_hand.physicsBody applyImpulse:ccp(-_shootDirection.x*impulseScale,-_shootDirection.y*impulseScale) atLocalPoint:_hand.anchorPointInPoints];
                     isRangeReached = NO;
-                    isStopTimeReached = YES;
+                    _isMonsterHit = NO;
+                    _isStopTimeReached = YES;
                     isGoBack = YES;
                 }
             }
