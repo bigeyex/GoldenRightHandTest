@@ -57,11 +57,11 @@ double collisionThreshold = 1000.0;
 {
     float energy = [pair totalKineticEnergy];
     
-    // if energy is large enough, remove the seal
+    // if energy is large enough, remove the monster
     if (energy > collisionThreshold) {
         [[_physicsNode space] addPostStepBlock:^{
-            [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
             [nodeA removeFromParent];
+            [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
             _player.isMonsterHit = YES;
             _player.isStopTimeReached = NO;
         } key:nodeA];

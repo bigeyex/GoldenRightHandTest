@@ -10,4 +10,6 @@
 
 @interface FireHand : Hand
 
+@property int skillRange;
+
 @end

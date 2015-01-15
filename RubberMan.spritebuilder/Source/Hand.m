@@ -29,7 +29,7 @@
     [self addChild:fistHitEffect];
 }
 
--(void)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterlist{
+-(void)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterList{
     
 }
 

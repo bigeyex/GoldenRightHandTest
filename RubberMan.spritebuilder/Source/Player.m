@@ -34,7 +34,7 @@ static float stopDuration = 0.3;
     _centerJointNode.physicsBody.collisionMask = @[];
 
     // add hand into the scene
-    [self addHand];
+    [self addHandwithName:@"Hand"];
     
     // set up initial parameters
     isTouched = NO;
@@ -43,10 +43,10 @@ static float stopDuration = 0.3;
     
 }
 
--(void)addHand{
+-(void)addHandwithName:(NSString *)ccbName{
     
     // create a hand from the ccb-file
-    _hand = (FireHand *)[CCBReader load:@"FireHand"];
+    _hand = (Hand *)[CCBReader load:ccbName];
     _hand.position = ccp(-138,-49);
     
     // add the hand to the player

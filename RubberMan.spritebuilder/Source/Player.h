@@ -19,6 +19,5 @@
 - (void)touchAtLocation:(CGPoint) touchLocation;
 - (void)updateTouchLocation:(CGPoint) touchLocation;
 - (void)releaseTouch;
-- (void)addHand;
-
+- (void)addHandwithName:(NSString *)ccbName;
 @end
