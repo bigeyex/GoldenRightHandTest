@@ -8,6 +8,7 @@
 
 #import "CCNode.h"
 #import "Hand.h"
+#import "FireHand.h"
 
 @interface Player : CCNode
 
@@ -18,5 +19,6 @@
 - (void)touchAtLocation:(CGPoint) touchLocation;
 - (void)updateTouchLocation:(CGPoint) touchLocation;
 - (void)releaseTouch;
+- (void)addHand;
 
 @end

@@ -6,7 +6,7 @@
 @implementation MainScene{
     CCPhysicsNode *_physicsNode;
     Player *_player;
-    Monster *_monster;
+    CCNode *_monsterList;
 }
 
 double collisionThreshold = 1000.0;
@@ -60,6 +60,7 @@ double collisionThreshold = 1000.0;
     // if energy is large enough, remove the seal
     if (energy > collisionThreshold) {
         [[_physicsNode space] addPostStepBlock:^{
+            [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
             [nodeA removeFromParent];
             _player.isMonsterHit = YES;
             _player.isStopTimeReached = NO;

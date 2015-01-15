@@ -15,13 +15,13 @@
     CCPhysicsJoint *_mouseJoint;
     CCPhysicsJoint *_handJoint;
     CCPhysicsJoint *_handRangeLimitJoint;
-    CGPoint _shootDirection;
     BOOL isTouched;
     BOOL isReleased;
     BOOL isRangeReached;
     BOOL isGoBack;
     double _stopTime;
     CGPoint _initialPosition;
+    CGPoint _shootDirection;
 }
 
 static float playerScale = 0.4;
@@ -33,25 +33,30 @@ static float stopDuration = 0.3;
     _body.physicsBody.collisionMask = @[];
     _centerJointNode.physicsBody.collisionMask = @[];
 
+    // add hand into the scene
+    [self addHand];
+    
+    // set up initial parameters
+    isTouched = NO;
+    isReleased = NO;
+    _initialPosition = _hand.position;
+    
+}
+
+-(void)addHand{
+    
     // create a hand from the ccb-file
-    _hand = (Hand *)[CCBReader load:@"Hand"];
+    _hand = (FireHand *)[CCBReader load:@"FireHand"];
     _hand.position = ccp(-138,-49);
     
     // add the hand to the player
     [self addChild:_hand];
     
-    // set up the hand type
-    _hand.handType = @"normal";
-    _hand.range = 500.0f;
-    
     // create a joint with the centerJointNode
     _handJoint=[CCPhysicsJoint connectedSpringJointWithBodyA:_hand.physicsBody bodyB:_centerJointNode.physicsBody anchorA:_hand.anchorPointInPoints anchorB:ccp(0,0) restLength:ccpDistance(_hand.positionInPoints,_centerJointNode.positionInPoints)*playerScale stiffness:4.f damping:1.f];
     
+    // create a distance joint to control the range of the hand
     _handRangeLimitJoint = [CCPhysicsJoint connectedDistanceJointWithBodyA:_hand.physicsBody bodyB:_centerJointNode.physicsBody anchorA:_hand.anchorPointInPoints anchorB:ccp(0,0) minDistance:0.f maxDistance:_hand.range*playerScale];
-    // set up initial parameters
-    isTouched = NO;
-    isReleased = NO;
-    _initialPosition = _hand.position;
     
 }
 
@@ -62,11 +67,9 @@ static float stopDuration = 0.3;
         double velocity = ccpDot(_hand.physicsBody.velocity,_shootDirection);
         _hand.physicsBody.velocity = CGPointMake(velocity * _shootDirection.x,velocity * _shootDirection.y);
         
-        // check the status of the hand
+        // check whether the hand has reached its range
         CGPoint handRelativeVector = ccpSub(_hand.positionInPoints, _centerJointNode.positionInPoints);
         double handDist = ccpDot(handRelativeVector,_shootDirection);
-        
-        // check whether the hand has reached its range
         if((handDist>=_hand.range)&& ~isRangeReached){
             isRangeReached = YES;
             _isStopTimeReached = NO;
@@ -79,29 +82,30 @@ static float stopDuration = 0.3;
             isReleased = NO;
         }
         
-        // set the velocity to zero for stopDuration
         if(isRangeReached||_isMonsterHit){
             if(~_isStopTimeReached){
                 
+                // set the velocity to zero for stopDuration
                 _hand.physicsBody.velocity=ccp(0,0);
                 if(isRangeReached){
-                    _hand.position = ccpAdd(ccp(_hand.range*_shootDirection.x,_hand.range*_shootDirection.y),_centerJointNode.position);}
-                _stopTime = _stopTime + delta;
+                    _hand.position = ccpAdd(ccp(_hand.range*_shootDirection.x,_hand.range*_shootDirection.y),_centerJointNode.position);
+                }
                 
-                // load particle effect
-                CCParticleSystem *fistHitEffect = (CCParticleSystem *)[CCBReader load:@"FistHitEffect"];
-                fistHitEffect.autoRemoveOnFinish = TRUE;
-                fistHitEffect.position = _hand.position;
-                [_hand.parent addChild:fistHitEffect];
+                // load hand particle effect
+                [_hand handParticleEffect];
                 
+                // after the hand has stopped for enough time, apply an impluse to let the hand go back
                 if(_stopTime>=stopDuration){
                     double impulseScale = _hand.physicsBody.mass*1000;
                     [_hand.physicsBody applyImpulse:ccp(-_shootDirection.x*impulseScale,-_shootDirection.y*impulseScale) atLocalPoint:_hand.anchorPointInPoints];
+                    
                     isRangeReached = NO;
                     _isMonsterHit = NO;
                     _isStopTimeReached = YES;
                     isGoBack = YES;
                 }
+                
+                _stopTime = _stopTime + delta;
             }
         }
     }
@@ -110,8 +114,9 @@ static float stopDuration = 0.3;
 }
 
 - (void)touchAtLocation:(CGPoint) touchLocation {
-    // connect the hand touched by the user to a mouse joint at the touchLocation
-    if (CGRectContainsPoint([_hand boundingBox], touchLocation))
+    
+    // connect the hand touched by the user to a mouse joint at the touchLocation, when the hand is in the status of being released, the touch is invalid
+    if (~isReleased && CGRectContainsPoint([_hand boundingBox], touchLocation))
     {
         // move the mouseJointNode to the touch position
         _mouseJointNode.position = touchLocation;
