@@ -7,11 +7,17 @@
 //
 
 #import "CCNode.h"
+#import "Hand.h"
+#import "FireHand.h"
 
 @interface Player : CCNode
+
+@property Hand *hand;
+@property BOOL isMonsterHit;
+@property BOOL isStopTimeReached;
 
 - (void)touchAtLocation:(CGPoint) touchLocation;
 - (void)updateTouchLocation:(CGPoint) touchLocation;
 - (void)releaseTouch;
-
+- (void)addHandwithName:(NSString *)ccbName;
 @end

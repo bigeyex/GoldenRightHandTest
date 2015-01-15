@@ -7,10 +7,15 @@
 //
 
 #import "CCSprite.h"
+#import "Monster.h"
 
 @interface Hand : CCSprite
 
 @property NSString *handType;
-@property double range;
+@property int range;
+@property int atk;
+
+-(void)handParticleEffect;
+-(void)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterlist;
 
 @end

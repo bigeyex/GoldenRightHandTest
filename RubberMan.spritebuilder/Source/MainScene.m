@@ -6,7 +6,7 @@
 @implementation MainScene{
     CCPhysicsNode *_physicsNode;
     Player *_player;
-    Monster *_monster;
+    CCNode *_monsterList;
 }
 
 double collisionThreshold = 1000.0;
@@ -16,7 +16,7 @@ double collisionThreshold = 1000.0;
     self.userInteractionEnabled = TRUE;
     
     // visualize physics bodies & joints
-    _physicsNode.debugDraw = YES;
+    //_physicsNode.debugDraw = YES;
     
     // sign up as the collision delegate of physics node
     _physicsNode.collisionDelegate = self;
@@ -53,14 +53,17 @@ double collisionThreshold = 1000.0;
     [_player releaseTouch];
 }
 
--(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(CCNode *)nodeA hand:(CCNode *)nodeB
+-(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA hand:(Hand *)nodeB
 {
     float energy = [pair totalKineticEnergy];
     
-    // if energy is large enough, remove the seal
+    // if energy is large enough, remove the monster
     if (energy > collisionThreshold) {
         [[_physicsNode space] addPostStepBlock:^{
-            [_monster removeFromParent];
+            [nodeA removeFromParent];
+            [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
+            _player.isMonsterHit = YES;
+            _player.isStopTimeReached = NO;
         } key:nodeA];
     }
 }
