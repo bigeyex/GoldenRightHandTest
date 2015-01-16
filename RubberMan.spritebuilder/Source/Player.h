@@ -16,6 +16,8 @@
 @property BOOL isMonsterHit;
 @property BOOL isStopTimeReached;
 @property BOOL isGoBack;
+@property CCNode *centerJointNode;
+
 
 
 - (void)touchAtLocation:(CGPoint) touchLocation;

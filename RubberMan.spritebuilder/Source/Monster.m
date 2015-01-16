@@ -8,12 +8,15 @@
 
 #import "Monster.h"
 
-@implementation Monster
+@implementation Monster{
+    CGPoint _moveDirection;
+}
 
 - (void)didLoadFromCCB {
     _hp = 10;
     _atk = 5;
     _elementType = @"fire";
+    _speed = 10;
     self.physicsBody.collisionType = @"monster";
 }
 
@@ -31,5 +34,14 @@
 - (void)loadMonsterData:(MonsterData *)monsterData{
     
 }
+
+-(void)update:(CCTime)delta{
+    
+    // player position is (145,130). This may be not a good way to assign this value. need improvement.
+    _moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
+    self.physicsBody.velocity = CGPointMake(self.speed * _moveDirection.x,self.speed * _moveDirection.y);
+    
+}
+
 
 @end

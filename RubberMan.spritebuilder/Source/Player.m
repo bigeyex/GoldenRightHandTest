@@ -10,8 +10,11 @@
 
 @implementation Player{
     CCNode *_body;
+    CCNode *_head;
+    CCNode *_leftFoot;
+    CCNode *_rightFoot;
+    CCNode *_leftHand;
     CCNode *_mouseJointNode;
-    CCNode *_centerJointNode;
     CCPhysicsJoint *_mouseJoint;
     CCPhysicsJoint *_handJoint;
     CCPhysicsJoint *_handRangeLimitJoint;
@@ -29,8 +32,21 @@ static float stopDuration = 0.3;
 -(void)didLoadFromCCB{
     // nothing shall collide with static point
     _mouseJointNode.physicsBody.collisionMask = @[];
-    _body.physicsBody.collisionMask = @[];
     _centerJointNode.physicsBody.collisionMask = @[];
+    
+    // set up collision type
+    _body.physicsBody.collisionType = @"human";
+    _leftFoot.physicsBody.collisionType = @"human";
+    _rightFoot.physicsBody.collisionType = @"human";
+    _leftHand.physicsBody.collisionType = @"human";
+    _head.physicsBody.collisionType = @"human";
+    
+    // set up collision mask
+    _body.physicsBody.collisionMask = @[@"monster"];
+    _leftFoot.physicsBody.collisionMask = @[@"monster"];
+    _rightFoot.physicsBody.collisionMask = @[@"monster"];
+    _leftHand.physicsBody.collisionMask = @[@"monster"];
+    _head.physicsBody.collisionMask = @[@"monster"];
 
     // add hand into the scene
     [self addHandwithName:@"Hand"];

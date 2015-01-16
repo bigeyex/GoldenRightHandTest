@@ -15,6 +15,7 @@
 @property int hp;
 @property NSString *elementType;
 @property int atk;
+@property float speed;
 
 - (int)receiveHitWithHand:(Hand *)hand;
 - (void)loadMonsterData: (MonsterData*)monsterData;

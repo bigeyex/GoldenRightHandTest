@@ -62,11 +62,11 @@
 			<key>collisionType</key>
 			<string></string>
 			<key>cornerRadius</key>
-			<real>16</real>
+			<real>32</real>
 			<key>density</key>
-			<real>1</real>
+			<real>10</real>
 			<key>dynamic</key>
-			<false/>
+			<true/>
 			<key>elasticity</key>
 			<real>0.30000001192092896</real>
 			<key>friction</key>
