@@ -49,7 +49,7 @@ static float stopDuration = 0.3;
     _rightFoot.physicsBody.collisionCategories = @[@"hand"];
     
     // add hand into the scene
-    [self addHandwithName:@"Hand"];
+    [self addHandwithName:@"FireHand"];
     
     // set up initial parameters
     _playerHP = 100.0;
