@@ -1,7 +1,7 @@
 <LevelData>
     <MonsterData>
         <Monster>
-            <SpriteName>MonsterWalker</SpriteName>
+            <SpriteName>MonsterBat</SpriteName>
             <EnterTime>0</EnterTime>
             <Number>5</Number>
             <RespawnInterval>2</RespawnInterval>
