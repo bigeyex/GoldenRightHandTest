@@ -73,8 +73,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>-1</real>
-							<real>-1.5875718593597412</real>
+							<real>0.0</real>
+							<real>0.0</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -139,6 +139,8 @@
 						<real>1</real>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -248,8 +250,8 @@
 										<string>Position</string>
 										<key>value</key>
 										<array>
-											<real>446</real>
-											<real>93</real>
+											<real>391</real>
+											<real>191</real>
 											<integer>0</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -310,8 +312,8 @@
 										<string>Position</string>
 										<key>value</key>
 										<array>
-											<real>414</real>
-											<real>169</real>
+											<real>428</real>
+											<real>216</real>
 											<integer>0</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -339,8 +341,6 @@
 										<string>Monster.ccb</string>
 									</dict>
 								</array>
-								<key>selected</key>
-								<true/>
 							</dict>
 						</array>
 						<key>customClass</key>
@@ -382,10 +382,10 @@
 								<string>Size</string>
 								<key>value</key>
 								<array>
-									<real>0.0</real>
-									<real>0.0</real>
-									<integer>0</integer>
-									<integer>0</integer>
+									<real>1</real>
+									<real>1</real>
+									<integer>2</integer>
+									<integer>2</integer>
 								</array>
 							</dict>
 							<dict>
@@ -413,8 +413,6 @@
 								</array>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 					</dict>
 					<dict>
 						<key>UUID</key>
@@ -518,10 +516,10 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>0.0</real>
-							<real>0.0</real>
-							<integer>0</integer>
-							<integer>0</integer>
+							<real>1</real>
+							<real>1</real>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
