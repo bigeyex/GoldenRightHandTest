@@ -10,6 +10,7 @@
 
 @interface FireHand : Hand
 
-@property int skillRange;
+@property float skillRange;
+@property float skillDamage;
 
 @end

@@ -49,10 +49,10 @@ static float stopDuration = 0.3;
     _rightFoot.physicsBody.collisionCategories = @[@"hand"];
     
     // add hand into the scene
-    [self addHandwithName:@"FireHand"];
+    [self addHandwithName:@"Hand"];
     
     // set up initial parameters
-    _playerHP = 100;
+    _playerHP = 100.0;
     isTouched = NO;
     isReleased = NO;
     _initialPosition = _hand.position;
@@ -101,7 +101,7 @@ static float stopDuration = 0.3;
                 }
                 
                 // load hand particle effect
-                [_hand handParticleEffect];
+                //[_hand handParticleEffectAtPosition:_hand.anchorPointInPoints];
                 
                 // after the hand has stopped for enough time, apply an impluse to let the hand go back
                 if(_stopTime>=stopDuration){
