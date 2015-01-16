@@ -84,6 +84,12 @@
             monsterData.respawnInterval = [respawnIntervalNode.stringValue floatValue];
         }
         
+        NSArray *positionYs = [enemyNode elementsForName:@"PositionY"];
+        if (positionYs.count > 0) {
+            GDataXMLElement *positionYNode = (GDataXMLElement *) [positionYs objectAtIndex:0];
+            monsterData.positionY = [positionYNode.stringValue floatValue];
+        }
+        
         [monsterDataList addObject:monsterData];
     }
     
