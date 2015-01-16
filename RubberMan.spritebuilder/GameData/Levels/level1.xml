@@ -1,0 +1,20 @@
+<LevelData>
+    <MonsterData>
+        <Monster>
+            <SpriteName>MonsterWalker</SpriteName>
+            <EnterTime>0</EnterTime>
+            <Number>15</Number>
+            <RespawnInterval>5</RespawnInterval>
+            <PositionY>0.1</PositionY>
+            <Health>20</Health>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterBat</SpriteName>
+            <EnterTime>4</EnterTime>
+            <Number>10</Number>
+            <RespawnInterval>8</RespawnInterval>
+            <PositionY>0.6</PositionY>
+            <Health>20</Health>
+        </Monster>
+    </MonsterData>
+</LevelData>

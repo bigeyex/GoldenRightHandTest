@@ -47,8 +47,11 @@
 		7A97911719E631C6001FFC4D /* libcocos2d-mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A97910419E62E40001FFC4D /* libcocos2d-mac.a */; };
 		7A97911819E631CD001FFC4D /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9790FE19E62E40001FFC4D /* libcocos2d.a */; };
 		8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8392007918EE8E3300B6C429 /* GLKit.framework */; };
-		887E30FF1A647691002E1514 /* Hand.m in Sources */ = {isa = PBXBuildFile; fileRef = 887E30FE1A647691002E1514 /* Hand.m */; };
-		88A7DC171A64950800F765D2 /* HandBody.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A7DC161A64950800F765D2 /* HandBody.m */; };
+		8808EA1B1A6893AC0020AB90 /* MonsterData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8808EA1A1A6893AC0020AB90 /* MonsterData.m */; };
+		8882A9671A687CFC00458955 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8882A9661A687CFC00458955 /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8882A96A1A687DED00458955 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8882A9691A687DED00458955 /* libxml2.dylib */; };
+		8882A96D1A6880CD00458955 /* LevelLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8882A96C1A6880CD00458955 /* LevelLoader.m */; };
+		8882A9751A68882100458955 /* level1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8882A9741A6887FC00458955 /* level1.xml */; };
 		927F619E196C771E000F43EF /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B7378993180767190076A88C /* MainScene.m */; };
 		927F61A5196C771E000F43EF /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3517B978D7009739AE /* OpenAL.framework */; };
 		927F61A9196C771E000F43EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3D17B978D7009739AE /* Foundation.framework */; };
@@ -94,6 +97,10 @@
 		B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3F17B978D7009739AE /* CoreGraphics.framework */; };
 		B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B4117B978D7009739AE /* CoreText.framework */; };
 		B78A0B10198AF87200C63841 /* Published-Android in Resources */ = {isa = PBXBuildFile; fileRef = B78A0B0F198AF87200C63841 /* Published-Android */; };
+		D225B3E11A65F96D005787F2 /* Hand.m in Sources */ = {isa = PBXBuildFile; fileRef = D225B3E01A65F96D005787F2 /* Hand.m */; };
+		D2972C061A683B97009D3E0E /* FireHand.m in Sources */ = {isa = PBXBuildFile; fileRef = D2972C051A683B97009D3E0E /* FireHand.m */; };
+		D2E8845E1A64D999004423FC /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E8845D1A64D999004423FC /* Player.m */; };
+		D2E884791A64F2F6004423FC /* Monster.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E884781A64F2F6004423FC /* Monster.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,10 +202,14 @@
 		7AFCD5DB19E9BD9F00BCCCDA /* cocos2d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cocos2d.h; path = "Source/libs/cocos2d-iphone/cocos2d/cocos2d.h"; sourceTree = "<group>"; };
 		7AFCD5DD19E9BDC200BCCCDA /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Source/Bridging-Header.h"; sourceTree = "<group>"; };
 		8392007918EE8E3300B6C429 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		887E30FD1A647691002E1514 /* Hand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hand.h; sourceTree = "<group>"; };
-		887E30FE1A647691002E1514 /* Hand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hand.m; sourceTree = "<group>"; };
-		88A7DC151A64950800F765D2 /* HandBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HandBody.h; path = Source/MetalShaders/HandBody.h; sourceTree = "<group>"; };
-		88A7DC161A64950800F765D2 /* HandBody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HandBody.m; path = Source/MetalShaders/HandBody.m; sourceTree = "<group>"; };
+		8808EA191A6893AC0020AB90 /* MonsterData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MonsterData.h; path = Source/DataModel/MonsterData.h; sourceTree = "<group>"; };
+		8808EA1A1A6893AC0020AB90 /* MonsterData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MonsterData.m; path = Source/DataModel/MonsterData.m; sourceTree = "<group>"; };
+		8882A9651A687CFC00458955 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		8882A9661A687CFC00458955 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		8882A9691A687DED00458955 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		8882A96B1A6880CD00458955 /* LevelLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelLoader.h; path = Source/LevelLoader.h; sourceTree = "<group>"; };
+		8882A96C1A6880CD00458955 /* LevelLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LevelLoader.m; path = Source/LevelLoader.m; sourceTree = "<group>"; };
+		8882A9741A6887FC00458955 /* level1.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = level1.xml; sourceTree = "<group>"; };
 		927F61BF196C771E000F43EF /* RubberMan Android.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RubberMan Android.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
@@ -234,6 +245,14 @@
 		B77F1B4117B978D7009739AE /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		B78A0B0F198AF87200C63841 /* Published-Android */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Published-Android"; sourceTree = "<group>"; };
 		B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveChipmunk.a; path = "../libs/cocos2d-iphone/external/Chipmunk/xcode/build/Debug-iphoneos/libObjectiveChipmunk.a"; sourceTree = "<group>"; };
+		D225B3DF1A65F96C005787F2 /* Hand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hand.h; path = Source/Hand.h; sourceTree = "<group>"; };
+		D225B3E01A65F96D005787F2 /* Hand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Hand.m; path = Source/Hand.m; sourceTree = "<group>"; };
+		D2972C041A683B97009D3E0E /* FireHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FireHand.h; path = Source/FireHand.h; sourceTree = "<group>"; };
+		D2972C051A683B97009D3E0E /* FireHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FireHand.m; path = Source/FireHand.m; sourceTree = "<group>"; };
+		D2E8845C1A64D999004423FC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Source/Player.h; sourceTree = "<group>"; };
+		D2E8845D1A64D999004423FC /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = Source/Player.m; sourceTree = "<group>"; };
+		D2E884771A64F2F6004423FC /* Monster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Monster.h; path = Source/Monster.h; sourceTree = "<group>"; };
+		D2E884781A64F2F6004423FC /* Monster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Monster.m; path = Source/Monster.m; sourceTree = "<group>"; };
 		D352B48019EC608A00829775 /* MetalShaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MetalShaders; path = Source/MetalShaders; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -282,6 +301,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8882A96A1A687DED00458955 /* libxml2.dylib in Frameworks */,
 				7A97911819E631CD001FFC4D /* libcocos2d.a in Frameworks */,
 				8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */,
 				B77F1B3217B978D7009739AE /* QuartzCore.framework in Frameworks */,
@@ -452,6 +472,48 @@
 			name = Mac;
 			sourceTree = "<group>";
 		};
+		8808EA151A68932F0020AB90 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				8808EA191A6893AC0020AB90 /* MonsterData.h */,
+				8808EA1A1A6893AC0020AB90 /* MonsterData.m */,
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
+		8882A9631A687C7A00458955 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				8882A9681A687DC600458955 /* XMLSupport */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
+		8882A9681A687DC600458955 /* XMLSupport */ = {
+			isa = PBXGroup;
+			children = (
+				8882A9651A687CFC00458955 /* GDataXMLNode.h */,
+				8882A9661A687CFC00458955 /* GDataXMLNode.m */,
+			);
+			name = XMLSupport;
+			sourceTree = "<group>";
+		};
+		8882A9721A6887FC00458955 /* GameData */ = {
+			isa = PBXGroup;
+			children = (
+				8882A9731A6887FC00458955 /* Levels */,
+			);
+			path = GameData;
+			sourceTree = "<group>";
+		};
+		8882A9731A6887FC00458955 /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				8882A9741A6887FC00458955 /* level1.xml */,
+			);
+			path = Levels;
+			sourceTree = "<group>";
+		};
 		9222E2B918734FF800A246C7 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,14 +525,22 @@
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8808EA151A68932F0020AB90 /* DataModel */,
+				8882A9631A687C7A00458955 /* Vendor */,
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				B7378992180767190076A88C /* MainScene.h */,
 				B7378993180767190076A88C /* MainScene.m */,
+				D2E8845C1A64D999004423FC /* Player.h */,
+				D2E8845D1A64D999004423FC /* Player.m */,
+				D225B3DF1A65F96C005787F2 /* Hand.h */,
+				D225B3E01A65F96D005787F2 /* Hand.m */,
+				D2972C041A683B97009D3E0E /* FireHand.h */,
+				D2972C051A683B97009D3E0E /* FireHand.m */,
+				D2E884771A64F2F6004423FC /* Monster.h */,
+				D2E884781A64F2F6004423FC /* Monster.m */,
 				D352B48019EC608A00829775 /* MetalShaders */,
-				887E30FD1A647691002E1514 /* Hand.h */,
-				887E30FE1A647691002E1514 /* Hand.m */,
-				88A7DC151A64950800F765D2 /* HandBody.h */,
-				88A7DC161A64950800F765D2 /* HandBody.m */,
+				8882A96B1A6880CD00458955 /* LevelLoader.h */,
+				8882A96C1A6880CD00458955 /* LevelLoader.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -499,6 +569,7 @@
 		B77F1B2517B978D7009739AE = {
 			isa = PBXGroup;
 			children = (
+				8882A9721A6887FC00458955 /* GameData */,
 				B737893C1807616C0076A88C /* Source */,
 				B77F1B4617B978D7009739AE /* Resources */,
 				9222E2B918734FF800A246C7 /* libs */,
@@ -522,6 +593,7 @@
 		B77F1B3017B978D7009739AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8882A9691A687DED00458955 /* libxml2.dylib */,
 				7A59493C19E37FB200F65F90 /* libz.dylib */,
 				7A59493A19E37F9300F65F90 /* OpenGL.framework */,
 				7A4036F419DE3FA8007B6E8F /* AppKit.framework */,
@@ -774,6 +846,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8882A9751A68882100458955 /* level1.xml in Resources */,
 				B71F5919188484E7003F4D28 /* Settings.png in Resources */,
 				B7378978180762440076A88C /* Default@2x.png in Resources */,
 				B71F5914188484E7003F4D28 /* iPad@2x.png in Resources */,
@@ -871,10 +944,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				887E30FF1A647691002E1514 /* Hand.m in Sources */,
-				88A7DC171A64950800F765D2 /* HandBody.m in Sources */,
+				8882A96D1A6880CD00458955 /* LevelLoader.m in Sources */,
+				D225B3E11A65F96D005787F2 /* Hand.m in Sources */,
+				8882A9671A687CFC00458955 /* GDataXMLNode.m in Sources */,
+				D2E8845E1A64D999004423FC /* Player.m in Sources */,
+				D2E884791A64F2F6004423FC /* Monster.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
+				8808EA1B1A6893AC0020AB90 /* MonsterData.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
+				D2972C061A683B97009D3E0E /* FireHand.m in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1251,6 +1329,7 @@
 					"Source/libs/cocos2d-iphone/external/Chipmunk/include",
 					"\"Source/libs/cocos2d-iphone/cocos2d-ui\"/**",
 					"\"Source/libs/cocos2d-iphone/external/ObjectAL\"/**",
+					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = Source/Resources/Platforms/iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -1258,6 +1337,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lz",
+					"-lxml2",
 					"-ObjC",
 				);
 				PRODUCT_NAME = RubberMan;
@@ -1285,12 +1365,14 @@
 					"Source/libs/cocos2d-iphone/external/Chipmunk/include",
 					"\"Source/libs/cocos2d-iphone/cocos2d-ui\"/**",
 					"\"Source/libs/cocos2d-iphone/external/ObjectAL\"/**",
+					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = Source/Resources/Platforms/iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-lz",
+					"-lxml2",
 					"-ObjC",
 				);
 				PRODUCT_NAME = RubberMan;
