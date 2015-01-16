@@ -2,11 +2,13 @@
 #import "Player.h"
 #import "Monster.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
+#import "GDataXMLNode.h"
+#import "LevelLoader.h"
 
 @implementation MainScene{
     CCPhysicsNode *_physicsNode;
     Player *_player;
-    CCNode *_monsterList;
+    LevelLoader *_monsterList;
 }
 
 double collisionThreshold = 1000.0;
@@ -20,6 +22,8 @@ double collisionThreshold = 1000.0;
     
     // sign up as the collision delegate of physics node
     _physicsNode.collisionDelegate = self;
+    
+    [_monsterList loadLevel:@"level1"];
 }
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event

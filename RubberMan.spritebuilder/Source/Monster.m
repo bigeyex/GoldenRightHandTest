@@ -28,4 +28,8 @@
 }
 
 
+- (void)loadMonsterData:(MonsterData *)monsterData{
+    
+}
+
 @end

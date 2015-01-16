@@ -7,6 +7,7 @@
 //
 
 #import "CCSprite.h"
+@class MonsterData;
 #import "Hand.h"
 
 @interface Monster : CCSprite
@@ -16,5 +17,7 @@
 @property int atk;
 
 - (int)receiveHitWithHand:(Hand *)hand;
+- (void)loadMonsterData: (MonsterData*)monsterData;
+
 
 @end
