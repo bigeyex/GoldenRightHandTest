@@ -14,12 +14,13 @@
 -(void)didLoadFromCCB{
     // set up collision type
     self.physicsBody.collisionType = @"hand";
+    self.physicsBody.collisionMask = @[@"monster"];
     
     // set up the hand type
     self.handType = @"fire";
     self.range = 800;
     self.atk = 10;
-    _skillRange = 300;
+    _skillRange = 100;
     NSLog(@"Fire Hand is loaded!");
 }
 
@@ -31,16 +32,18 @@
     [self addChild:fistHitEffect];
 }
 
--(void)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterList{
+-(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterList{
     int numOfMonsters = (int)[monsterList.children count];
     int i;
     for (i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = monsterList.children[i];
-        double distance = ccpDistance(_checkNode.positionInPoints,nodeA.positionInPoints);
+        double distance = ccpDistance(_checkNode.positionInPoints,monsterPosition);
         if (distance<self.skillRange){
-            [_checkNode removeFromParent];
-            i--;
-            numOfMonsters--;
+            int isKilled = [_checkNode receiveHitWithHand:self];
+            if (isKilled){
+                i--;
+                numOfMonsters--;
+            }
         }
     }
 

@@ -16,9 +16,12 @@
 @property NSString *elementType;
 @property int atk;
 @property float speed;
+@property BOOL isAttacking;
+@property int atkPeriod;
 
 - (int)receiveHitWithHand:(Hand *)hand;
 - (void)loadMonsterData: (MonsterData*)monsterData;
+- (void)startAttack;
 
 
 @end

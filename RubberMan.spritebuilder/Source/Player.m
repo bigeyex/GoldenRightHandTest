@@ -40,18 +40,19 @@ static float stopDuration = 0.3;
     _rightFoot.physicsBody.collisionType = @"human";
     _leftHand.physicsBody.collisionType = @"human";
     _head.physicsBody.collisionType = @"human";
-    
-    // set up collision mask
-    _body.physicsBody.collisionMask = @[@"monster"];
-    _leftFoot.physicsBody.collisionMask = @[@"monster"];
-    _rightFoot.physicsBody.collisionMask = @[@"monster"];
-    _leftHand.physicsBody.collisionMask = @[@"monster"];
-    _head.physicsBody.collisionMask = @[@"monster"];
 
+    // set up collision categories
+    _body.physicsBody.collisionCategories = @[@"hand"];
+    _head.physicsBody.collisionCategories = @[@"hand"];
+    _leftHand.physicsBody.collisionCategories = @[@"hand"];
+    _leftFoot.physicsBody.collisionCategories = @[@"hand"];
+    _rightFoot.physicsBody.collisionCategories = @[@"hand"];
+    
     // add hand into the scene
-    [self addHandwithName:@"Hand"];
+    [self addHandwithName:@"FireHand"];
     
     // set up initial parameters
+    _playerHP = 100;
     isTouched = NO;
     isReleased = NO;
     _initialPosition = _hand.position;

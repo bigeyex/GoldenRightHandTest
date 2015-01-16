@@ -71,7 +71,7 @@
     self.number--;
     nextRespawnTime += self.respawnInterval;
     
-    Monster *monster = (Monster*)[CCBReader load: self.spriteName];
+    Monster *monster = (Monster*)[CCBReader load: [NSString stringWithFormat:@"Monsters/%@/%@", self.spriteName, self.spriteName]];
     monster.positionType = CCPositionTypeNormalized;
     monster.position = ccp(self.positionX, self.positionY);
     return monster;

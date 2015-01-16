@@ -16,6 +16,6 @@
 @property int atk;
 
 -(void)handParticleEffect;
--(void)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterlist;
+-(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterlist;
 
 @end

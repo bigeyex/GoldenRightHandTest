@@ -65,11 +65,19 @@ double collisionThreshold = 1000.0;
     // !!NOTE there is a potential bug where the fist moving over the monster and can not get back.
     if ((energy > collisionThreshold)) {
         if((!_player.isGoBack) && (!_player.isMonsterHit)){
+            CGPoint monsterPosition = nodeA.positionInPoints;
             [nodeA receiveHitWithHand:nodeB];
-            [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
+            [_player.hand handSkillwithMonsterPosition:monsterPosition MonsterList:_monsterList];
             _player.isMonsterHit = YES;
             _player.isStopTimeReached = NO;
         }
+    }
+}
+
+-(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA human:(CCNode *)nodeB
+{
+    if(!(nodeA.isAttacking)){
+        [nodeA startAttack];
     }
 }
 

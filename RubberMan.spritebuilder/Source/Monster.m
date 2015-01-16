@@ -17,6 +17,8 @@
     _atk = 5;
     _elementType = @"fire";
     _speed = 10;
+    _isAttacking = NO;
+    _atkPeriod = 2;
     self.physicsBody.collisionType = @"monster";
 }
 
@@ -41,6 +43,10 @@
     _moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
     self.physicsBody.velocity = CGPointMake(self.speed * _moveDirection.x,self.speed * _moveDirection.y);
     
+}
+
+-(void)startAttack{
+    _isAttacking = YES;
 }
 
 

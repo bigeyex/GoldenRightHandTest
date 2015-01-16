@@ -13,6 +13,7 @@
 -(void)didLoadFromCCB{
     // set up collision type
     self.physicsBody.collisionType = @"hand";
+    self.physicsBody.collisionMask = @[@"monster"];
     
     // set up the hand type
     _handType = @"normal";
@@ -29,7 +30,7 @@
     [self addChild:fistHitEffect];
 }
 
--(void)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterList{
+-(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterList{
     
 }
 
