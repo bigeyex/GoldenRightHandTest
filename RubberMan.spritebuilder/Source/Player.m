@@ -18,7 +18,6 @@
     BOOL isTouched;
     BOOL isReleased;
     BOOL isRangeReached;
-    BOOL isGoBack;
     double _stopTime;
     CGPoint _initialPosition;
     CGPoint _shootDirection;
@@ -76,7 +75,7 @@ static float stopDuration = 0.3;
         }
         
         // check whether the hand has been back to the origin;
-        if((handDist<=ccpDot(_initialPosition,_shootDirection))&&isGoBack){
+        if((handDist<=ccpDot(_initialPosition,_shootDirection))&&_isGoBack){
             _hand.physicsBody.velocity=ccp(0,0);
             _hand.position = _initialPosition;
             isReleased = NO;
@@ -102,7 +101,7 @@ static float stopDuration = 0.3;
                     isRangeReached = NO;
                     _isMonsterHit = NO;
                     _isStopTimeReached = YES;
-                    isGoBack = YES;
+                    _isGoBack = YES;
                 }
                 
                 _stopTime = _stopTime + delta;
@@ -154,7 +153,7 @@ static float stopDuration = 0.3;
         
         isTouched = NO;
         isReleased = YES;
-        isGoBack = NO;
+        _isGoBack = NO;
         _stopTime = 0;
     }
 }

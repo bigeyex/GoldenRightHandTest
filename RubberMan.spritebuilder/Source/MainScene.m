@@ -58,7 +58,7 @@ double collisionThreshold = 1000.0;
     float energy = [pair totalKineticEnergy];
     
     // if energy is large enough, remove the monster
-    if (energy > collisionThreshold) {
+    if ((energy > collisionThreshold)&&~_player.isGoBack) {
         [[_physicsNode space] addPostStepBlock:^{
             [nodeA removeFromParent];
             [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
