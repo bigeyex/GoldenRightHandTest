@@ -9,6 +9,7 @@
 #import "LevelLoader.h"
 #import "MonsterData.h"
 #import "GDataXMLNode.h"
+#import "Monster.h"
 
 @implementation LevelLoader{
     NSMutableArray* monsterDataList;
@@ -27,7 +28,9 @@
     
     for (MonsterData *monsterData in monsterDataList){
         if([monsterData shouldRespawn:timeSinceStarted]){
-            [monsterData respawn];
+            Monster *monster = [monsterData respawn];
+            [self addChild:monster];
+
             if(![monsterData hasNextUnit]){
                 [discardedMonsterDataList addObject:monsterData];
             }

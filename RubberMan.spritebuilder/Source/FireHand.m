@@ -7,6 +7,7 @@
 //
 
 #import "FireHand.h"
+#import "Monster.h"
 
 @implementation FireHand
 

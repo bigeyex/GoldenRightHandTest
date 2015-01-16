@@ -21,8 +21,8 @@
         self.enterTime = 0;
         self.respawnInterval = 1;
         self.number = 1;
-        self.positionX = 0;
-        self.positionY = 10;
+        self.positionX = 1;
+        self.positionY = 0.3;
         self.health = 10;
         nextRespawnTime = 0;
     }
@@ -71,8 +71,10 @@
     self.number--;
     nextRespawnTime += self.respawnInterval;
     
-    NSLog(@"Respawning unit %@", self.spriteName);
-    return nil;
+    Monster *monster = (Monster*)[CCBReader load: self.spriteName];
+    monster.positionType = CCPositionTypeNormalized;
+    monster.position = ccp(self.positionX, self.positionY);
+    return monster;
 }
 
 @end
