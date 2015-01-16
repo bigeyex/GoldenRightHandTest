@@ -18,28 +18,34 @@
     
     // set up the hand type
     self.handType = @"fire";
-    self.range = 800;
-    self.atk = 10;
-    _skillRange = 100;
-    NSLog(@"Fire Hand is loaded!");
+    self.range = 800.0;
+    self.atk = 20.0;
+    _skillRange = 150.0;
+    _skillDamage = 0.5*self.atk;
 }
 
--(void)handParticleEffect{
+-(void)handParticleEffectAtPosition:(CGPoint)pos{
+    
     // load particle effect
     CCParticleSystem *fistHitEffect = (CCParticleSystem *)[CCBReader load:@"FireHandHitEffect"];
+    
     fistHitEffect.autoRemoveOnFinish = TRUE;
-    fistHitEffect.position = self.anchorPointInPoints;
-    [self addChild:fistHitEffect];
+    fistHitEffect.position = pos;
+    [self.parent.parent addChild:fistHitEffect];
 }
 
 -(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterList{
+    
+    // load hand particle effect
+    [self handParticleEffectAtPosition:monsterPosition];
+
     int numOfMonsters = (int)[monsterList.children count];
     int i;
     for (i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = monsterList.children[i];
         double distance = ccpDistance(_checkNode.positionInPoints,monsterPosition);
         if (distance<self.skillRange){
-            int isKilled = [_checkNode receiveHitWithHand:self];
+            BOOL isKilled = [_checkNode receiveHitWithDamage:self.skillDamage];
             if (isKilled){
                 i--;
                 numOfMonsters--;

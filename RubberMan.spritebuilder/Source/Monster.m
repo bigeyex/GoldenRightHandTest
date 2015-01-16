@@ -16,20 +16,22 @@
     _hp = 10;
     _atk = 5;
     _elementType = @"fire";
-    _speed = 10;
+    _speed = 30;
     _isAttacking = NO;
     _atkPeriod = 2;
     self.physicsBody.collisionType = @"monster";
+    self.physicsBody.collisionMask = @[@"human",@"hand"];
+    self.physicsBody.collisionCategories = @[@"monster"];
 }
 
 
-- (int)receiveHitWithHand:(Hand *)hand{
-    _hp = _hp - hand.atk;
+- (BOOL)receiveHitWithDamage:(float)damage{
+    _hp = _hp - damage;
     if(_hp<=0){
         [self removeFromParent];
-        return 1;
+        return YES;
     }
-    return 0;
+    return NO;
 }
 
 
@@ -40,7 +42,8 @@
 -(void)update:(CCTime)delta{
     
     // player position is (145,130). This may be not a good way to assign this value. need improvement.
-    _moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
+    //_moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
+    _moveDirection = ccp(-1,0);
     self.physicsBody.velocity = CGPointMake(self.speed * _moveDirection.x,self.speed * _moveDirection.y);
     
 }
