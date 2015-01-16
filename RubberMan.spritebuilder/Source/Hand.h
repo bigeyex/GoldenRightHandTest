@@ -7,7 +7,7 @@
 //
 
 #import "CCSprite.h"
-#import "Monster.h"
+@class Monster;
 
 @interface Hand : CCSprite
 

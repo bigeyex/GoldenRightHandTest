@@ -248,8 +248,8 @@
 										<string>Position</string>
 										<key>value</key>
 										<array>
-											<real>391</real>
-											<real>191</real>
+											<real>446</real>
+											<real>93</real>
 											<integer>0</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -310,8 +310,8 @@
 										<string>Position</string>
 										<key>value</key>
 										<array>
-											<real>428</real>
-											<real>216</real>
+											<real>414</real>
+											<real>169</real>
 											<integer>0</integer>
 											<integer>0</integer>
 											<integer>0</integer>
@@ -339,6 +339,8 @@
 										<string>Monster.ccb</string>
 									</dict>
 								</array>
+								<key>selected</key>
+								<true/>
 							</dict>
 						</array>
 						<key>customClass</key>

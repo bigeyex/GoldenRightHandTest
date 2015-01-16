@@ -18,7 +18,6 @@
     BOOL isTouched;
     BOOL isReleased;
     BOOL isRangeReached;
-    BOOL isGoBack;
     double _stopTime;
     CGPoint _initialPosition;
     CGPoint _shootDirection;
@@ -70,20 +69,13 @@ static float stopDuration = 0.3;
         // check whether the hand has reached its range
         CGPoint handRelativeVector = ccpSub(_hand.positionInPoints, _centerJointNode.positionInPoints);
         double handDist = ccpDot(handRelativeVector,_shootDirection);
-        if((handDist>=_hand.range)&& ~isRangeReached){
+        if((handDist>=_hand.range)&& (!isRangeReached)){
             isRangeReached = YES;
             _isStopTimeReached = NO;
         }
         
-        // check whether the hand has been back to the origin;
-        if((handDist<=ccpDot(_initialPosition,_shootDirection))&&isGoBack){
-            _hand.physicsBody.velocity=ccp(0,0);
-            _hand.position = _initialPosition;
-            isReleased = NO;
-        }
-        
         if(isRangeReached||_isMonsterHit){
-            if(~_isStopTimeReached){
+            if(!_isStopTimeReached){
                 
                 // set the velocity to zero for stopDuration
                 _hand.physicsBody.velocity=ccp(0,0);
@@ -100,13 +92,20 @@ static float stopDuration = 0.3;
                     [_hand.physicsBody applyImpulse:ccp(-_shootDirection.x*impulseScale,-_shootDirection.y*impulseScale) atLocalPoint:_hand.anchorPointInPoints];
                     
                     isRangeReached = NO;
-                    _isMonsterHit = NO;
                     _isStopTimeReached = YES;
-                    isGoBack = YES;
+                    _isMonsterHit = NO;
+                    _isGoBack = YES;
                 }
                 
                 _stopTime = _stopTime + delta;
             }
+        }
+        
+        // check whether the hand has been back to the origin;
+        if((handDist<=ccpDot(_initialPosition,_shootDirection))&&_isGoBack){
+            _hand.physicsBody.velocity=ccp(0,0);
+            _hand.position = _initialPosition;
+            isReleased = NO;
         }
     }
     
@@ -116,7 +115,7 @@ static float stopDuration = 0.3;
 - (void)touchAtLocation:(CGPoint) touchLocation {
     
     // connect the hand touched by the user to a mouse joint at the touchLocation, when the hand is in the status of being released, the touch is invalid
-    if (~isReleased && CGRectContainsPoint([_hand boundingBox], touchLocation))
+    if ((!isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
     {
         // move the mouseJointNode to the touch position
         _mouseJointNode.position = touchLocation;
@@ -154,7 +153,7 @@ static float stopDuration = 0.3;
         
         isTouched = NO;
         isReleased = YES;
-        isGoBack = NO;
+        _isGoBack = NO;
         _stopTime = 0;
     }
 }

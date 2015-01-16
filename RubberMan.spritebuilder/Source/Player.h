@@ -15,6 +15,8 @@
 @property Hand *hand;
 @property BOOL isMonsterHit;
 @property BOOL isStopTimeReached;
+@property BOOL isGoBack;
+
 
 - (void)touchAtLocation:(CGPoint) touchLocation;
 - (void)updateTouchLocation:(CGPoint) touchLocation;

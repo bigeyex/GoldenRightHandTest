@@ -16,8 +16,8 @@
     
     // set up the hand type
     _handType = @"normal";
-    _range = 500;
-    _atk = 10;
+    _range = 800;
+    _atk = 5;
     
 }
 

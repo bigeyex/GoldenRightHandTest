@@ -146,7 +146,7 @@
 				<key>value</key>
 				<array>
 					<real>0.0</real>
-					<real>0.10000000149011612</real>
+					<real>0.30000001192092896</real>
 				</array>
 			</dict>
 			<dict>
@@ -156,8 +156,8 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>0.0</real>
-					<real>0.0</real>
+					<real>50</real>
+					<real>100</real>
 				</array>
 			</dict>
 			<dict>
@@ -167,7 +167,7 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>600</real>
+					<real>50</real>
 					<real>0.0</real>
 				</array>
 			</dict>
@@ -234,15 +234,15 @@
 				<array>
 					<array>
 						<real>1</real>
+						<real>0.22867736220359802</real>
 						<real>0.0</real>
-						<real>0.0</real>
-						<real>1</real>
+						<real>0.33000001311302185</real>
 					</array>
 					<array>
 						<real>0.0</real>
 						<real>0.0</real>
 						<real>0.0</real>
-						<real>0.5</real>
+						<real>0.0</real>
 					</array>
 				</array>
 			</dict>
@@ -318,8 +318,6 @@
 				<string>ccbResources/ccbParticleFire.png</string>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
