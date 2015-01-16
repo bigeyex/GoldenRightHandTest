@@ -14,4 +14,8 @@
     self.physicsBody.collisionType = @"monster";
 }
 
+- (void)loadMonsterData:(MonsterData *)monsterData{
+    
+}
+
 @end
