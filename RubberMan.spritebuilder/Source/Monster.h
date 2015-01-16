@@ -7,7 +7,10 @@
 //
 
 #import "CCSprite.h"
+@class MonsterData;
 
 @interface Monster : CCSprite
+
+- (void)loadMonsterData: (MonsterData*)monsterData;
 
 @end
