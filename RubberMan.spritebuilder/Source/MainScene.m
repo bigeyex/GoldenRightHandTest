@@ -58,13 +58,15 @@ double collisionThreshold = 1000.0;
     float energy = [pair totalKineticEnergy];
     
     // if energy is large enough, remove the monster
-    if ((energy > collisionThreshold)&&~_player.isGoBack) {
-        [[_physicsNode space] addPostStepBlock:^{
-            [nodeA removeFromParent];
+    // !!NOTE there is a potential bug where the fist moving over the monster and can not get back.
+    if ((energy > collisionThreshold)) {
+        if((!_player.isGoBack) && (!_player.isMonsterHit)){
+           [nodeA receiveHitWithHand:nodeB];
+            NSLog(@"Monster's HP is %d!",nodeA.hp);
             [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
             _player.isMonsterHit = YES;
             _player.isStopTimeReached = NO;
-        } key:nodeA];
+        }
     }
 }
 

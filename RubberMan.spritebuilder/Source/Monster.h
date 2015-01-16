@@ -7,7 +7,14 @@
 //
 
 #import "CCSprite.h"
+#import "Hand.h"
 
 @interface Monster : CCSprite
+
+@property int hp;
+@property NSString *elementType;
+@property int atk;
+
+- (int)receiveHitWithHand:(Hand *)hand;
 
 @end
