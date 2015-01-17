@@ -18,6 +18,7 @@
 @property CGFloat positionY;
 @property CGFloat positionX;
 @property int health;
+@property int elementType;
 
 + (id)fromSpriteName: (NSString*) spriteName;
 - (id)initWithSpriteName: (NSString*) spriteName;
