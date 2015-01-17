@@ -52,6 +52,7 @@
 		8882A96A1A687DED00458955 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8882A9691A687DED00458955 /* libxml2.dylib */; };
 		8882A96D1A6880CD00458955 /* LevelLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8882A96C1A6880CD00458955 /* LevelLoader.m */; };
 		8882A9751A68882100458955 /* level1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8882A9741A6887FC00458955 /* level1.xml */; };
+		888BA9771A69EC2600E0BD96 /* LifeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 888BA9761A69EC2600E0BD96 /* LifeBar.m */; };
 		927F619E196C771E000F43EF /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B7378993180767190076A88C /* MainScene.m */; };
 		927F61A5196C771E000F43EF /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3517B978D7009739AE /* OpenAL.framework */; };
 		927F61A9196C771E000F43EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3D17B978D7009739AE /* Foundation.framework */; };
@@ -210,6 +211,8 @@
 		8882A96B1A6880CD00458955 /* LevelLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelLoader.h; path = Source/LevelLoader.h; sourceTree = "<group>"; };
 		8882A96C1A6880CD00458955 /* LevelLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LevelLoader.m; path = Source/LevelLoader.m; sourceTree = "<group>"; };
 		8882A9741A6887FC00458955 /* level1.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = level1.xml; sourceTree = "<group>"; };
+		888BA9751A69EC2600E0BD96 /* LifeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LifeBar.h; path = Source/LifeBar.h; sourceTree = "<group>"; };
+		888BA9761A69EC2600E0BD96 /* LifeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LifeBar.m; path = Source/LifeBar.m; sourceTree = "<group>"; };
 		927F61BF196C771E000F43EF /* RubberMan Android.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RubberMan Android.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
@@ -541,6 +544,8 @@
 				D352B48019EC608A00829775 /* MetalShaders */,
 				8882A96B1A6880CD00458955 /* LevelLoader.h */,
 				8882A96C1A6880CD00458955 /* LevelLoader.m */,
+				888BA9751A69EC2600E0BD96 /* LifeBar.h */,
+				888BA9761A69EC2600E0BD96 /* LifeBar.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -730,6 +735,7 @@
 						CreatedOnToolsVersion = 6.0.1;
 					};
 					B77F1B2D17B978D7009739AE = {
+						DevelopmentTeam = GZNS8GQYRG;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 0;
@@ -947,6 +953,7 @@
 				8882A96D1A6880CD00458955 /* LevelLoader.m in Sources */,
 				D225B3E11A65F96D005787F2 /* Hand.m in Sources */,
 				8882A9671A687CFC00458955 /* GDataXMLNode.m in Sources */,
+				888BA9771A69EC2600E0BD96 /* LifeBar.m in Sources */,
 				D2E8845E1A64D999004423FC /* Player.m in Sources */,
 				D2E884791A64F2F6004423FC /* Monster.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
