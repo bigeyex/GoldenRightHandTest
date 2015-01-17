@@ -24,6 +24,7 @@
     double _stopTime;
     CGPoint _initialPosition;
     CGPoint _shootDirection;
+    CCSprite *_arrow;
 }
 
 static float playerScale = 0.4;
@@ -157,14 +158,28 @@ static float stopDuration = 0.3;
         _mouseJoint = [CCPhysicsJoint connectedSpringJointWithBodyA:_mouseJointNode.physicsBody bodyB:_hand.physicsBody anchorA:ccp(0, 0) anchorB:_hand.anchorPointInPoints restLength:0.f stiffness:3000.f damping:150.f];
         isTouched = YES;
         isReleased = NO;
+        
+        // add an arrow to indicate the direction
+        _arrow = (CCSprite *)[CCBReader load:@"Arrow"];
+        _arrow.scaleX = 0.5;
+        _arrow.scaleY = 0.8;
+        _arrow.position = _centerJointNode.positionInPoints;
+        
+        _shootDirection = ccpNormalize(ccpSub(_centerJointNode.positionInPoints,_hand.positionInPoints));
+        _arrow.rotation = ccpAngleSigned(_shootDirection, ccp(0,0)) / M_PI * 180;
+        [self addChild:_arrow];
     }
 }
 
 - (void)updateTouchLocation:(CGPoint) touchLocation {
     // update the position of mouse joint with touchLocation
     if (isTouched){
-    _mouseJointNode.position = touchLocation;
-    _hand.position = touchLocation;
+        _mouseJointNode.position = touchLocation;
+        _hand.position = touchLocation;
+        
+        // update the arrow's angle
+        _shootDirection = ccpNormalize(ccpSub(_centerJointNode.positionInPoints,_hand.positionInPoints));
+        _arrow.rotation = ccpAngleSigned(_shootDirection, ccp(0,1)) / M_PI * 180;
     }
 }
 
@@ -190,6 +205,9 @@ static float stopDuration = 0.3;
         
         // after the hand is released, hand can collide with monsters
         _hand.physicsBody.collisionMask = @[@"monster"];
+        
+        // remove the arrow
+        [_arrow removeFromParent];
     }
 }
 
