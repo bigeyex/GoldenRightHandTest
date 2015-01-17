@@ -10,6 +10,7 @@
 
 @implementation Monster{
     CGPoint _moveDirection;
+    double _attackTime;
 }
 
 - (void)didLoadFromCCB {
@@ -18,7 +19,7 @@
     _elementType = @"fire";
     _speed = 30;
     _isAttacking = NO;
-    _atkPeriod = 2;
+    _atkPeriod = 2.0;
     self.physicsBody.collisionType = @"monster";
     self.physicsBody.collisionMask = @[@"human",@"hand"];
     self.physicsBody.collisionCategories = @[@"monster"];
@@ -46,10 +47,20 @@
     _moveDirection = ccp(-1,0);
     self.physicsBody.velocity = CGPointMake(self.speed * _moveDirection.x,self.speed * _moveDirection.y);
     
+    if(_isAttacking){
+        if(_attackTime<_atkPeriod){
+            _attackTime = _attackTime + delta;
+        }
+        else{
+            _isAttacking = NO;
+        }
+    }
+    
 }
 
 -(void)startAttack{
     _isAttacking = YES;
+    _attackTime = 0.0;
 }
 
 

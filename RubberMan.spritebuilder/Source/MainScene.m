@@ -81,6 +81,8 @@ double collisionThreshold = 1000.0;
 {
     if(!(nodeA.isAttacking)){
         [nodeA startAttack];
+        _player.playerHP = _player.playerHP - nodeA.atk;
+        [_playerLifeBar setLength:_player.playerHP];
     }
 }
 
