@@ -11,6 +11,7 @@
     Player *_player;
     LevelLoader *_monsterList;
     LifeBar *_playerLifeBar;
+    CCButton *_skillbox;
 }
 
 double collisionThreshold = 1000.0;
@@ -20,12 +21,15 @@ double collisionThreshold = 1000.0;
     self.userInteractionEnabled = TRUE;
     
     // visualize physics bodies & joints
-    //_physicsNode.debugDraw = YES;
+    _physicsNode.debugDraw = YES;
     
     // sign up as the collision delegate of physics node
     _physicsNode.collisionDelegate = self;
     
     [_monsterList loadLevel:@"level1"];
+    
+    // disable the button
+    _skillbox.enabled = NO;
 }
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -64,15 +68,25 @@ double collisionThreshold = 1000.0;
     float energy = [pair totalKineticEnergy];
     
     // if energy is large enough, remove the monster
-    // !!NOTE there is a potential bug where the fist moving over the monster and can not get back.
     if ((energy > collisionThreshold)) {
         if((!_player.isGoBack) && (!_player.isMonsterHit)){
             CGPoint monsterPosition = nodeA.positionInPoints;
-            [nodeA receiveHitWithDamage:nodeB.atk];
+            int monsterElementType = nodeA.elementType;
+            BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk];
             [_player.hand handSkillwithMonsterPosition:monsterPosition MonsterList:_monsterList];
             _player.handPositionAtHit = _player.hand.positionInPoints;
             _player.isMonsterHit = YES;
             _player.isStopTimeReached = NO;
+            
+            if(isDefeated){
+                // player's mana is increased by 1
+                _player.mana[monsterElementType] = [_player.mana[monsterElementType] decimalNumberByAdding:[NSDecimalNumber one]];
+                
+                // enable the skill button if the mana is enough
+                if([_player.mana[0] intValue]>=_player.skillcost){
+                    _skillbox.enabled = YES;
+                }
+            }
         }
     }
 }
@@ -83,6 +97,23 @@ double collisionThreshold = 1000.0;
         [nodeA startAttack];
         _player.playerHP = _player.playerHP - nodeA.atk;
         [_playerLifeBar setLength:_player.playerHP];
+    }
+}
+
+-(void)changeHand{
+    
+    // player's mana is decreased by skill cost
+    _player.mana[0] = [_player.mana[0] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d", _player.skillcost]]];
+    
+    // remove the normal hand
+    [_player removeHand];
+    
+    // add the new fire hand
+    [_player addHandwithName:@"FireHand"];
+    
+    // disable the skill button if mana is insufficient
+    if([_player.mana[0] intValue]<_player.skillcost){
+        _skillbox.enabled = NO;
     }
 }
 

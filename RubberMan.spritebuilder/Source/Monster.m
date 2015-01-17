@@ -16,7 +16,7 @@
 - (void)didLoadFromCCB {
     _hp = 10;
     _atk = 5;
-    _elementType = @"fire";
+    _elementType = 0;
     _speed = 30;
     _isAttacking = NO;
     _atkPeriod = 2.0;

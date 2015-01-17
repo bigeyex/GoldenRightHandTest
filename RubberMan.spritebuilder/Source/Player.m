@@ -58,7 +58,10 @@ static float stopDuration = 0.3;
     isTouched = NO;
     isReleased = NO;
     _initialPosition = _hand.position;
+    _skillcost = 3;
     
+    // there are two element type, fire and ice
+    _mana = [NSMutableArray arrayWithObjects:[NSDecimalNumber zero], [NSDecimalNumber zero],nil];
 }
 
 -(void)addHandwithName:(NSString *)ccbName{
@@ -76,6 +79,18 @@ static float stopDuration = 0.3;
     // create a distance joint to control the range of the hand
     _handRangeLimitJoint = [CCPhysicsJoint connectedDistanceJointWithBodyA:_hand.physicsBody bodyB:_centerJointNode.physicsBody anchorA:_hand.anchorPointInPoints anchorB:ccp(0,0) minDistance:0.f maxDistance:_hand.range*playerScale];
     
+}
+
+-(void)removeHand{
+    [_hand removeFromParent];
+    if (_handJoint != nil){
+        [_handJoint invalidate];
+        _handJoint = nil;
+    }
+    if (_handRangeLimitJoint != nil){
+        [_handRangeLimitJoint invalidate];
+        _handRangeLimitJoint = nil;
+    }
 }
 
 -(void)update:(CCTime)delta{
@@ -128,6 +143,8 @@ static float stopDuration = 0.3;
                     
                     // when hand is going back, it will not collide with any object
                     _hand.physicsBody.collisionMask = @[];
+                    
+                    // if player's mana is larger than 3, change the hand to firehand
                 }
                 
                 _stopTime = _stopTime + delta;
@@ -150,6 +167,11 @@ static float stopDuration = 0.3;
     // connect the hand touched by the user to a mouse joint at the touchLocation, when the hand is in the status of being released, the touch is invalid
     if ((!isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
     {
+        if(_hand.skillTimes==0){
+            [self removeHand];
+            [self addHandwithName:@"Hand"];
+        }
+        
         // move the mouseJointNode to the touch position
         _mouseJointNode.position = touchLocation;
         _hand.position = touchLocation;
