@@ -14,8 +14,9 @@
 @property float range;
 @property float atk;
 @property int skillTimes;
+@property int handType;
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos;
--(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterlist;
+-(void)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterlist;
 
 @end

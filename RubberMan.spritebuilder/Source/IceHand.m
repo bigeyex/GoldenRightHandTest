@@ -21,6 +21,7 @@
     self.atk = 10.0;
     _skillRange = 150.0;
     self.skillTimes = 1;
+    self.handType = 1;
     _skillDuration = 5;
 }
 
@@ -34,7 +35,7 @@
     [self addChild:fistHitEffect];
 }
 
--(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterList{
+-(void)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterList{
     
     // load hand particle effect
     [self handParticleEffectAtPosition:self.anchorPointInPoints];
@@ -46,8 +47,8 @@
     int i;
     for (i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = monsterList.children[i];
-        double distance = ccpDistance(_checkNode.positionInPoints,monsterPosition);
-        if (distance<self.skillRange){
+        double distance = ccpDistance(_checkNode.positionInPoints,nodeA.positionInPoints);
+        if ((distance<self.skillRange)&&(distance>0)){
             [_checkNode stopMovingForDuration:_skillDuration];
         }
     }

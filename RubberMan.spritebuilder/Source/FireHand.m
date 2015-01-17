@@ -21,6 +21,7 @@
     self.atk = 10.0;
     _skillRange = 150.0;
     self.skillTimes = 1;
+    self.handType = 0;
     _skillDamage = 0.5*self.atk;
 }
 
@@ -34,10 +35,10 @@
     [self.parent.parent addChild:fistHitEffect];
 }
 
--(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterList{
+-(void)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterList{
     
     // load hand particle effect
-    [self handParticleEffectAtPosition:monsterPosition];
+    [self handParticleEffectAtPosition:nodeA.positionInPoints];
     
     // decrease the number of times this skill can be used
     self.skillTimes--;
@@ -46,8 +47,8 @@
     int i;
     for (i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = monsterList.children[i];
-        double distance = ccpDistance(_checkNode.positionInPoints,monsterPosition);
-        if (distance<self.skillRange){
+        double distance = ccpDistance(_checkNode.positionInPoints,nodeA.positionInPoints);
+        if ((distance<self.skillRange)&&(distance>0)){
             BOOL isKilled = [_checkNode receiveHitWithDamage:self.skillDamage];
             if (isKilled){
                 i--;
