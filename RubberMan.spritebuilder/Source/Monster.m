@@ -11,12 +11,14 @@
 @implementation Monster{
     CGPoint _moveDirection;
     double _attackTime;
+    BOOL _isStopped;
+    float _stopDuration;
 }
 
 - (void)didLoadFromCCB {
     _hp = 10;
     _atk = 5;
-    _elementType = 0;
+    _elementType = 1;
     _speed = 30;
     _isAttacking = NO;
     _atkPeriod = 2.0;
@@ -35,6 +37,11 @@
     return NO;
 }
 
+- (void)stopMovingForDuration:(float)duration{
+    _isStopped = YES;
+    _stopDuration = duration;
+}
+
 
 - (void)loadMonsterData:(MonsterData *)monsterData{
     
@@ -45,7 +52,7 @@
     // player position is (145,130). This may be not a good way to assign this value. need improvement.
     //_moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
     _moveDirection = ccp(-1,0);
-    self.physicsBody.velocity = CGPointMake(self.speed * _moveDirection.x,self.speed * _moveDirection.y);
+    self.physicsBody.velocity = CGPointMake((_isStopped?0:1)*self.speed * _moveDirection.x,(_isStopped?0:1)*self.speed * _moveDirection.y);
     
     if(_isAttacking){
         if(_attackTime<_atkPeriod){
@@ -53,6 +60,13 @@
         }
         else{
             _isAttacking = NO;
+        }
+    }
+    
+    if(_isStopped){
+        _stopDuration = _stopDuration - delta;
+        if(_stopDuration<=0){
+            _isStopped = NO;
         }
     }
     

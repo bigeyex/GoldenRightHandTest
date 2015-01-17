@@ -24,6 +24,7 @@
         self.positionX = 1;
         self.positionY = 0.3;
         self.health = 10;
+        self.elementType = 0;
         nextRespawnTime = 0;
     }
     return self;
@@ -74,6 +75,7 @@
     Monster *monster = (Monster*)[CCBReader load: [NSString stringWithFormat:@"Monsters/%@/%@", self.spriteName, self.spriteName]];
     monster.positionType = CCPositionTypeNormalized;
     monster.position = ccp(self.positionX, self.positionY);
+    monster.elementType = self.elementType;
     return monster;
 }
 

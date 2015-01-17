@@ -90,6 +90,12 @@
             monsterData.positionY = [positionYNode.stringValue floatValue];
         }
         
+        NSArray *elementTypes = [enemyNode elementsForName:@"ElementType"];
+        if (elementTypes.count > 0) {
+            GDataXMLElement *elementTypeNode = (GDataXMLElement *) [elementTypes objectAtIndex:0];
+            monsterData.elementType = [elementTypeNode.stringValue floatValue];
+        }
+        
         [monsterDataList addObject:monsterData];
     }
     

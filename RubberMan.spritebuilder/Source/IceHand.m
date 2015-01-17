@@ -1,15 +1,15 @@
 //
-//  FireHand.m
+//  IceHand.m
 //  RubberMan
 //
-//  Created by Guoqiang XU on 1/15/15.
+//  Created by Guoqiang XU on 1/17/15.
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import "FireHand.h"
+#import "IceHand.h"
 #import "Monster.h"
 
-@implementation FireHand
+@implementation IceHand
 
 -(void)didLoadFromCCB{
     // set up collision type
@@ -22,23 +22,23 @@
     self.atk = 10.0;
     _skillRange = 150.0;
     self.skillTimes = 1;
-    _skillDamage = 0.5*self.atk;
+    _skillDuration = 5;
 }
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos{
     
     // load particle effect
-    CCParticleSystem *fistHitEffect = (CCParticleSystem *)[CCBReader load:@"FireHandHitEffect"];
+    CCParticleSystem *fistHitEffect = (CCParticleSystem *)[CCBReader load:@"IceHandHitEffect"];
     
     fistHitEffect.autoRemoveOnFinish = TRUE;
     fistHitEffect.position = pos;
-    [self.parent.parent addChild:fistHitEffect];
+    [self addChild:fistHitEffect];
 }
 
 -(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterList{
     
     // load hand particle effect
-    [self handParticleEffectAtPosition:monsterPosition];
+    [self handParticleEffectAtPosition:self.anchorPointInPoints];
     
     // decrease the number of times this skill can be used
     self.skillTimes--;
@@ -49,14 +49,11 @@
         Monster *_checkNode = monsterList.children[i];
         double distance = ccpDistance(_checkNode.positionInPoints,monsterPosition);
         if (distance<self.skillRange){
-            BOOL isKilled = [_checkNode receiveHitWithDamage:self.skillDamage];
-            if (isKilled){
-                i--;
-                numOfMonsters--;
-            }
+            [_checkNode stopMovingForDuration:_skillDuration];
         }
     }
 
+    
 }
 
 @end

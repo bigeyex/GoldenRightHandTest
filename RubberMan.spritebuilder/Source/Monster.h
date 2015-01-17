@@ -22,6 +22,7 @@
 - (BOOL)receiveHitWithDamage:(float)Damage;
 - (void)loadMonsterData: (MonsterData*)monsterData;
 - (void)startAttack;
+- (void)stopMovingForDuration:(float)duration;
 
 
 @end
