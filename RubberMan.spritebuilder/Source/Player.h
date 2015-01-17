@@ -19,9 +19,13 @@
 @property float playerHP;
 @property CCNode *centerJointNode;
 @property CGPoint handPositionAtHit;
+@property NSMutableArray *mana;
+@property int skillcost;
 
 - (void)touchAtLocation:(CGPoint) touchLocation;
 - (void)updateTouchLocation:(CGPoint) touchLocation;
 - (void)releaseTouch;
 - (void)addHandwithName:(NSString *)ccbName;
+- (void)removeHand;
+
 @end

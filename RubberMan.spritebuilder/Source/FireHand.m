@@ -21,6 +21,7 @@
     self.range = 800.0;
     self.atk = 20.0;
     _skillRange = 150.0;
+    self.skillTimes = 1;
     _skillDamage = 0.5*self.atk;
 }
 
@@ -38,7 +39,8 @@
     
     // load hand particle effect
     [self handParticleEffectAtPosition:monsterPosition];
-
+    
+    self.skillTimes--;
     int numOfMonsters = (int)[monsterList.children count];
     int i;
     for (i = 0;i<numOfMonsters;i++){

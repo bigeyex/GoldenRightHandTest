@@ -19,6 +19,7 @@
     _handType = @"normal";
     _range = 800.0;
     _atk = 5.0;
+    _skillTimes = 1;
     
 }
 

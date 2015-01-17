@@ -14,6 +14,7 @@
 @property NSString *handType;
 @property float range;
 @property float atk;
+@property int skillTimes;
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos;
 -(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterlist;
