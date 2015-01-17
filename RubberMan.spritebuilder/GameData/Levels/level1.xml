@@ -7,7 +7,7 @@
             <RespawnInterval>5</RespawnInterval>
             <PositionY>0.1</PositionY>
             <Health>20</Health>
-            <ElementType>1</ElementType>
+            <ElementType>2</ElementType>
         </Monster>
         <Monster>
             <SpriteName>MonsterBat</SpriteName>

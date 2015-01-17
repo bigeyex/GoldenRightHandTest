@@ -17,6 +17,6 @@
 @property int handType;
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos;
--(void)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterlist;
+-(float)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterlist;
 
 @end

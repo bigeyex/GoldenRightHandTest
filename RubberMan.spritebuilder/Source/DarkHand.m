@@ -8,6 +8,7 @@
 
 #import "DarkHand.h"
 #import "Monster.h"
+@class Player;
 
 @implementation DarkHand
 
@@ -26,21 +27,22 @@
 -(void)handParticleEffectAtPosition:(CGPoint)pos{
     
     // load particle effect
-    CCParticleSystem *fistHitEffect = (CCParticleSystem *)[CCBReader load:@"IceHandHitEffect"];
+    CCParticleSystem *fistHitEffect = (CCParticleSystem *)[CCBReader load:@"DarkHandHitEffect"];
     
     fistHitEffect.autoRemoveOnFinish = TRUE;
     fistHitEffect.position = pos;
     [self addChild:fistHitEffect];
 }
 
--(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterList{
+-(float)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterList{
     
     // load hand particle effect
     [self handParticleEffectAtPosition:self.anchorPointInPoints];
     
     // decrease the number of times this skill can be used
     self.skillTimes--;
-    
+
+    return MAX(self.atk,nodeA.hp);
 }
 
 @end

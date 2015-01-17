@@ -35,7 +35,7 @@
     [self.parent.parent addChild:fistHitEffect];
 }
 
--(void)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterList{
+-(float)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterList{
     
     // load hand particle effect
     [self handParticleEffectAtPosition:nodeA.positionInPoints];
@@ -56,7 +56,7 @@
             }
         }
     }
-
+    return 0.0;
 }
 
 @end
