@@ -61,7 +61,7 @@ static float stopDuration = 0.3;
     _skillcost = 3;
     
     // there are two element type, fire and ice
-    _mana = [NSMutableArray arrayWithObjects:[NSDecimalNumber zero], [NSDecimalNumber zero],nil];
+    _mana = [NSMutableArray arrayWithObjects:[NSDecimalNumber zero], [NSDecimalNumber zero],[NSDecimalNumber zero],nil];
 }
 
 -(void)addHandwithName:(NSString *)ccbName{

@@ -1,15 +1,16 @@
 //
-//  IceHand.m
+//  DarkHand.m
 //  RubberMan
 //
 //  Created by Guoqiang XU on 1/17/15.
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import "IceHand.h"
+#import "DarkHand.h"
 #import "Monster.h"
+@class Player;
 
-@implementation IceHand
+@implementation DarkHand
 
 -(void)didLoadFromCCB{
     // set up collision type
@@ -19,16 +20,14 @@
     // set up the hand type
     self.range = 800.0;
     self.atk = 10.0;
-    _skillRange = 150.0;
     self.skillTimes = 1;
-    self.handType = 1;
-    _skillDuration = 5;
+    self.handType = 2;
 }
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos{
     
     // load particle effect
-    CCParticleSystem *fistHitEffect = (CCParticleSystem *)[CCBReader load:@"IceHandHitEffect"];
+    CCParticleSystem *fistHitEffect = (CCParticleSystem *)[CCBReader load:@"DarkHandHitEffect"];
     
     fistHitEffect.autoRemoveOnFinish = TRUE;
     fistHitEffect.position = pos;
@@ -42,17 +41,8 @@
     
     // decrease the number of times this skill can be used
     self.skillTimes--;
-    
-    int numOfMonsters = (int)[monsterList.children count];
-    int i;
-    for (i = 0;i<numOfMonsters;i++){
-        Monster *_checkNode = monsterList.children[i];
-        double distance = ccpDistance(_checkNode.positionInPoints,nodeA.positionInPoints);
-        if ((distance<self.skillRange)&&(distance>0)){
-            [_checkNode stopMovingForDuration:_skillDuration];
-        }
-    }
-    return 0.0;
+
+    return MAX(self.atk,nodeA.hp);
 }
 
 @end

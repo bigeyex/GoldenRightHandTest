@@ -100,6 +100,7 @@
 		B78A0B10198AF87200C63841 /* Published-Android in Resources */ = {isa = PBXBuildFile; fileRef = B78A0B0F198AF87200C63841 /* Published-Android */; };
 		D225B3E11A65F96D005787F2 /* Hand.m in Sources */ = {isa = PBXBuildFile; fileRef = D225B3E01A65F96D005787F2 /* Hand.m */; };
 		D2920FE41A6AD8EB00B45C85 /* IceHand.m in Sources */ = {isa = PBXBuildFile; fileRef = D2920FE31A6AD8EA00B45C85 /* IceHand.m */; };
+		D29210061A6AEA8E00B45C85 /* DarkHand.m in Sources */ = {isa = PBXBuildFile; fileRef = D29210051A6AEA8E00B45C85 /* DarkHand.m */; };
 		D2972C061A683B97009D3E0E /* FireHand.m in Sources */ = {isa = PBXBuildFile; fileRef = D2972C051A683B97009D3E0E /* FireHand.m */; };
 		D2E8845E1A64D999004423FC /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E8845D1A64D999004423FC /* Player.m */; };
 		D2E884791A64F2F6004423FC /* Monster.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E884781A64F2F6004423FC /* Monster.m */; };
@@ -253,6 +254,8 @@
 		D225B3E01A65F96D005787F2 /* Hand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Hand.m; path = Source/Hand.m; sourceTree = "<group>"; };
 		D2920FE21A6AD8EA00B45C85 /* IceHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IceHand.h; path = Source/IceHand.h; sourceTree = "<group>"; };
 		D2920FE31A6AD8EA00B45C85 /* IceHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IceHand.m; path = Source/IceHand.m; sourceTree = "<group>"; };
+		D29210041A6AEA8E00B45C85 /* DarkHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DarkHand.h; path = Source/DarkHand.h; sourceTree = "<group>"; };
+		D29210051A6AEA8E00B45C85 /* DarkHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DarkHand.m; path = Source/DarkHand.m; sourceTree = "<group>"; };
 		D2972C041A683B97009D3E0E /* FireHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FireHand.h; path = Source/FireHand.h; sourceTree = "<group>"; };
 		D2972C051A683B97009D3E0E /* FireHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FireHand.m; path = Source/FireHand.m; sourceTree = "<group>"; };
 		D2E8845C1A64D999004423FC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Source/Player.h; sourceTree = "<group>"; };
@@ -544,6 +547,8 @@
 				D2972C051A683B97009D3E0E /* FireHand.m */,
 				D2920FE21A6AD8EA00B45C85 /* IceHand.h */,
 				D2920FE31A6AD8EA00B45C85 /* IceHand.m */,
+				D29210041A6AEA8E00B45C85 /* DarkHand.h */,
+				D29210051A6AEA8E00B45C85 /* DarkHand.m */,
 				D2E884771A64F2F6004423FC /* Monster.h */,
 				D2E884781A64F2F6004423FC /* Monster.m */,
 				D352B48019EC608A00829775 /* MetalShaders */,
@@ -963,6 +968,7 @@
 				D2E8845E1A64D999004423FC /* Player.m in Sources */,
 				D2E884791A64F2F6004423FC /* Monster.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
+				D29210061A6AEA8E00B45C85 /* DarkHand.m in Sources */,
 				8808EA1B1A6893AC0020AB90 /* MonsterData.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
 				D2972C061A683B97009D3E0E /* FireHand.m in Sources */,

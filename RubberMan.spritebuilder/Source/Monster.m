@@ -31,7 +31,6 @@
 - (BOOL)receiveHitWithDamage:(float)damage{
     _hp = _hp - damage;
     if(_hp<=0){
-        [self removeFromParent];
         return YES;
     }
     return NO;

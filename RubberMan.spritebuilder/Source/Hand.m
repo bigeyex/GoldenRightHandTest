@@ -19,6 +19,7 @@
     _range = 800.0;
     _atk = 5.0;
     _skillTimes = 1;
+    _handType = -1;
     
 }
 
@@ -30,9 +31,10 @@
     [self addChild:fistHitEffect];
 }
 
--(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterList{
+-(float)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterList{
     // load hand particle effect
     [self handParticleEffectAtPosition:self.anchorPointInPoints];
+    return 0.0;
 }
 
 @end
