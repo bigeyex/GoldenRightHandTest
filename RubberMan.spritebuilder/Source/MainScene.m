@@ -11,7 +11,8 @@
     Player *_player;
     LevelLoader *_monsterList;
     LifeBar *_playerLifeBar;
-    CCButton *_skillbox;
+    CCButton *_skillbox1;
+    CCButton *_skillbox2;
 }
 
 double collisionThreshold = 1000.0;
@@ -21,7 +22,7 @@ double collisionThreshold = 1000.0;
     self.userInteractionEnabled = TRUE;
     
     // visualize physics bodies & joints
-    _physicsNode.debugDraw = YES;
+    //_physicsNode.debugDraw = YES;
     
     // sign up as the collision delegate of physics node
     _physicsNode.collisionDelegate = self;
@@ -29,7 +30,8 @@ double collisionThreshold = 1000.0;
     [_monsterList loadLevel:@"level1"];
     
     // disable the button
-    _skillbox.enabled = NO;
+    _skillbox1.enabled = NO;
+    _skillbox2.enabled = NO;
 }
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -84,9 +86,16 @@ double collisionThreshold = 1000.0;
                 
                 // enable the skill button if the mana is enough
                 if([_player.mana[0] intValue]>=_player.skillcost){
-                    _skillbox.enabled = YES;
+                    _skillbox1.enabled = YES;
+                }
+                if([_player.mana[1] intValue]>=_player.skillcost){
+                    _skillbox2.enabled = YES;
                 }
             }
+            
+            NSLog(@"Fire mana is %@",_player.mana[0]);
+            NSLog(@"Ice mana is %@",_player.mana[1]);
+            
         }
     }
 }
@@ -100,7 +109,7 @@ double collisionThreshold = 1000.0;
     }
 }
 
--(void)changeHand{
+-(void)changeHand1{
     
     // player's mana is decreased by skill cost
     _player.mana[0] = [_player.mana[0] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d", _player.skillcost]]];
@@ -113,7 +122,24 @@ double collisionThreshold = 1000.0;
     
     // disable the skill button if mana is insufficient
     if([_player.mana[0] intValue]<_player.skillcost){
-        _skillbox.enabled = NO;
+        _skillbox1.enabled = NO;
+    }
+}
+
+-(void)changeHand2{
+    
+    // player's mana is decreased by skill cost
+    _player.mana[1] = [_player.mana[1] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d", _player.skillcost]]];
+    
+    // remove the normal hand
+    [_player removeHand];
+    
+    // add the new fire hand
+    [_player addHandwithName:@"IceHand"];
+    
+    // disable the skill button if mana is insufficient
+    if([_player.mana[1] intValue]<_player.skillcost){
+        _skillbox2.enabled = NO;
     }
 }
 
