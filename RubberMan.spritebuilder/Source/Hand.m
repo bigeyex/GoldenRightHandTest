@@ -17,21 +17,22 @@
     
     // set up the hand type
     _handType = @"normal";
-    _range = 800;
-    _atk = 5;
+    _range = 800.0;
+    _atk = 5.0;
     
 }
 
--(void)handParticleEffect{
+-(void)handParticleEffectAtPosition:(CGPoint)pos{
     // load particle effect
     CCParticleSystem *fistHitEffect = (CCParticleSystem *)[CCBReader load:@"FistHitEffect"];
     fistHitEffect.autoRemoveOnFinish = TRUE;
-    fistHitEffect.position = self.anchorPointInPoints;
+    fistHitEffect.position = pos;
     [self addChild:fistHitEffect];
 }
 
 -(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterList{
-    
+    // load hand particle effect
+    [self handParticleEffectAtPosition:self.anchorPointInPoints];
 }
 
 @end

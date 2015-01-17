@@ -66,7 +66,7 @@ double collisionThreshold = 1000.0;
     if ((energy > collisionThreshold)) {
         if((!_player.isGoBack) && (!_player.isMonsterHit)){
             CGPoint monsterPosition = nodeA.positionInPoints;
-            [nodeA receiveHitWithHand:nodeB];
+            [nodeA receiveHitWithDamage:nodeB.atk];
             [_player.hand handSkillwithMonsterPosition:monsterPosition MonsterList:_monsterList];
             _player.isMonsterHit = YES;
             _player.isStopTimeReached = NO;
