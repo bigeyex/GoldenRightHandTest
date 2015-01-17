@@ -4,11 +4,13 @@
 #import "CCPhysics+ObjectiveChipmunk.h"
 #import "GDataXMLNode.h"
 #import "LevelLoader.h"
+#import "LifeBar.h"
 
 @implementation MainScene{
     CCPhysicsNode *_physicsNode;
     Player *_player;
     LevelLoader *_monsterList;
+    LifeBar *_playerLifeBar;
 }
 
 double collisionThreshold = 1000.0;

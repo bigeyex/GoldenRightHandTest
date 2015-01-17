@@ -10,4 +10,6 @@
 
 @interface LifeBar : CCNode
 
+- (void)setLength: (float)length;
+
 @end
