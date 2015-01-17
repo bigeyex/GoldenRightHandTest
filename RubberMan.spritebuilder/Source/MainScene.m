@@ -70,6 +70,7 @@ double collisionThreshold = 1000.0;
             CGPoint monsterPosition = nodeA.positionInPoints;
             [nodeA receiveHitWithDamage:nodeB.atk];
             [_player.hand handSkillwithMonsterPosition:monsterPosition MonsterList:_monsterList];
+            _player.handPositionAtHit = _player.hand.positionInPoints;
             _player.isMonsterHit = YES;
             _player.isStopTimeReached = NO;
         }

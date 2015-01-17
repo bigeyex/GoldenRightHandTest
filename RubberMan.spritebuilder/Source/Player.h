@@ -18,6 +18,7 @@
 @property BOOL isGoBack;
 @property float playerHP;
 @property CCNode *centerJointNode;
+@property CGPoint handPositionAtHit;
 
 - (void)touchAtLocation:(CGPoint) touchLocation;
 - (void)updateTouchLocation:(CGPoint) touchLocation;

@@ -49,7 +49,8 @@ static float stopDuration = 0.3;
     _rightFoot.physicsBody.collisionCategories = @[@"hand"];
     
     // add hand into the scene
-    [self addHandwithName:@"Firehand"];
+    [self addHandwithName:@"FireHand"];
+
     
     // set up initial parameters
     _playerHP = 100.0;
@@ -100,18 +101,32 @@ static float stopDuration = 0.3;
                     _hand.position = ccpAdd(ccp(_hand.range*_shootDirection.x,_hand.range*_shootDirection.y),_centerJointNode.position);
                 }
                 
+                // after the hand hits the monster, fix the hand's position during its stop time
+                if(_isMonsterHit){
+                    _hand.position = ccpSub(_handPositionAtHit,ccpMult(_shootDirection,0.f));
+                }
+                
                 // load hand particle effect
                 //[_hand handParticleEffectAtPosition:_hand.anchorPointInPoints];
                 
                 // after the hand has stopped for enough time, apply an impluse to let the hand go back
                 if(_stopTime>=stopDuration){
                     double impulseScale = _hand.physicsBody.mass*1000;
+                    
+                    // change the shoot direction to the vector of _initialPosition to hand.position
+                    
+                    _shootDirection = ccpNormalize(ccpSub(_hand.positionInPoints,_initialPosition));
+                    
                     [_hand.physicsBody applyImpulse:ccp(-_shootDirection.x*impulseScale,-_shootDirection.y*impulseScale) atLocalPoint:_hand.anchorPointInPoints];
                     
                     isRangeReached = NO;
                     _isStopTimeReached = YES;
                     _isMonsterHit = NO;
                     _isGoBack = YES;
+                    
+                    
+                    // when hand is going back, it will not collide with any object
+                    _hand.physicsBody.collisionMask = @[];
                 }
                 
                 _stopTime = _stopTime + delta;
@@ -172,6 +187,9 @@ static float stopDuration = 0.3;
         isReleased = YES;
         _isGoBack = NO;
         _stopTime = 0;
+        
+        // after the hand is released, hand can collide with monsters
+        _hand.physicsBody.collisionMask = @[@"monster"];
     }
 }
 
