@@ -16,7 +16,6 @@
     self.physicsBody.collisionMask = @[@"monster"];
     
     // set up the hand type
-    _handType = @"normal";
     _range = 800.0;
     _atk = 5.0;
     _skillTimes = 1;

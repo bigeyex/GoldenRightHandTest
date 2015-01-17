@@ -17,7 +17,6 @@
     self.physicsBody.collisionMask = @[@"monster"];
     
     // set up the hand type
-    self.handType = @"fire";
     self.range = 800.0;
     self.atk = 10.0;
     _skillRange = 150.0;

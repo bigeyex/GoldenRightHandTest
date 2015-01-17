@@ -11,7 +11,6 @@
 
 @interface Hand : CCSprite
 
-@property NSString *handType;
 @property float range;
 @property float atk;
 @property int skillTimes;
