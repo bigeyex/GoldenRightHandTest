@@ -22,7 +22,11 @@
     CCButton *_skillbox1;
     CCButton *_skillbox2;
     CCButton *_skillbox3;
+    int _totalNumOfMonsters;
+    int _monstersKilled;
     NSMutableArray *_skillbox;
+    BOOL _isWinning;
+    float _winWaitDuration;
 }
 
 static double collisionThreshold = 1000.0;
@@ -42,11 +46,23 @@ static double collisionThreshold = 1000.0;
     for (int i=0;i<=2;i++){
         [_skillbox[i] setEnabled:NO];
     }
+    _isWinning = NO;
+    _winWaitDuration = 2;
 }
 
 - (void)onEnter{
     [super onEnter];
-    [_monsterList loadLevel:_levelName];
+    _totalNumOfMonsters = [_monsterList loadLevel:_levelName];
+    _monstersKilled = 0;
+}
+
+- (void)update:(CCTime)delta{
+    if(_isWinning){
+        _winWaitDuration = _winWaitDuration - delta;
+        if(_winWaitDuration<=0){
+            [self battleWin];
+        }
+    }
 }
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -87,6 +103,9 @@ static double collisionThreshold = 1000.0;
     // if energy is large enough, remove the monster
     if ((energy > collisionThreshold)) {
         if((!_player.isGoBack) && (!_player.isMonsterHit)){
+            
+            int numOfMonstersOld = (int)[_monsterList.children count];
+            
             BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk];
             float recoverHP = [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
             
@@ -111,9 +130,12 @@ static double collisionThreshold = 1000.0;
                     }
                 }
             }
-            NSLog(@"Fire mana is %@",_player.mana[0]);
-            NSLog(@"Ice mana is %@",_player.mana[1]);
-            NSLog(@"Dark mana is %@",_player.mana[2]);
+            
+            int numOfMonstersNew = (int)[_monsterList.children count];
+            _monstersKilled = _monstersKilled + numOfMonstersOld - numOfMonstersNew;
+            if(_monstersKilled == _totalNumOfMonsters){
+                _isWinning = YES;
+            }
             
         }
     }
@@ -125,6 +147,9 @@ static double collisionThreshold = 1000.0;
         [nodeA startAttack];
         _player.playerHP = _player.playerHP - nodeA.atk;
         [_playerLifeBar setLength:_player.playerHP];
+        if(_player.playerHP<=0){
+            [self battleLose];
+        }
     }
 }
 
@@ -160,6 +185,16 @@ static double collisionThreshold = 1000.0;
     
     // disable the skill button if mana is insufficient
     [_skillbox[elementType] setEnabled:NO];
+}
+
+-(void)battleLose{
+    CCScene *loseScene = [CCBReader loadAsScene:@"LoseScene"];
+    [[CCDirector sharedDirector] replaceScene:loseScene];
+}
+
+-(void)battleWin{
+    CCScene *winScene = [CCBReader loadAsScene:@"WinScene"];
+    [[CCDirector sharedDirector] replaceScene:winScene];
 }
 
 @end

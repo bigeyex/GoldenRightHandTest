@@ -42,18 +42,19 @@
 }
 
 
-- (void)loadLevel:(NSString*)levelName{
+- (int)loadLevel:(NSString*)levelName{
     NSString* path = [[NSBundle mainBundle] pathForResource:levelName ofType:@"xml"];
     
     NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:path];
     NSError *error;
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
                                                            options:0 error:&error];
-    if (doc == nil) { NSLog(@"Loading failed"); return; }
+    if (doc == nil) { NSLog(@"Loading failed"); return -1; }
     
     monsterDataList = [NSMutableArray array];
     
     // load enemies into the level
+    int totalNumOfEmeny = 0;
     NSArray *levelEnemiesNodes = [doc nodesForXPath:@"//LevelData/MonsterData/Monster" error:nil];
     for (GDataXMLElement *enemyNode in levelEnemiesNodes) {
         MonsterData *monsterData;
@@ -76,6 +77,7 @@
         if (unitNumbers.count > 0) {
             GDataXMLElement *unitNumberNode = (GDataXMLElement *) [unitNumbers objectAtIndex:0];
             monsterData.number = [unitNumberNode.stringValue intValue];
+            totalNumOfEmeny = totalNumOfEmeny + monsterData.number;
         }
         
         NSArray *respawnIntervals = [enemyNode elementsForName:@"RespawnInterval"];
@@ -98,9 +100,7 @@
         
         [monsterDataList addObject:monsterData];
     }
-    
-    
-    
+    return totalNumOfEmeny;
 }
 
 

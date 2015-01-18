@@ -10,7 +10,7 @@
 
 @interface LevelLoader : CCNode
 
-- (void)loadLevel:(NSString*)levelName;
+- (int)loadLevel:(NSString*)levelName;
 
 
 @end
