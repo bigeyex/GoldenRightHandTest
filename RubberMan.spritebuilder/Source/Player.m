@@ -118,7 +118,7 @@ static float stopDuration = 0.3;
                 }
                 
                 // after the hand hits the monster, fix the hand's position during its stop time
-                if(_isMonsterHit){
+                else if(_isMonsterHit){
                     _hand.position = ccpSub(_handPositionAtHit,ccpMult(_shootDirection,0.f));
                 }
                 
@@ -130,7 +130,6 @@ static float stopDuration = 0.3;
                     double impulseScale = _hand.physicsBody.mass*1000;
                     
                     // change the shoot direction to the vector of _initialPosition to hand.position
-                    
                     _shootDirection = ccpNormalize(ccpSub(_hand.positionInPoints,_initialPosition));
                     
                     [_hand.physicsBody applyImpulse:ccp(-_shootDirection.x*impulseScale,-_shootDirection.y*impulseScale) atLocalPoint:_hand.anchorPointInPoints];
@@ -140,13 +139,9 @@ static float stopDuration = 0.3;
                     _isMonsterHit = NO;
                     _isGoBack = YES;
                     
-                    
                     // when hand is going back, it will not collide with any object
                     _hand.physicsBody.collisionMask = @[];
-                    
-                    // if player's mana is larger than 3, change the hand to firehand
                 }
-                
                 _stopTime = _stopTime + delta;
             }
         }
