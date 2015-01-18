@@ -133,7 +133,7 @@ static double collisionThreshold = 1000.0;
     }
     
     // recover the unused player mana
-    if(_player.hand.handType!=-1){
+    if((_player.hand.handType!=-1)&&(_player.hand.skillTimes)){
         _player.mana[_player.hand.handType] = [_player.mana[_player.hand.handType] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d", _player.skillcost]]];
         [_skillbox[_player.hand.handType] setEnabled:YES];
     }
