@@ -51,6 +51,7 @@
         if ((distance<self.skillRange)&&(distance>0)){
             BOOL isKilled = [_checkNode receiveHitWithDamage:self.skillDamage];
             if (isKilled){
+                [_checkNode removeFromParent];
                 i--;
                 numOfMonsters--;
             }
