@@ -643,7 +643,7 @@
 						<string>Block</string>
 						<key>value</key>
 						<array>
-							<string>changeHand1</string>
+							<string>changeHand</string>
 							<integer>1</integer>
 						</array>
 					</dict>
@@ -982,7 +982,7 @@
 						<string>Block</string>
 						<key>value</key>
 						<array>
-							<string>changeHand2</string>
+							<string>changeHand</string>
 							<integer>1</integer>
 						</array>
 					</dict>
@@ -1321,7 +1321,7 @@
 						<string>Block</string>
 						<key>value</key>
 						<array>
-							<string>changeHand3</string>
+							<string>changeHand</string>
 							<integer>1</integer>
 						</array>
 					</dict>
