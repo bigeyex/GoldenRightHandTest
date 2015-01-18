@@ -99,6 +99,11 @@
 		B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B4117B978D7009739AE /* CoreText.framework */; };
 		B78A0B10198AF87200C63841 /* Published-Android in Resources */ = {isa = PBXBuildFile; fileRef = B78A0B0F198AF87200C63841 /* Published-Android */; };
 		D225B3E11A65F96D005787F2 /* Hand.m in Sources */ = {isa = PBXBuildFile; fileRef = D225B3E01A65F96D005787F2 /* Hand.m */; };
+		D24D0E8C1A6B88B000DA162E /* LevelSelectScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D24D0E8B1A6B88B000DA162E /* LevelSelectScene.m */; };
+		D24D0E8F1A6B8D3A00DA162E /* level2.xml in Resources */ = {isa = PBXBuildFile; fileRef = D24D0E8E1A6B8D3A00DA162E /* level2.xml */; };
+		D24D0E911A6B8D5400DA162E /* level3.xml in Resources */ = {isa = PBXBuildFile; fileRef = D24D0E901A6B8D5400DA162E /* level3.xml */; };
+		D24D0E931A6B8D6F00DA162E /* level4.xml in Resources */ = {isa = PBXBuildFile; fileRef = D24D0E921A6B8D6F00DA162E /* level4.xml */; };
+		D24D0E961A6B91AF00DA162E /* BattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D24D0E951A6B91AF00DA162E /* BattleScene.m */; };
 		D2920FE41A6AD8EB00B45C85 /* IceHand.m in Sources */ = {isa = PBXBuildFile; fileRef = D2920FE31A6AD8EA00B45C85 /* IceHand.m */; };
 		D29210061A6AEA8E00B45C85 /* DarkHand.m in Sources */ = {isa = PBXBuildFile; fileRef = D29210051A6AEA8E00B45C85 /* DarkHand.m */; };
 		D2972C061A683B97009D3E0E /* FireHand.m in Sources */ = {isa = PBXBuildFile; fileRef = D2972C051A683B97009D3E0E /* FireHand.m */; };
@@ -252,6 +257,13 @@
 		B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveChipmunk.a; path = "../libs/cocos2d-iphone/external/Chipmunk/xcode/build/Debug-iphoneos/libObjectiveChipmunk.a"; sourceTree = "<group>"; };
 		D225B3DF1A65F96C005787F2 /* Hand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hand.h; path = Source/Hand.h; sourceTree = "<group>"; };
 		D225B3E01A65F96D005787F2 /* Hand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Hand.m; path = Source/Hand.m; sourceTree = "<group>"; };
+		D24D0E8A1A6B88B000DA162E /* LevelSelectScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelSelectScene.h; path = Source/LevelSelectScene.h; sourceTree = "<group>"; };
+		D24D0E8B1A6B88B000DA162E /* LevelSelectScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LevelSelectScene.m; path = Source/LevelSelectScene.m; sourceTree = "<group>"; };
+		D24D0E8E1A6B8D3A00DA162E /* level2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level2.xml; sourceTree = "<group>"; };
+		D24D0E901A6B8D5400DA162E /* level3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level3.xml; sourceTree = "<group>"; };
+		D24D0E921A6B8D6F00DA162E /* level4.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level4.xml; sourceTree = "<group>"; };
+		D24D0E941A6B91AF00DA162E /* BattleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BattleScene.h; path = Source/BattleScene.h; sourceTree = "<group>"; };
+		D24D0E951A6B91AF00DA162E /* BattleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BattleScene.m; path = Source/BattleScene.m; sourceTree = "<group>"; };
 		D2920FE21A6AD8EA00B45C85 /* IceHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IceHand.h; path = Source/IceHand.h; sourceTree = "<group>"; };
 		D2920FE31A6AD8EA00B45C85 /* IceHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IceHand.m; path = Source/IceHand.m; sourceTree = "<group>"; };
 		D29210041A6AEA8E00B45C85 /* DarkHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DarkHand.h; path = Source/DarkHand.h; sourceTree = "<group>"; };
@@ -519,6 +531,9 @@
 			isa = PBXGroup;
 			children = (
 				8882A9741A6887FC00458955 /* level1.xml */,
+				D24D0E8E1A6B8D3A00DA162E /* level2.xml */,
+				D24D0E901A6B8D5400DA162E /* level3.xml */,
+				D24D0E921A6B8D6F00DA162E /* level4.xml */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -539,6 +554,10 @@
 				7A40362019DDEF0D007B6E8F /* Platforms */,
 				B7378992180767190076A88C /* MainScene.h */,
 				B7378993180767190076A88C /* MainScene.m */,
+				D24D0E8A1A6B88B000DA162E /* LevelSelectScene.h */,
+				D24D0E8B1A6B88B000DA162E /* LevelSelectScene.m */,
+				D24D0E941A6B91AF00DA162E /* BattleScene.h */,
+				D24D0E951A6B91AF00DA162E /* BattleScene.m */,
 				D2E8845C1A64D999004423FC /* Player.h */,
 				D2E8845D1A64D999004423FC /* Player.m */,
 				D225B3DF1A65F96C005787F2 /* Hand.h */,
@@ -863,6 +882,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8882A9751A68882100458955 /* level1.xml in Resources */,
+				D24D0E931A6B8D6F00DA162E /* level4.xml in Resources */,
 				B71F5919188484E7003F4D28 /* Settings.png in Resources */,
 				B7378978180762440076A88C /* Default@2x.png in Resources */,
 				B71F5914188484E7003F4D28 /* iPad@2x.png in Resources */,
@@ -871,7 +891,9 @@
 				B71F5916188484E7003F4D28 /* iPhone-old@2x.png in Resources */,
 				B737893B180761570076A88C /* Published-iOS in Resources */,
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
+				D24D0E911A6B8D5400DA162E /* level3.xml in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
+				D24D0E8F1A6B8D3A00DA162E /* level2.xml in Resources */,
 				B71F5915188484E7003F4D28 /* iPhone-old.png in Resources */,
 				B71F5917188484E7003F4D28 /* iPhone.png in Resources */,
 				B7378975180762440076A88C /* Default-568h@2x.png in Resources */,
@@ -963,6 +985,7 @@
 				D2920FE41A6AD8EB00B45C85 /* IceHand.m in Sources */,
 				8882A96D1A6880CD00458955 /* LevelLoader.m in Sources */,
 				D225B3E11A65F96D005787F2 /* Hand.m in Sources */,
+				D24D0E961A6B91AF00DA162E /* BattleScene.m in Sources */,
 				8882A9671A687CFC00458955 /* GDataXMLNode.m in Sources */,
 				888BA9771A69EC2600E0BD96 /* LifeBar.m in Sources */,
 				D2E8845E1A64D999004423FC /* Player.m in Sources */,
@@ -971,6 +994,7 @@
 				D29210061A6AEA8E00B45C85 /* DarkHand.m in Sources */,
 				8808EA1B1A6893AC0020AB90 /* MonsterData.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
+				D24D0E8C1A6B88B000DA162E /* LevelSelectScene.m in Sources */,
 				D2972C061A683B97009D3E0E /* FireHand.m in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
 			);
