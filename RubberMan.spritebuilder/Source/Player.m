@@ -103,7 +103,7 @@ static float stopDuration = 0.3;
         // check whether the hand has reached its range
         CGPoint handRelativeVector = ccpSub(_hand.positionInPoints, _centerJointNode.positionInPoints);
         double handDist = ccpDot(handRelativeVector,_shootDirection);
-        if((handDist>=_hand.range)&& (!isRangeReached)){
+        if((!isRangeReached)&&(handDist>=_hand.range)){
             isRangeReached = YES;
             _isStopTimeReached = NO;
         }
@@ -121,9 +121,6 @@ static float stopDuration = 0.3;
                 else if(_isMonsterHit){
                     _hand.position = ccpSub(_handPositionAtHit,ccpMult(_shootDirection,0.f));
                 }
-                
-                // load hand particle effect
-                //[_hand handParticleEffectAtPosition:_hand.anchorPointInPoints];
                 
                 // after the hand has stopped for enough time, apply an impluse to let the hand go back
                 if(_stopTime>=stopDuration){
@@ -147,10 +144,16 @@ static float stopDuration = 0.3;
         }
         
         // check whether the hand has been back to the origin;
-        if((handDist<=ccpDot(_initialPosition,_shootDirection))&&_isGoBack){
+        if(_isGoBack&&(handDist<=ccpDot(_initialPosition,_shootDirection))){
             _hand.physicsBody.velocity=ccp(0,0);
             _hand.position = _initialPosition;
             isReleased = NO;
+            
+            // change the hand back to normal hand if its skill times is zero
+            if(_hand.skillTimes==0){
+                [self removeHand];
+                [self addHandwithName:@"Hand"];
+            }
         }
     }
     
@@ -162,11 +165,6 @@ static float stopDuration = 0.3;
     // connect the hand touched by the user to a mouse joint at the touchLocation, when the hand is in the status of being released, the touch is invalid
     if ((!isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
     {
-        if(_hand.skillTimes==0){
-            [self removeHand];
-            [self addHandwithName:@"Hand"];
-        }
-        
         // move the mouseJointNode to the touch position
         _mouseJointNode.position = touchLocation;
         _hand.position = touchLocation;

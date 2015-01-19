@@ -25,11 +25,7 @@
     int _totalNumOfMonsters;
     int _monstersKilled;
     NSMutableArray *_skillbox;
-    BOOL _isWinning;
-    float _winWaitDuration;
 }
-
-static double collisionThreshold = 1000.0;
 
 - (void)didLoadFromCCB {
     // tell this scene to accept touches
@@ -46,8 +42,6 @@ static double collisionThreshold = 1000.0;
     for (int i=0;i<=2;i++){
         [_skillbox[i] setEnabled:NO];
     }
-    _isWinning = NO;
-    _winWaitDuration = 2;
 }
 
 - (void)onEnter{
@@ -57,12 +51,7 @@ static double collisionThreshold = 1000.0;
 }
 
 - (void)update:(CCTime)delta{
-    if(_isWinning){
-        _winWaitDuration = _winWaitDuration - delta;
-        if(_winWaitDuration<=0){
-            [self battleWin];
-        }
-    }
+
 }
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -98,47 +87,43 @@ static double collisionThreshold = 1000.0;
 
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA hand:(Hand *)nodeB
 {
-    float energy = [pair totalKineticEnergy];
-    
-    // if energy is large enough, remove the monster
-    if ((energy > collisionThreshold)) {
-        if((!_player.isGoBack) && (!_player.isMonsterHit)){
+    if((!_player.isGoBack) && (!_player.isMonsterHit)){
+        
+        int numOfMonstersOld = (int)[_monsterList.children count];
+        
+        BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk];
+        float recoverHP = [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
+        
+        _player.playerHP = MIN(_player.playerHP + recoverHP,100);
+        [_playerLifeBar setLength:_player.playerHP];
+        
+        _player.handPositionAtHit = _player.hand.positionInPoints;
+        _player.isMonsterHit = YES;
+        _player.isStopTimeReached = NO;
+        
+        if(isDefeated){
+            // player's mana is increased by 1
+            _player.mana[nodeA.elementType] = [_player.mana[nodeA.elementType] decimalNumberByAdding:[NSDecimalNumber one]];
             
-            int numOfMonstersOld = (int)[_monsterList.children count];
+            // remove the monster from the scene
+            [nodeA removeFromParent];
             
-            BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk];
-            float recoverHP = [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
-            
-            _player.playerHP = MIN(_player.playerHP + recoverHP,100);
-            [_playerLifeBar setLength:_player.playerHP];
-            
-            _player.handPositionAtHit = _player.hand.positionInPoints;
-            _player.isMonsterHit = YES;
-            _player.isStopTimeReached = NO;
-            
-            if(isDefeated){
-                // player's mana is increased by 1
-                _player.mana[nodeA.elementType] = [_player.mana[nodeA.elementType] decimalNumberByAdding:[NSDecimalNumber one]];
-                
-                // remove the monster from the scene
-                [nodeA removeFromParent];
-                
-                // enable the skill button if the mana is enough
-                for (int i=0;i<=2;i++){
-                    if([_player.mana[i] intValue]>=_player.skillcost){
-                        [_skillbox[i] setEnabled:YES];
-                    }
+            // enable the skill button if the mana is enough
+            for (int i=0;i<=2;i++){
+                if([_player.mana[i] intValue]>=_player.skillcost){
+                    [_skillbox[i] setEnabled:YES];
                 }
             }
-            
-            int numOfMonstersNew = (int)[_monsterList.children count];
-            _monstersKilled = _monstersKilled + numOfMonstersOld - numOfMonstersNew;
-            if(_monstersKilled == _totalNumOfMonsters){
-                _isWinning = YES;
-            }
-            
         }
+        
+        int numOfMonstersNew = (int)[_monsterList.children count];
+        _monstersKilled = _monstersKilled + numOfMonstersOld - numOfMonstersNew;
+        if(_monstersKilled == _totalNumOfMonsters){
+            [self scheduleOnce:@selector(battleWin:) delay:2.0f];
+        }
+        
     }
+    
 }
 
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA human:(CCNode *)nodeB
@@ -192,7 +177,7 @@ static double collisionThreshold = 1000.0;
     [[CCDirector sharedDirector] replaceScene:loseScene];
 }
 
--(void)battleWin{
+-(void)battleWin:(CCTime)delta{
     CCScene *winScene = [CCBReader loadAsScene:@"WinScene"];
     [[CCDirector sharedDirector] replaceScene:winScene];
 }
