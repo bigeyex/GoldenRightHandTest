@@ -74,6 +74,7 @@
 -(void)startAttack{
     _isAttacking = YES;
     _attackTime = 0.0;
+    [self.animationManager runAnimationsForSequenceNamed:@"attacking"];
 }
 
 
