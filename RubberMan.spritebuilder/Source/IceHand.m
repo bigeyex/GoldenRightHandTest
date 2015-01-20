@@ -18,7 +18,7 @@
     
     // set up the hand type
     self.range = 800.0;
-    self.atk = 10.0;
+    self.atk = 10;
     _skillRange = 150.0;
     self.skillTimes = 1;
     self.handType = 1;
@@ -48,7 +48,7 @@
     for (i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = monsterList.children[i];
         double distance = ccpDistance(_checkNode.positionInPoints,nodeA.positionInPoints);
-        if ((distance<self.skillRange)&&(distance>0)){
+        if (distance<self.skillRange){
             [_checkNode stopMovingForDuration:_skillDuration];
         }
     }

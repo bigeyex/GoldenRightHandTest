@@ -1023,8 +1023,6 @@
 						<array/>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
@@ -1050,7 +1048,7 @@
 			<key>collisionType</key>
 			<string></string>
 			<key>cornerRadius</key>
-			<real>25</real>
+			<real>20</real>
 			<key>density</key>
 			<real>100</real>
 			<key>dynamic</key>
@@ -1161,6 +1159,8 @@
 				<array/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
@@ -1212,7 +1212,7 @@
 			<key>length</key>
 			<real>0.66666668653488159</real>
 			<key>name</key>
-			<string>walking</string>
+			<string>moving</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>

@@ -16,7 +16,7 @@
 	<key>currentResolution</key>
 	<integer>0</integer>
 	<key>currentSequenceId</key>
-	<integer>1</integer>
+	<integer>0</integer>
 	<key>docDimensionsType</key>
 	<integer>1</integer>
 	<key>fileType</key>
@@ -499,7 +499,7 @@
 			<key>collisionType</key>
 			<string></string>
 			<key>cornerRadius</key>
-			<real>25</real>
+			<real>20</real>
 			<key>density</key>
 			<real>100</real>
 			<key>dynamic</key>
@@ -610,6 +610,8 @@
 				<array/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
@@ -661,7 +663,7 @@
 			<key>length</key>
 			<real>0.66666668653488159</real>
 			<key>name</key>
-			<string>flying</string>
+			<string>moving</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>

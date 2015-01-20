@@ -42,6 +42,8 @@
     for (int i=0;i<=2;i++){
         [_skillbox[i] setEnabled:NO];
     }
+    
+    
 }
 
 - (void)onEnter{
@@ -121,9 +123,7 @@
         if(_monstersKilled == _totalNumOfMonsters){
             [self scheduleOnce:@selector(battleWin:) delay:2.0f];
         }
-        
     }
-    
 }
 
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA human:(CCNode *)nodeB
