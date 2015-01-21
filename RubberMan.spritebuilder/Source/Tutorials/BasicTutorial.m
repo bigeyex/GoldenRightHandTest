@@ -9,6 +9,8 @@
 #import "BasicTutorial.h"
 #import "GameEvent.h"
 
+float const secondsBeforeFirstTutorial=3;
+
 @implementation BasicTutorial
 
 + (void)setUp{
@@ -21,7 +23,7 @@
     self = [super init];
     if (self)
     {
-        [self performSelector:@selector(firstTutorial) withObject:nil afterDelay:3];
+        [self performSelector:@selector(firstTutorial) withObject:nil afterDelay:secondsBeforeFirstTutorial];
         
     }
     return self;
