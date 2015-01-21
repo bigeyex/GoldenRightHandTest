@@ -10,4 +10,7 @@
             <ElementType>0</ElementType>
         </Monster>
     </MonsterData>
+    <EventData>
+        <Event>BasicTutorial</Event>
+    </EventData>
 </LevelData>

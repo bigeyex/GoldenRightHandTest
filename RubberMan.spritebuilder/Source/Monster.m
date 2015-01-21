@@ -7,6 +7,7 @@
 //
 
 #import "Monster.h"
+#import "GameEvent.h"
 
 @implementation Monster{
     CGPoint _moveDirection;
@@ -14,6 +15,8 @@
     double _attackTime;
     BOOL _isStopped;
     float _stopDuration;
+    
+    CGPoint _pausedVelocity;
 }
 
 - (void)didLoadFromCCB {
@@ -26,7 +29,21 @@
     self.physicsBody.collisionType = @"monster";
     self.physicsBody.collisionMask = @[@"human",@"hand"];
     self.physicsBody.collisionCategories = @[@"monster"];
+    
+    [GameEvent subscribe:@"PauseMonsters" forObject:self withSelector:@selector(pauseMonster)];
+    [GameEvent subscribe:@"ResumeMonsters" forObject:self withSelector:@selector(resumeMonster)];
 }
+
+- (void)pauseMonster{
+    _pausedVelocity = self.physicsBody.velocity;
+    self.physicsBody.velocity = ccp(0,0);
+}
+
+- (void)resumeMonster{
+    self.physicsBody.velocity = _pausedVelocity;
+}
+
+
 
 - (BOOL)receiveHitWithDamage:(float)damage{
     _hp = _hp - damage;
