@@ -18,9 +18,9 @@
     
     // set up the hand type
     self.range = 800.0;
-    self.atk = 10;
+    self.atk = 1;
     _skillRange = 150.0;
-    self.skillTimes = 1;
+    self.skillTimes = 10;
     self.handType = 1;
     _skillDuration = 5;
 }

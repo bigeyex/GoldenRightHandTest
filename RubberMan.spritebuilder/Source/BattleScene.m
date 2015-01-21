@@ -77,14 +77,40 @@
 -(void) touchEnded:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
     // tell player the touch is ended
-    [_player releaseTouch];
-    
+    BOOL isReleased = [_player releaseTouch];
+    if(isReleased){
+        [self monsterAI];
+    }
 }
 
 -(void) touchCancelled:(CCTouch *)touch withEvent:(CCTouchEvent *)event
 {
     // tell player the touch is cancelled
-    [_player releaseTouch];
+    BOOL isReleased = [_player releaseTouch];
+    if(isReleased){
+        [self monsterAI];
+    }
+}
+
+- (void) monsterAI{
+    int numOfMonsters = (int)[_monsterList.children count];
+    for (int i = 0;i<numOfMonsters;i++){
+        Monster *_checkNode = _monsterList.children[i];
+        CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
+        CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
+        float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
+        
+        // NOTE: this is to assume the hand size is 20 and the monster size is 20 also, potential bug
+        // if the monster is targeted
+        if (distance<=20*2){
+            [_checkNode monsterEvade];
+        }
+    }
+}
+
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA hand:(Hand *)nodeB{
+    // when the monster is hit or the hand is going back, ignore all the collision
+    return (!_player.isMonsterHit) && (!_player.isGoBack);
 }
 
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA hand:(Hand *)nodeB
@@ -102,6 +128,8 @@
         _player.handPositionAtHit = _player.hand.positionInPoints;
         _player.isMonsterHit = YES;
         _player.isStopTimeReached = NO;
+        
+        nodeA.physicsBody.velocity = ccp(0,0);
         
         if(isDefeated){
             // player's mana is increased by 1

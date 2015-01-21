@@ -477,7 +477,7 @@
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string>Monster</string>
+		<string>MonsterBat</string>
 		<key>displayName</key>
 		<string>CCSprite</string>
 		<key>memberVarAssignmentName</key>
