@@ -53,7 +53,7 @@
 }
 
 - (void)update:(CCTime)delta{
-
+    
 }
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -96,14 +96,16 @@
     int numOfMonsters = (int)[_monsterList.children count];
     for (int i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = _monsterList.children[i];
-        CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
-        CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
-        float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
-        
-        // NOTE: this is to assume the hand size is 20 and the monster size is 20 also, potential bug
-        // if the monster is targeted
-        if (distance<=20*2){
-            [_checkNode monsterEvade];
+        if(_checkNode.isElite){
+            CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
+            CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
+            float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
+            
+            // NOTE: this is to assume the hand size is 20 and the monster size is 20 also, potential bug
+            // if the monster is targeted
+            if (distance<=20*2){
+                [_checkNode monsterEvade];
+            }
         }
     }
 }

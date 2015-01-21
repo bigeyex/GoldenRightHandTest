@@ -20,6 +20,7 @@
 @property float atkPeriod;
 @property BOOL isCharging;
 @property BOOL isStopped;
+@property BOOL isElite;
 
 
 - (BOOL)receiveHitWithDamage:(float)Damage;
