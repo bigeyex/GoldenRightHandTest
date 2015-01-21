@@ -10,6 +10,10 @@
 #import "MonsterData.h"
 #import "GDataXMLNode.h"
 #import "Monster.h"
+#import "GameEvent.h"
+
+// Tutorials - has to hard code classes for lack of dynamic loading capability.
+#import "BasicTutorial.h"
 
 @implementation LevelLoader{
     NSMutableArray* monsterDataList;
@@ -19,6 +23,16 @@
 
 - (void)didLoadFromCCB{
     isLevelLoaded = NO;
+    [GameEvent subscribe:@"PauseMonsters" forObject:self withSelector:@selector(pauseMonsters)];
+    [GameEvent subscribe:@"ResumeMonsters" forObject:self withSelector:@selector(resumeMonsters)];
+}
+
+- (void)pauseMonsters{
+    self.paused = YES;
+}
+
+- (void)resumeMonsters{
+    self.paused = NO;
 }
 
 - (void)update:(CCTime)delta{
@@ -100,6 +114,16 @@
         
         [monsterDataList addObject:monsterData];
     }
+    
+    // load (tutorial) events
+    NSArray *eventNodes = [doc nodesForXPath:@"//LevelData/EventData/Event" error:nil];
+    for (GDataXMLElement *eventNode in eventNodes) {
+        if([eventNode.stringValue isEqualToString:@"BasicTutorial"]){
+            [BasicTutorial setUp];
+        }
+    }
+    
+    
     return totalNumOfEmeny;
 }
 

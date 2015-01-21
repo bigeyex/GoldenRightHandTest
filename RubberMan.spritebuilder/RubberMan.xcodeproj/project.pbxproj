@@ -53,6 +53,9 @@
 		8882A96D1A6880CD00458955 /* LevelLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8882A96C1A6880CD00458955 /* LevelLoader.m */; };
 		8882A9751A68882100458955 /* level1.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8882A9741A6887FC00458955 /* level1.xml */; };
 		888BA9771A69EC2600E0BD96 /* LifeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 888BA9761A69EC2600E0BD96 /* LifeBar.m */; };
+		8898925B1A6F456C00011AE8 /* GameEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8898925A1A6F456C00011AE8 /* GameEvent.m */; };
+		889892621A6F4F4A00011AE8 /* BasicTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 889892611A6F4F4A00011AE8 /* BasicTutorial.m */; };
+		8898927D1A6F6CD900011AE8 /* TutorialNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8898927C1A6F6CD900011AE8 /* TutorialNode.m */; };
 		927F619E196C771E000F43EF /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B7378993180767190076A88C /* MainScene.m */; };
 		927F61A5196C771E000F43EF /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3517B978D7009739AE /* OpenAL.framework */; };
 		927F61A9196C771E000F43EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3D17B978D7009739AE /* Foundation.framework */; };
@@ -222,6 +225,12 @@
 		8882A9741A6887FC00458955 /* level1.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = level1.xml; sourceTree = "<group>"; };
 		888BA9751A69EC2600E0BD96 /* LifeBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LifeBar.h; path = Source/LifeBar.h; sourceTree = "<group>"; };
 		888BA9761A69EC2600E0BD96 /* LifeBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LifeBar.m; path = Source/LifeBar.m; sourceTree = "<group>"; };
+		889892591A6F456C00011AE8 /* GameEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameEvent.h; path = Source/GameEvent.h; sourceTree = "<group>"; };
+		8898925A1A6F456C00011AE8 /* GameEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameEvent.m; path = Source/GameEvent.m; sourceTree = "<group>"; };
+		889892601A6F4F4A00011AE8 /* BasicTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicTutorial.h; path = Source/Tutorials/BasicTutorial.h; sourceTree = "<group>"; };
+		889892611A6F4F4A00011AE8 /* BasicTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicTutorial.m; path = Source/Tutorials/BasicTutorial.m; sourceTree = "<group>"; };
+		8898927B1A6F6CD900011AE8 /* TutorialNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialNode.h; path = Source/Tutorials/TutorialNode.h; sourceTree = "<group>"; };
+		8898927C1A6F6CD900011AE8 /* TutorialNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialNode.m; path = Source/Tutorials/TutorialNode.m; sourceTree = "<group>"; };
 		927F61BF196C771E000F43EF /* RubberMan Android.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RubberMan Android.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
@@ -544,6 +553,26 @@
 			path = Levels;
 			sourceTree = "<group>";
 		};
+		889892571A6F445600011AE8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				889892591A6F456C00011AE8 /* GameEvent.h */,
+				8898925A1A6F456C00011AE8 /* GameEvent.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		8898925C1A6F4D3300011AE8 /* Tutorials */ = {
+			isa = PBXGroup;
+			children = (
+				889892601A6F4F4A00011AE8 /* BasicTutorial.h */,
+				889892611A6F4F4A00011AE8 /* BasicTutorial.m */,
+				8898927B1A6F6CD900011AE8 /* TutorialNode.h */,
+				8898927C1A6F6CD900011AE8 /* TutorialNode.m */,
+			);
+			name = Tutorials;
+			sourceTree = "<group>";
+		};
 		9222E2B918734FF800A246C7 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -555,6 +584,8 @@
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8898925C1A6F4D3300011AE8 /* Tutorials */,
+				889892571A6F445600011AE8 /* Helpers */,
 				8808EA151A68932F0020AB90 /* DataModel */,
 				8882A9631A687C7A00458955 /* Vendor */,
 				7A40362019DDEF0D007B6E8F /* Platforms */,
@@ -994,6 +1025,7 @@
 			files = (
 				D2920FE41A6AD8EB00B45C85 /* IceHand.m in Sources */,
 				D24D0EA41A6BA17C00DA162E /* WinScene.m in Sources */,
+				889892621A6F4F4A00011AE8 /* BasicTutorial.m in Sources */,
 				8882A96D1A6880CD00458955 /* LevelLoader.m in Sources */,
 				D225B3E11A65F96D005787F2 /* Hand.m in Sources */,
 				D24D0E961A6B91AF00DA162E /* BattleScene.m in Sources */,
@@ -1002,6 +1034,7 @@
 				D2E8845E1A64D999004423FC /* Player.m in Sources */,
 				D2E884791A64F2F6004423FC /* Monster.m in Sources */,
 				D24D0EA81A6BA18F00DA162E /* LoseScene.m in Sources */,
+				8898925B1A6F456C00011AE8 /* GameEvent.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				D29210061A6AEA8E00B45C85 /* DarkHand.m in Sources */,
 				8808EA1B1A6893AC0020AB90 /* MonsterData.m in Sources */,
@@ -1009,6 +1042,7 @@
 				D24D0E8C1A6B88B000DA162E /* LevelSelectScene.m in Sources */,
 				D2972C061A683B97009D3E0E /* FireHand.m in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
+				8898927D1A6F6CD900011AE8 /* TutorialNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

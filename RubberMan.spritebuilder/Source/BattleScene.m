@@ -215,4 +215,8 @@
     [[CCDirector sharedDirector] replaceScene:winScene];
 }
 
+- (void)pauseGame{
+    _monsterList.paused = YES;
+}
+
 @end
