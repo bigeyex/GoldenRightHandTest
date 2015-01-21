@@ -603,7 +603,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Monsters/MonsterWalker/MonsterWalkerRFoot.png</string>
+									<string>Monsters/MonsterResources/MonsterWalkerRFoot.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -870,7 +870,7 @@
 								<key>value</key>
 								<array>
 									<string></string>
-									<string>Monsters/MonsterWalker/MonsterWalkerLFoot.png</string>
+									<string>Monsters/MonsterResources/MonsterWalkerLFoot.png</string>
 								</array>
 							</dict>
 							<dict>
@@ -987,7 +987,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Monsters/MonsterWalker/MonsterWalkerBody.png</string>
+							<string>Monsters/MonsterResources/MonsterWalkerBody.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1023,6 +1023,8 @@
 						<array/>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 				<key>seqExpanded</key>
 				<true/>
 			</dict>
@@ -1124,8 +1126,6 @@
 						<real>1</real>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

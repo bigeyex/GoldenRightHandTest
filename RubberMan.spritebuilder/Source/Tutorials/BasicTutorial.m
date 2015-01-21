@@ -9,7 +9,7 @@
 #import "BasicTutorial.h"
 #import "GameEvent.h"
 
-float const secondsBeforeFirstTutorial=3;
+float const secondsBeforeFirstTutorial=2;
 
 @implementation BasicTutorial
 

@@ -64,7 +64,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>Monsters/MonsterBat/bat1.png</string>
+										<string>Monsters/MonsterResources/MonsterGhostS1.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -82,7 +82,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>Monsters/MonsterBat/bat2.png</string>
+										<string>Monsters/MonsterResources/MonsterGhostS2.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -100,7 +100,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>Monsters/MonsterBat/bat3.png</string>
+										<string>Monsters/MonsterResources/MonsterGhostS3.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -118,7 +118,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>Monsters/MonsterBat/bat2.png</string>
+										<string>Monsters/MonsterResources/MonsterGhostS2.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -355,7 +355,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>bat1</string>
+				<string>Ghost</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -436,7 +436,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Monsters/MonsterBat/bat1.png</string>
+							<string>Monsters/MonsterResources/MonsterGhostS2.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -508,7 +508,7 @@
 						<key>value</key>
 						<array>
 							<real>-33</real>
-							<real>26</real>
+							<real>35</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -578,7 +578,7 @@
 			</dict>
 		</array>
 		<key>customClass</key>
-		<string>MonsterBat</string>
+		<string>MonsterGhost</string>
 		<key>displayName</key>
 		<string>CCSprite</string>
 		<key>memberVarAssignmentName</key>
@@ -766,7 +766,7 @@
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.0</real>
+			<real>0.1666666716337204</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
