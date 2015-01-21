@@ -23,6 +23,8 @@
     double _stopTime;
     CGPoint _initialPosition;
     CCSprite *_arrow;
+    
+    CCNode* _hpBar;
 }
 
 static float playerScale = 0.4;

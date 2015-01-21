@@ -16,6 +16,9 @@
     float _stopDuration;
     
     CGPoint _pausedVelocity;
+    
+    CCNode* _hpBar;
+    float _initialHp;
 }
 
 - (void)didLoadFromCCB {
@@ -33,6 +36,8 @@
     
     [GameEvent subscribe:@"PauseMonsters" forObject:self withSelector:@selector(pauseMonster)];
     [GameEvent subscribe:@"ResumeMonsters" forObject:self withSelector:@selector(resumeMonster)];
+    
+    _initialHp = _hp;
 }
 
 - (void)pauseMonster{
@@ -51,6 +56,7 @@
     if(_hp<=0){
         return YES;
     }
+    _hpBar.scaleX = _hp/_initialHp;
     return NO;
 }
 
