@@ -29,5 +29,6 @@
 - (BOOL)releaseTouch;
 - (void)addHandwithName:(NSString *)ccbName;
 - (void)removeHand;
+- (void)receiveAttack;
 
 @end

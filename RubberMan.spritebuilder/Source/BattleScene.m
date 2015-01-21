@@ -156,14 +156,17 @@
 
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA human:(CCNode *)nodeB
 {
-    if(!(nodeA.isAttacking)){
-        [nodeA startAttack];
-        _player.playerHP = _player.playerHP - nodeA.atk;
-        [_playerLifeBar setLength:_player.playerHP];
-        if(_player.playerHP<=0){
-            [self battleLose];
+    [[_physicsNode space] addPostStepBlock:^{
+        if(!(nodeA.isAttacking)){
+            [nodeA startAttack];
+            [_player receiveAttack];
+            _player.playerHP = _player.playerHP - nodeA.atk;
+            [_playerLifeBar setLength:_player.playerHP];
+            if(_player.playerHP<=0){
+                [self battleLose];
+            }
         }
-    }
+    } key:nodeA];
 }
 
 -(void)changeHand{
