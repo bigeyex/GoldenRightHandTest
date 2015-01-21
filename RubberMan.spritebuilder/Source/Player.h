@@ -16,15 +16,17 @@
 @property BOOL isMonsterHit;
 @property BOOL isStopTimeReached;
 @property BOOL isGoBack;
+@property BOOL isReleased;
 @property float playerHP;
 @property CCNode *centerJointNode;
 @property CGPoint handPositionAtHit;
 @property NSMutableArray *mana;
 @property int skillcost;
+@property CGPoint shootDirection;
 
 - (void)touchAtLocation:(CGPoint) touchLocation;
 - (void)updateTouchLocation:(CGPoint) touchLocation;
-- (void)releaseTouch;
+- (BOOL)releaseTouch;
 - (void)addHandwithName:(NSString *)ccbName;
 - (void)removeHand;
 

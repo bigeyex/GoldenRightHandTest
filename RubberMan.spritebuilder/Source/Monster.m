@@ -12,7 +12,6 @@
     CGPoint _moveDirection;
     CGPoint _attackPosition;
     double _attackTime;
-    BOOL _isStopped;
     float _stopDuration;
 }
 
@@ -23,6 +22,7 @@
     _speed = 30;
     _isAttacking = NO;
     _atkPeriod = 2.0;
+    _isCharging = NO;
     self.physicsBody.collisionType = @"monster";
     self.physicsBody.collisionMask = @[@"human",@"hand"];
     self.physicsBody.collisionCategories = @[@"monster"];
@@ -48,9 +48,11 @@
 
 -(void)update:(CCTime)delta{
     
-    //_moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
-    _moveDirection = ccp(-1,0);
-    self.physicsBody.velocity = CGPointMake((_isStopped?0:1)*self.speed * _moveDirection.x,(_isStopped?0:1)*self.speed * _moveDirection.y);
+    if(!_isCharging){
+        //_moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
+        _moveDirection = ccp(-1,0);
+        self.physicsBody.velocity = CGPointMake((_isStopped?0:1)*self.speed * _moveDirection.x,(_isStopped?0:1)*self.speed * _moveDirection.y);
+    }
     
     if(_isAttacking){
         if(_attackTime<_atkPeriod){
@@ -87,6 +89,40 @@
             [self.animationManager runAnimationsForSequenceNamed:@"moving"];
         }
     }];
+}
+
+- (void)monsterEvade{
+    
+}
+
+@end
+
+@implementation MonsterWalker
+
+-(void)monsterEvade{
+    if(!self.isStopped){
+        self.isCharging = YES;
+        self.physicsBody.velocity = ccp(0,0);
+        CGPoint previousPosition = self.position;
+        id jumpSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0,0.25)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
+            self.isCharging = NO;}],nil];
+        [self runAction:jumpSequence];
+    }
+}
+
+@end
+
+@implementation MonsterBat
+
+-(void)monsterEvade{
+    if(!self.isStopped){
+        self.isCharging = YES;
+        self.physicsBody.velocity = ccp(0,0);
+        CGPoint previousPosition = self.position;
+        id jumpSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0.25,0)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
+            self.isCharging = NO;}],nil];
+        [self runAction:jumpSequence];
+    }
 }
 
 @end
