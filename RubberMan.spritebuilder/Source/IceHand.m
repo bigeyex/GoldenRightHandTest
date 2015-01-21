@@ -1,15 +1,15 @@
 //
-//  FireHand.m
+//  IceHand.m
 //  RubberMan
 //
-//  Created by Guoqiang XU on 1/15/15.
+//  Created by Guoqiang XU on 1/17/15.
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import "FireHand.h"
+#import "IceHand.h"
 #import "Monster.h"
 
-@implementation FireHand
+@implementation IceHand
 
 -(void)didLoadFromCCB{
     // set up collision type
@@ -18,27 +18,27 @@
     
     // set up the hand type
     self.range = 800.0;
-    self.atk = 10.0;
+    self.atk = 10;
     _skillRange = 150.0;
     self.skillTimes = 1;
-    self.handType = 0;
-    _skillDamage = 0.5*self.atk;
+    self.handType = 1;
+    _skillDuration = 5;
 }
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos{
     
     // load particle effect
-    CCParticleSystem *fistHitEffect = (CCParticleSystem *)[CCBReader load:@"FireHandHitEffect"];
+    CCParticleSystem *fistHitEffect = (CCParticleSystem *)[CCBReader load:@"IceHandHitEffect"];
     
     fistHitEffect.autoRemoveOnFinish = TRUE;
     fistHitEffect.position = pos;
-    [self.parent.parent addChild:fistHitEffect];
+    [self addChild:fistHitEffect];
 }
 
 -(float)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterList{
     
     // load hand particle effect
-    [self handParticleEffectAtPosition:nodeA.positionInPoints];
+    [self handParticleEffectAtPosition:self.anchorPointInPoints];
     
     // decrease the number of times this skill can be used
     self.skillTimes--;
@@ -48,13 +48,8 @@
     for (i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = monsterList.children[i];
         double distance = ccpDistance(_checkNode.positionInPoints,nodeA.positionInPoints);
-        if ((distance<self.skillRange)&&(distance>0)){
-            BOOL isKilled = [_checkNode receiveHitWithDamage:self.skillDamage];
-            if (isKilled){
-                [_checkNode removeFromParent];
-                i--;
-                numOfMonsters--;
-            }
+        if (distance<self.skillRange){
+            [_checkNode stopMovingForDuration:_skillDuration];
         }
     }
     return 0.0;

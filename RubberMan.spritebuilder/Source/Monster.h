@@ -12,16 +12,29 @@
 
 @interface Monster : CCSprite
 
-@property int hp;
-@property NSString *elementType;
-@property int atk;
+@property float hp;
+@property int elementType; // 0 for fire, 1 for ice ...
+@property float atk;
 @property float speed;
 @property BOOL isAttacking;
-@property int atkPeriod;
+@property float atkPeriod;
+@property BOOL isCharging;
+@property BOOL isStopped;
+@property BOOL isElite;
 
-- (int)receiveHitWithHand:(Hand *)hand;
+
+- (BOOL)receiveHitWithDamage:(float)Damage;
 - (void)loadMonsterData: (MonsterData*)monsterData;
 - (void)startAttack;
+- (void)stopMovingForDuration:(float)duration;
+- (void)monsterEvade;
 
+@end
+
+@interface MonsterWalker : Monster
+
+@end
+
+@interface MonsterBat : Monster
 
 @end

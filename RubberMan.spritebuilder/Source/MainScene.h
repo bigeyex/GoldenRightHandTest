@@ -1,3 +1,3 @@
-@interface MainScene : CCNode <CCPhysicsCollisionDelegate>
+@interface MainScene : CCNode
 
 @end

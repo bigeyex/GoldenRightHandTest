@@ -10,6 +10,10 @@
 #import "MonsterData.h"
 #import "GDataXMLNode.h"
 #import "Monster.h"
+#import "GameEvent.h"
+
+// Tutorials - has to hard code classes for lack of dynamic loading capability.
+#import "BasicTutorial.h"
 
 @implementation LevelLoader{
     NSMutableArray* monsterDataList;
@@ -19,6 +23,16 @@
 
 - (void)didLoadFromCCB{
     isLevelLoaded = NO;
+    [GameEvent subscribe:@"PauseMonsters" forObject:self withSelector:@selector(pauseMonsters)];
+    [GameEvent subscribe:@"ResumeMonsters" forObject:self withSelector:@selector(resumeMonsters)];
+}
+
+- (void)pauseMonsters{
+    self.paused = YES;
+}
+
+- (void)resumeMonsters{
+    self.paused = NO;
 }
 
 - (void)update:(CCTime)delta{
@@ -42,18 +56,19 @@
 }
 
 
-- (void)loadLevel:(NSString*)levelName{
+- (int)loadLevel:(NSString*)levelName{
     NSString* path = [[NSBundle mainBundle] pathForResource:levelName ofType:@"xml"];
     
     NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:path];
     NSError *error;
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
                                                            options:0 error:&error];
-    if (doc == nil) { NSLog(@"Loading failed"); return; }
+    if (doc == nil) { NSLog(@"Loading failed"); return -1; }
     
     monsterDataList = [NSMutableArray array];
     
     // load enemies into the level
+    int totalNumOfEmeny = 0;
     NSArray *levelEnemiesNodes = [doc nodesForXPath:@"//LevelData/MonsterData/Monster" error:nil];
     for (GDataXMLElement *enemyNode in levelEnemiesNodes) {
         MonsterData *monsterData;
@@ -76,6 +91,7 @@
         if (unitNumbers.count > 0) {
             GDataXMLElement *unitNumberNode = (GDataXMLElement *) [unitNumbers objectAtIndex:0];
             monsterData.number = [unitNumberNode.stringValue intValue];
+            totalNumOfEmeny = totalNumOfEmeny + monsterData.number;
         }
         
         NSArray *respawnIntervals = [enemyNode elementsForName:@"RespawnInterval"];
@@ -90,11 +106,25 @@
             monsterData.positionY = [positionYNode.stringValue floatValue];
         }
         
+        NSArray *elementTypes = [enemyNode elementsForName:@"ElementType"];
+        if (elementTypes.count > 0) {
+            GDataXMLElement *elementTypeNode = (GDataXMLElement *) [elementTypes objectAtIndex:0];
+            monsterData.elementType = [elementTypeNode.stringValue floatValue];
+        }
+        
         [monsterDataList addObject:monsterData];
     }
     
+    // load (tutorial) events
+    NSArray *eventNodes = [doc nodesForXPath:@"//LevelData/EventData/Event" error:nil];
+    for (GDataXMLElement *eventNode in eventNodes) {
+        if([eventNode.stringValue isEqualToString:@"BasicTutorial"]){
+            [BasicTutorial setUp];
+        }
+    }
     
     
+    return totalNumOfEmeny;
 }
 
 

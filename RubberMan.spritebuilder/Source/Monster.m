@@ -7,29 +7,56 @@
 //
 
 #import "Monster.h"
+#import "GameEvent.h"
 
 @implementation Monster{
     CGPoint _moveDirection;
+    CGPoint _attackPosition;
+    double _attackTime;
+    float _stopDuration;
+    
+    CGPoint _pausedVelocity;
 }
 
 - (void)didLoadFromCCB {
     _hp = 10;
     _atk = 5;
-    _elementType = @"fire";
-    _speed = 10;
+    _elementType = 1;
+    _speed = 30;
     _isAttacking = NO;
-    _atkPeriod = 2;
+    _atkPeriod = 2.0;
+    _isCharging = NO;
+    _isElite = NO; // only elite monster can evade
     self.physicsBody.collisionType = @"monster";
+    self.physicsBody.collisionMask = @[@"human",@"hand"];
+    self.physicsBody.collisionCategories = @[@"monster"];
+    
+    [GameEvent subscribe:@"PauseMonsters" forObject:self withSelector:@selector(pauseMonster)];
+    [GameEvent subscribe:@"ResumeMonsters" forObject:self withSelector:@selector(resumeMonster)];
+}
+
+- (void)pauseMonster{
+    _pausedVelocity = self.physicsBody.velocity;
+    self.physicsBody.velocity = ccp(0,0);
+}
+
+- (void)resumeMonster{
+    self.physicsBody.velocity = _pausedVelocity;
 }
 
 
-- (int)receiveHitWithHand:(Hand *)hand{
-    _hp = _hp - hand.atk;
+
+- (BOOL)receiveHitWithDamage:(float)damage{
+    _hp = _hp - damage;
     if(_hp<=0){
-        [self removeFromParent];
-        return 1;
+        return YES;
     }
-    return 0;
+    return NO;
+}
+
+- (void)stopMovingForDuration:(float)duration{
+    _isStopped = YES;
+    _stopDuration = duration;
 }
 
 
@@ -39,15 +66,81 @@
 
 -(void)update:(CCTime)delta{
     
-    // player position is (145,130). This may be not a good way to assign this value. need improvement.
-    _moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
-    self.physicsBody.velocity = CGPointMake(self.speed * _moveDirection.x,self.speed * _moveDirection.y);
+    if(!_isCharging){
+        //_moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
+        _moveDirection = ccp(-1,0);
+        self.physicsBody.velocity = CGPointMake((_isStopped?0:1)*self.speed * _moveDirection.x,(_isStopped?0:1)*self.speed * _moveDirection.y);
+    }
     
+    if(_isAttacking){
+        if(_attackTime<_atkPeriod){
+            _attackTime = _attackTime + delta;
+        }
+        else{
+            // ensure the monster goes back to the original attack position, prevent drifting
+            self.position = _attackPosition;
+            _isAttacking = NO;
+        }
+    }
+    
+    if(_isStopped){
+        _stopDuration = _stopDuration - delta;
+        if(_stopDuration<=0){
+            _isStopped = NO;
+        }
+    }
 }
 
 -(void)startAttack{
+    
+    // back up the attack position
+    _attackPosition = self.position;
     _isAttacking = YES;
+    _attackTime = 0.0;
+    
+    // running attacking animations
+    [self.animationManager runAnimationsForSequenceNamed:@"attacking"];
+    
+    // when the attacking animation is completed, runing the moving animations
+    [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
+        if ([self.animationManager.lastCompletedSequenceName isEqualToString:@"attacking"]) {
+            [self.animationManager runAnimationsForSequenceNamed:@"moving"];
+        }
+    }];
 }
 
+- (void)monsterEvade{
+    
+}
+
+@end
+
+@implementation MonsterWalker
+
+-(void)monsterEvade{
+    if(!self.isStopped){
+        self.isCharging = YES;
+        self.physicsBody.velocity = ccp(0,0);
+        CGPoint previousPosition = self.position;
+        id jumpSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0,0.25)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
+            self.isCharging = NO;}],nil];
+        [self runAction:jumpSequence];
+    }
+}
+
+@end
+
+@implementation MonsterBat
+
+-(void)monsterEvade{
+    if(!self.isStopped){
+        self.isCharging = YES;
+        self.physicsBody.velocity = ccp(0,0);
+        CGPoint previousPosition = self.position;
+        id jumpSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0.25,0)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
+            self.isCharging = NO;}],nil];
+        [self runAction:jumpSequence];
+    }
+}
 
 @end

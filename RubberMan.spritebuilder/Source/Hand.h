@@ -11,11 +11,12 @@
 
 @interface Hand : CCSprite
 
-@property NSString *handType;
-@property int range;
-@property int atk;
+@property float range;
+@property float atk;
+@property int skillTimes;
+@property int handType;
 
--(void)handParticleEffect;
--(void)handSkillwithMonsterPosition:(CGPoint)monsterPosition MonsterList: (CCNode *)monsterlist;
+-(void)handParticleEffectAtPosition:(CGPoint)pos;
+-(float)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterlist;
 
 @end
