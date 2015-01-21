@@ -229,4 +229,8 @@ static float stopDuration = 0.3;
     return _isReleased;
 }
 
+-(void)receiveAttack{
+        [self.animationManager runAnimationsForSequenceNamed:@"beAttacked"];
+}
+
 @end
