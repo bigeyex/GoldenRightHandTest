@@ -19,11 +19,9 @@
     CCPhysicsJoint *_handJoint;
     CCPhysicsJoint *_handRangeLimitJoint;
     BOOL isTouched;
-    BOOL isReleased;
     BOOL isRangeReached;
     double _stopTime;
     CGPoint _initialPosition;
-    CGPoint _shootDirection;
     CCSprite *_arrow;
 }
 
@@ -56,7 +54,7 @@ static float stopDuration = 0.3;
     // set up initial parameters
     _playerHP = 100.0;
     isTouched = NO;
-    isReleased = NO;
+    _isReleased = NO;
     _initialPosition = _hand.position;
     _skillcost = 3;
     
@@ -95,7 +93,7 @@ static float stopDuration = 0.3;
 
 -(void)update:(CCTime)delta{
     
-    if(isReleased){
+    if(_isReleased){
         // make sure the hand moves only in the shoot directions
         double velocity = ccpDot(_hand.physicsBody.velocity,_shootDirection);
         _hand.physicsBody.velocity = CGPointMake(velocity * _shootDirection.x,velocity * _shootDirection.y);
@@ -103,7 +101,7 @@ static float stopDuration = 0.3;
         // check whether the hand has reached its range
         CGPoint handRelativeVector = ccpSub(_hand.positionInPoints, _centerJointNode.positionInPoints);
         double handDist = ccpDot(handRelativeVector,_shootDirection);
-        if((!isRangeReached)&&(handDist>=_hand.range)){
+        if((!isRangeReached)&&(handDist>=(_hand.range-5.0))){
             isRangeReached = YES;
             _isStopTimeReached = NO;
         }
@@ -135,10 +133,13 @@ static float stopDuration = 0.3;
                     _isStopTimeReached = YES;
                     _isMonsterHit = NO;
                     _isGoBack = YES;
-                    
+                }
+                
+                if(_stopTime == 0){
                     // when hand is going back, it will not collide with any object
                     _hand.physicsBody.collisionMask = @[];
                 }
+                
                 _stopTime = _stopTime + delta;
             }
         }
@@ -147,7 +148,7 @@ static float stopDuration = 0.3;
         if(_isGoBack&&(handDist<=ccpDot(_initialPosition,_shootDirection))){
             _hand.physicsBody.velocity=ccp(0,0);
             _hand.position = _initialPosition;
-            isReleased = NO;
+            _isReleased = NO;
             
             // change the hand back to normal hand if its skill times is zero
             if(_hand.skillTimes==0){
@@ -163,7 +164,7 @@ static float stopDuration = 0.3;
 - (void)touchAtLocation:(CGPoint) touchLocation {
     
     // connect the hand touched by the user to a mouse joint at the touchLocation, when the hand is in the status of being released, the touch is invalid
-    if ((!isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
+    if ((!_isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
     {
         // move the mouseJointNode to the touch position
         _mouseJointNode.position = touchLocation;
@@ -172,7 +173,7 @@ static float stopDuration = 0.3;
         // setup a spring joint between the mouseJointNode and the hand
         _mouseJoint = [CCPhysicsJoint connectedSpringJointWithBodyA:_mouseJointNode.physicsBody bodyB:_hand.physicsBody anchorA:ccp(0, 0) anchorB:_hand.anchorPointInPoints restLength:0.f stiffness:3000.f damping:150.f];
         isTouched = YES;
-        isReleased = NO;
+        _isReleased = NO;
         
         // add an arrow to indicate the direction
         _arrow = (CCSprite *)[CCBReader load:@"Arrow"];
@@ -198,7 +199,7 @@ static float stopDuration = 0.3;
     }
 }
 
-- (void)releaseTouch{
+- (BOOL)releaseTouch{
     
     if (isTouched){
         
@@ -214,7 +215,7 @@ static float stopDuration = 0.3;
         }
         
         isTouched = NO;
-        isReleased = YES;
+        _isReleased = YES;
         _isGoBack = NO;
         _stopTime = 0;
         
@@ -224,6 +225,12 @@ static float stopDuration = 0.3;
         // remove the arrow
         [_arrow removeFromParent];
     }
+    
+    return _isReleased;
+}
+
+-(void)receiveAttack{
+        [self.animationManager runAnimationsForSequenceNamed:@"beAttacked"];
 }
 
 @end

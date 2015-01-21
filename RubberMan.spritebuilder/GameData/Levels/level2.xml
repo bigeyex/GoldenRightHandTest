@@ -3,7 +3,7 @@
         <Monster>
             <SpriteName>MonsterBat</SpriteName>
             <EnterTime>4</EnterTime>
-            <Number>5</Number>
+            <Number>1</Number>
             <RespawnInterval>8</RespawnInterval>
             <PositionY>0.6</PositionY>
             <Health>20</Health>

@@ -18,11 +18,23 @@
 @property float speed;
 @property BOOL isAttacking;
 @property float atkPeriod;
+@property BOOL isCharging;
+@property BOOL isStopped;
+@property BOOL isElite;
+
 
 - (BOOL)receiveHitWithDamage:(float)Damage;
 - (void)loadMonsterData: (MonsterData*)monsterData;
 - (void)startAttack;
 - (void)stopMovingForDuration:(float)duration;
+- (void)monsterEvade;
 
+@end
+
+@interface MonsterWalker : Monster
+
+@end
+
+@interface MonsterBat : Monster
 
 @end
