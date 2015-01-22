@@ -25,6 +25,10 @@
     int _totalNumOfMonsters;
     int _monstersKilled;
     NSMutableArray *_skillbox;
+    
+    CCNode* pauseButton;
+    CCNode* pauseMenu;
+    CCNode* gameOverMenu;
 }
 
 - (void)didLoadFromCCB {
@@ -50,6 +54,33 @@
     [super onEnter];
     _totalNumOfMonsters = [_monsterList loadLevel:_levelName];
     _monstersKilled = 0;
+}
+
+- (void)showPauseMenu{
+    [[CCDirector sharedDirector] pause];
+    pauseButton.visible = NO;
+    pauseMenu.visible = YES;
+}
+
+- (void)resumeGame{
+    pauseMenu.visible = NO;
+    gameOverMenu.visible = NO;
+    pauseButton.visible = YES;
+    [[CCDirector sharedDirector] resume];
+}
+
+- (void)restartLevel{
+    CCScene *battleScene = [CCBReader loadAsScene:@"BattleScene"];
+    BattleScene *sceneNode = [[battleScene children] firstObject];
+    sceneNode.levelName = self.levelName;
+    [[CCDirector sharedDirector] resume];
+    [[CCDirector sharedDirector] replaceScene:battleScene];
+}
+
+- (void)exitToMenu{
+    [[CCDirector sharedDirector] resume];
+    CCScene *winScene = [CCBReader loadAsScene:@"LevelSelectScene"];
+    [[CCDirector sharedDirector] replaceScene:winScene];
 }
 
 - (void)update:(CCTime)delta{
@@ -206,8 +237,9 @@
 }
 
 -(void)battleLose{
-    CCScene *loseScene = [CCBReader loadAsScene:@"LoseScene"];
-    [[CCDirector sharedDirector] replaceScene:loseScene];
+    [[CCDirector sharedDirector] pause];
+    gameOverMenu.visible = YES;
+    pauseMenu.visible = NO;
 }
 
 -(void)battleWin:(CCTime)delta{
@@ -215,8 +247,5 @@
     [[CCDirector sharedDirector] replaceScene:winScene];
 }
 
-- (void)pauseGame{
-    _monsterList.paused = YES;
-}
 
 @end
