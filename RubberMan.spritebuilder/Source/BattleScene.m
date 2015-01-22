@@ -13,6 +13,7 @@
 #import "GDataXMLNode.h"
 #import "LevelLoader.h"
 #import "LifeBar.h"
+#import "UIScoreBoard.h"
 
 @implementation BattleScene{
     CCPhysicsNode *_physicsNode;
@@ -29,6 +30,9 @@
     CCNode* pauseButton;
     CCNode* pauseMenu;
     CCNode* gameOverMenu;
+    CCNode* scoreBoardMenu;
+    UIScoreBoard *uiScoreBoard;
+    
 }
 
 - (void)didLoadFromCCB {
@@ -75,6 +79,10 @@
     sceneNode.levelName = self.levelName;
     [[CCDirector sharedDirector] resume];
     [[CCDirector sharedDirector] replaceScene:battleScene];
+}
+
+- (void)goToNextLevel{
+    
 }
 
 - (void)exitToMenu{
@@ -243,8 +251,15 @@
 }
 
 -(void)battleWin:(CCTime)delta{
-    CCScene *winScene = [CCBReader loadAsScene:@"WinScene"];
-    [[CCDirector sharedDirector] replaceScene:winScene];
+    [[CCDirector sharedDirector] pause];
+    scoreBoardMenu.visible = YES;
+    pauseMenu.visible = NO;
+    
+    // TODO: Implement Score System
+    [uiScoreBoard giveStarForReason:@"Health > 75%"];
+    [uiScoreBoard giveStarForReason:@"Accuracy > 75%"];
+    [uiScoreBoard giveStarForReason:@"Find Sausage"];
+    [uiScoreBoard displayStars];
 }
 
 
