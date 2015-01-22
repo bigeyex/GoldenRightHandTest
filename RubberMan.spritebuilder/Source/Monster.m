@@ -29,7 +29,7 @@
     _isAttacking = NO;
     _atkPeriod = 2.0;
     _isCharging = NO;
-    _isElite = NO; // only elite monster can evade
+    _isElite = YES; // only elite monster can evade
     self.physicsBody.collisionType = @"monster";
     self.physicsBody.collisionMask = @[@"human",@"hand"];
     self.physicsBody.collisionCategories = @[@"monster"];

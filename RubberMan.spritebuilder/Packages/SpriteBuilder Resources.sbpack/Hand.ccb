@@ -74,8 +74,8 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>66</real>
-					<real>92.5</real>
+					<real>85.71484375</real>
+					<real>84.535171508789062</real>
 				</array>
 			</array>
 			<key>polygons</key>
@@ -173,8 +173,6 @@
 				<array/>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
