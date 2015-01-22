@@ -23,7 +23,6 @@
 
 - (void)didLoadFromCCB {
     _atk = 5;
-    _speed = 30;
     _isAttacking = NO;
     _atkPeriod = 2.0;
     _isCharging = NO;
@@ -124,6 +123,11 @@
 
 @implementation MonsterWalker
 
+-(void)didLoadFromCCB{
+    [super didLoadFromCCB];
+    self.speed = 30;
+}
+
 -(void)monsterEvade{
     if(!self.isStopped){
         self.isCharging = YES;
@@ -139,6 +143,11 @@
 
 @implementation MonsterBat
 
+-(void)didLoadFromCCB{
+    [super didLoadFromCCB];
+    self.speed = 40;
+}
+
 -(void)monsterEvade{
     if(!self.isStopped){
         self.isCharging = YES;
@@ -153,6 +162,11 @@
 @end
 
 @implementation MonsterGhost
+
+-(void)didLoadFromCCB{
+    [super didLoadFromCCB];
+    self.speed = 50;
+}
 
 -(void)monsterEvade{
     if(!self.isStopped){

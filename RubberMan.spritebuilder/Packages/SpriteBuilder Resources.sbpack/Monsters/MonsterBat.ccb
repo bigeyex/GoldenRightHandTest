@@ -507,7 +507,7 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>-33</real>
+							<real>-25</real>
 							<real>26</real>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -521,8 +521,8 @@
 						<string>Size</string>
 						<key>value</key>
 						<array>
-							<real>70</real>
-							<real>2</real>
+							<real>50</real>
+							<real>4</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>
