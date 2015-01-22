@@ -38,3 +38,7 @@
 @interface MonsterBat : Monster
 
 @end
+
+@interface MonsterGhost : Monster
+
+@end

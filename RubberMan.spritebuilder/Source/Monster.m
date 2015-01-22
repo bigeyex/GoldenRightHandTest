@@ -151,3 +151,18 @@
 }
 
 @end
+
+@implementation MonsterGhost
+
+-(void)monsterEvade{
+    if(!self.isStopped){
+        self.isCharging = YES;
+        self.physicsBody.velocity = ccp(0,0);
+        CGPoint previousPosition = self.position;
+        id jumpSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0.25,0)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
+            self.isCharging = NO;}],nil];
+        [self runAction:jumpSequence];
+    }
+}
+
+@end
