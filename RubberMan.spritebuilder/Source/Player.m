@@ -38,7 +38,7 @@ static float controlRange = 300;
     _rightFoot.physicsBody.collisionType = @"human";
     _leftHand.physicsBody.collisionType = @"human";
     _head.physicsBody.collisionType = @"human";
-
+    
     // set up collision categories
     _body.physicsBody.collisionCategories = @[@"hand"];
     _head.physicsBody.collisionCategories = @[@"hand"];
@@ -68,14 +68,14 @@ static float controlRange = 300;
     
     // add the hand to the player
     [self addChild:_hand];
-
+    
     // create a distance joint to control the range of the hand
     _handRangeLimitJoint = [CCPhysicsJoint connectedDistanceJointWithBodyA:_hand.physicsBody bodyB:_centerJointNode.physicsBody anchorA:_hand.anchorPointInPoints anchorB:ccp(0,0) minDistance:0.f maxDistance:_hand.range*playerScale];
 }
 
 -(void)removeHand{
     [_hand removeFromParent];
-
+    
     if (_handRangeLimitJoint != nil){
         [_handRangeLimitJoint invalidate];
         _handRangeLimitJoint = nil;
@@ -113,7 +113,7 @@ static float controlRange = 300;
                 
                 // after the hand has stopped for enough time, apply an impluse to let the hand go back
                 if(_stopTime>=stopDuration){
-                    double impulseScale = _hand.physicsBody.mass*1000;
+                    double impulseScale = _hand.physicsBody.mass*2500;
                     
                     // change the shoot direction to the vector of _initialPosition to hand.position
                     _shootDirection = ccpNormalize(ccpSub(_hand.positionInPoints,_initialPosition));
@@ -149,7 +149,7 @@ static float controlRange = 300;
         }
     }
     
-     
+    
 }
 
 - (void)touchAtLocation:(CGPoint) touchLocation {
@@ -202,20 +202,25 @@ static float controlRange = 300;
 - (BOOL)releaseTouch{
     
     if (isTouched){
+        // check whether the hand is moved or tapped
+        double distance = ccpDistance(_initialPosition,_hand.positionInPoints);
+        if(distance>85){
+            // add an impulse to the hand when the touch is released
+            double impulseScale = _hand.physicsBody.mass*2500;
+            _shootDirection = ccpNormalize(ccpSub(_centerJointNode.positionInPoints,_hand.positionInPoints));
+            [_hand.physicsBody applyImpulse:ccp(_shootDirection.x*impulseScale,_shootDirection.y*impulseScale) atLocalPoint:_hand.anchorPointInPoints];
+            
+            _isReleased = YES;
+            _isGoBack = NO;
+            _stopTime = 0;
+            
+            // after the hand is released, hand can collide with monsters
+            _hand.physicsBody.collisionMask = @[@"monster"];
+        } else {
+            _hand.position = _initialPosition;
+        }
         
-        // add an impulse to the hand when the touch is released
-        double impulseScale = _hand.physicsBody.mass*10;
-        double distance = ccpDistance(_centerJointNode.positionInPoints,_hand.positionInPoints);
-        _shootDirection = ccpNormalize(ccpSub(_centerJointNode.positionInPoints,_hand.positionInPoints));
-        [_hand.physicsBody applyImpulse:ccp(_shootDirection.x*distance*impulseScale,_shootDirection.y*distance*impulseScale) atLocalPoint:_hand.anchorPointInPoints];
-
         isTouched = NO;
-        _isReleased = YES;
-        _isGoBack = NO;
-        _stopTime = 0;
-        
-        // after the hand is released, hand can collide with monsters
-        _hand.physicsBody.collisionMask = @[@"monster"];
         
         // remove the arrow
         [_arrow removeFromParent];
@@ -224,7 +229,7 @@ static float controlRange = 300;
 }
 
 -(void)receiveAttack{
-        [self.animationManager runAnimationsForSequenceNamed:@"beAttacked"];
+    [self.animationManager runAnimationsForSequenceNamed:@"beAttacked"];
 }
 
 @end
