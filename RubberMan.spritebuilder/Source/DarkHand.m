@@ -15,7 +15,7 @@
 -(void)didLoadFromCCB{
     // set up collision type
     self.physicsBody.collisionType = @"hand";
-    self.physicsBody.collisionMask = @[@"monster"];
+    self.physicsBody.collisionMask = @[];
     
     // set up the hand type
     self.range = 800.0;
