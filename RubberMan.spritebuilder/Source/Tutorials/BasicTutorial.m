@@ -9,6 +9,8 @@
 #import "BasicTutorial.h"
 #import "GameEvent.h"
 
+float const secondsBeforeFirstTutorial=2;
+
 @implementation BasicTutorial
 
 + (void)setUp{
@@ -21,17 +23,19 @@
     self = [super init];
     if (self)
     {
-        [self performSelector:@selector(firstTutorial) withObject:nil afterDelay:3];
+        [self performSelector:@selector(firstTutorial) withObject:nil afterDelay:secondsBeforeFirstTutorial];
         
     }
     return self;
 }
 
 - (void)firstTutorial{
-    CCScene* mainScene = [[CCDirector sharedDirector] runningScene];
-    CCNode* tutorialLayer = (CCNode*)[CCBReader load:@"Tutorial/tutorial1"];
-    [GameEvent dispatch:@"PauseMonsters" withArgument:nil];
-    [mainScene addChild:tutorialLayer];
+    if(![[CCDirector sharedDirector] isPaused]){
+        CCScene* mainScene = [[CCDirector sharedDirector] runningScene];
+        CCNode* tutorialLayer = (CCNode*)[CCBReader load:@"Tutorial/tutorial1"];
+        [GameEvent dispatch:@"PauseMonsters" withArgument:nil];
+        [mainScene addChild:tutorialLayer];
+    }
 }
 
 @end

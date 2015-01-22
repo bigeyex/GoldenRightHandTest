@@ -106,10 +106,22 @@
             monsterData.positionY = [positionYNode.stringValue floatValue];
         }
         
+        NSArray *health = [enemyNode elementsForName:@"Health"];
+        if (health.count > 0) {
+            GDataXMLElement *healthNode = (GDataXMLElement *) [health objectAtIndex:0];
+            monsterData.health = [healthNode.stringValue floatValue];
+        }
+        
         NSArray *elementTypes = [enemyNode elementsForName:@"ElementType"];
         if (elementTypes.count > 0) {
             GDataXMLElement *elementTypeNode = (GDataXMLElement *) [elementTypes objectAtIndex:0];
-            monsterData.elementType = [elementTypeNode.stringValue floatValue];
+            monsterData.elementType = [elementTypeNode.stringValue intValue];
+        }
+        
+        NSArray *isElite = [enemyNode elementsForName:@"IsElite"];
+        if (isElite.count > 0) {
+            GDataXMLElement *isEliteNode = (GDataXMLElement *) [isElite objectAtIndex:0];
+            monsterData.isElite = [isEliteNode.stringValue boolValue];
         }
         
         [monsterDataList addObject:monsterData];

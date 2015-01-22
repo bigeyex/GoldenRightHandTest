@@ -13,6 +13,7 @@
 #import "GDataXMLNode.h"
 #import "LevelLoader.h"
 #import "LifeBar.h"
+#import "UIScoreBoard.h"
 
 @implementation BattleScene{
     CCPhysicsNode *_physicsNode;
@@ -25,6 +26,13 @@
     int _totalNumOfMonsters;
     int _monstersKilled;
     NSMutableArray *_skillbox;
+    
+    CCNode* pauseButton;
+    CCNode* pauseMenu;
+    CCNode* gameOverMenu;
+    CCNode* scoreBoardMenu;
+    UIScoreBoard *uiScoreBoard;
+    
 }
 
 - (void)didLoadFromCCB {
@@ -50,6 +58,37 @@
     [super onEnter];
     _totalNumOfMonsters = [_monsterList loadLevel:_levelName];
     _monstersKilled = 0;
+}
+
+- (void)showPauseMenu{
+    [[CCDirector sharedDirector] pause];
+    pauseButton.visible = NO;
+    pauseMenu.visible = YES;
+}
+
+- (void)resumeGame{
+    pauseMenu.visible = NO;
+    gameOverMenu.visible = NO;
+    pauseButton.visible = YES;
+    [[CCDirector sharedDirector] resume];
+}
+
+- (void)restartLevel{
+    CCScene *battleScene = [CCBReader loadAsScene:@"BattleScene"];
+    BattleScene *sceneNode = [[battleScene children] firstObject];
+    sceneNode.levelName = self.levelName;
+    [[CCDirector sharedDirector] resume];
+    [[CCDirector sharedDirector] replaceScene:battleScene];
+}
+
+- (void)goToNextLevel{
+    
+}
+
+- (void)exitToMenu{
+    [[CCDirector sharedDirector] resume];
+    CCScene *winScene = [CCBReader loadAsScene:@"LevelSelectScene"];
+    [[CCDirector sharedDirector] replaceScene:winScene];
 }
 
 - (void)update:(CCTime)delta{
@@ -206,17 +245,22 @@
 }
 
 -(void)battleLose{
-    CCScene *loseScene = [CCBReader loadAsScene:@"LoseScene"];
-    [[CCDirector sharedDirector] replaceScene:loseScene];
+    [[CCDirector sharedDirector] pause];
+    gameOverMenu.visible = YES;
+    pauseMenu.visible = NO;
 }
 
 -(void)battleWin:(CCTime)delta{
-    CCScene *winScene = [CCBReader loadAsScene:@"WinScene"];
-    [[CCDirector sharedDirector] replaceScene:winScene];
+    [[CCDirector sharedDirector] pause];
+    scoreBoardMenu.visible = YES;
+    pauseMenu.visible = NO;
+    
+    // TODO: Implement Score System
+    [uiScoreBoard giveStarForReason:@"Health > 75%"];
+    [uiScoreBoard giveStarForReason:@"Accuracy > 75%"];
+    [uiScoreBoard giveStarForReason:@"Find Sausage"];
+    [uiScoreBoard displayStars];
 }
 
-- (void)pauseGame{
-    _monsterList.paused = YES;
-}
 
 @end

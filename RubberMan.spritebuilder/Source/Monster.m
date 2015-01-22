@@ -16,23 +16,28 @@
     float _stopDuration;
     
     CGPoint _pausedVelocity;
+    
+    CCNode* _hpBar;
+    float _initialHp;
 }
 
 - (void)didLoadFromCCB {
-    _hp = 10;
     _atk = 5;
-    _elementType = 1;
     _speed = 30;
     _isAttacking = NO;
     _atkPeriod = 2.0;
     _isCharging = NO;
-    _isElite = NO; // only elite monster can evade
     self.physicsBody.collisionType = @"monster";
     self.physicsBody.collisionMask = @[@"human",@"hand"];
     self.physicsBody.collisionCategories = @[@"monster"];
     
     [GameEvent subscribe:@"PauseMonsters" forObject:self withSelector:@selector(pauseMonster)];
     [GameEvent subscribe:@"ResumeMonsters" forObject:self withSelector:@selector(resumeMonster)];
+}
+
+-(void)onEnter{
+    [super onEnter];
+    _initialHp = _hp;
 }
 
 - (void)pauseMonster{
@@ -51,6 +56,7 @@
     if(_hp<=0){
         return YES;
     }
+    _hpBar.scaleX = _hp/_initialHp;
     return NO;
 }
 
@@ -92,21 +98,22 @@
 }
 
 -(void)startAttack{
-    
-    // back up the attack position
-    _attackPosition = self.position;
-    _isAttacking = YES;
-    _attackTime = 0.0;
-    
-    // running attacking animations
-    [self.animationManager runAnimationsForSequenceNamed:@"attacking"];
-    
-    // when the attacking animation is completed, runing the moving animations
-    [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
-        if ([self.animationManager.lastCompletedSequenceName isEqualToString:@"attacking"]) {
-            [self.animationManager runAnimationsForSequenceNamed:@"moving"];
-        }
-    }];
+    if(!_isStopped){
+        // back up the attack position
+        _attackPosition = self.position;
+        _isAttacking = YES;
+        _attackTime = 0.0;
+        
+        // running attacking animations
+        [self.animationManager runAnimationsForSequenceNamed:@"attacking"];
+        
+        // when the attacking animation is completed, runing the moving animations
+        [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
+            if ([self.animationManager.lastCompletedSequenceName isEqualToString:@"attacking"]) {
+                [self.animationManager runAnimationsForSequenceNamed:@"moving"];
+            }
+        }];
+    }
 }
 
 - (void)monsterEvade{

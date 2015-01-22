@@ -78,8 +78,20 @@
 			<key>previewFolderHidden</key>
 			<true/>
 		</dict>
+		<key>Monsters/MonsterResources</key>
+		<dict>
+			<key>isDirty</key>
+			<true/>
+			<key>isSmartSpriteSheet</key>
+			<true/>
+		</dict>
 		<key>Sprites</key>
 		<dict/>
+		<key>UI/button-base.png</key>
+		<dict>
+			<key>isDirty</key>
+			<true/>
+		</dict>
 		<key>ccbResources</key>
 		<dict>
 			<key>previewFolderHidden</key>
@@ -163,10 +175,7 @@
 			<integer>1</integer>
 		</dict>
 		<key>iceman</key>
-		<dict>
-			<key>isDirty</key>
-			<true/>
-		</dict>
+		<dict/>
 	</dict>
 	<key>versionStr</key>
 	<string>revision : 71571752ab

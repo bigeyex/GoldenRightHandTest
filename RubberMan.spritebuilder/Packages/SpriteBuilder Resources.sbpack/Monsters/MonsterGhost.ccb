@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>2</integer>
+	<integer>3</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -64,7 +64,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>Monsters/MonsterBat/bat1.png</string>
+										<string>Monsters/MonsterResources/MonsterGhostS1.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -82,7 +82,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>Monsters/MonsterBat/bat2.png</string>
+										<string>Monsters/MonsterResources/MonsterGhostS2.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -100,7 +100,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>Monsters/MonsterBat/bat3.png</string>
+										<string>Monsters/MonsterResources/MonsterGhostS3.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -118,7 +118,7 @@
 									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<string>Monsters/MonsterBat/bat2.png</string>
+										<string>Monsters/MonsterResources/MonsterGhostS2.png</string>
 										<string>Use regular file</string>
 									</array>
 								</dict>
@@ -355,7 +355,7 @@
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>bat1</string>
+				<string>Ghost</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -436,7 +436,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Monsters/MonsterBat/bat1.png</string>
+							<string>Monsters/MonsterResources/MonsterGhostS2.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -475,9 +475,110 @@
 				<key>seqExpanded</key>
 				<true/>
 			</dict>
+			<dict>
+				<key>UUID</key>
+				<integer>2</integer>
+				<key>baseClass</key>
+				<string>CCNodeColor</string>
+				<key>children</key>
+				<array/>
+				<key>customClass</key>
+				<string></string>
+				<key>displayName</key>
+				<string>CCNodeColor</string>
+				<key>memberVarAssignmentName</key>
+				<string>_hpBar</string>
+				<key>memberVarAssignmentType</key>
+				<integer>1</integer>
+				<key>properties</key>
+				<array>
+					<dict>
+						<key>name</key>
+						<string>name</string>
+						<key>type</key>
+						<string>StringSimple</string>
+						<key>value</key>
+						<string></string>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>position</string>
+						<key>type</key>
+						<string>Position</string>
+						<key>value</key>
+						<array>
+							<real>-33</real>
+							<real>35</real>
+							<integer>0</integer>
+							<integer>0</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>contentSize</string>
+						<key>type</key>
+						<string>Size</string>
+						<key>value</key>
+						<array>
+							<real>70</real>
+							<real>2</real>
+							<integer>0</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>anchorPoint</string>
+						<key>type</key>
+						<string>Point</string>
+						<key>value</key>
+						<array>
+							<real>0.0</real>
+							<real>0.0</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>scale</string>
+						<key>type</key>
+						<string>ScaleLock</string>
+						<key>value</key>
+						<array>
+							<real>1</real>
+							<real>1</real>
+							<false/>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>color</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<real>0.87000000476837158</real>
+							<real>0.23955635726451874</real>
+							<real>0.30936348438262939</real>
+							<real>1</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>opacity</string>
+						<key>type</key>
+						<string>Float</string>
+						<key>value</key>
+						<real>1</real>
+					</dict>
+				</array>
+				<key>selected</key>
+				<true/>
+			</dict>
 		</array>
 		<key>customClass</key>
-		<string>MonsterBat</string>
+		<string>MonsterGhost</string>
 		<key>displayName</key>
 		<string>CCSprite</string>
 		<key>memberVarAssignmentName</key>
@@ -610,8 +711,6 @@
 				<array/>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
@@ -667,7 +766,7 @@
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.0</real>
+			<real>0.1666666716337204</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
