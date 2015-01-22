@@ -157,6 +157,12 @@ static float controlRange = 300;
     // connect the hand touched by the user to a mouse joint at the touchLocation, when the hand is in the status of being released, the touch is invalid
     if ((!_isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
     {
+        // if the touch is on the right side of body, adjust it
+        if(touchLocation.x>_centerJointNode.positionInPoints.x){
+            touchLocation = CGPointMake(_centerJointNode.positionInPoints.x,touchLocation.y);
+        }
+        
+        // constrain the max moving distance of the hand to be within controlRange
         CGPoint controlVector = ccpSub(touchLocation,_centerJointNode.positionInPoints);
         _shootDirection = ccpNormalize(ccpNeg(controlVector));
         _hand.position = ccpAdd(ccpNeg(ccpMult(_shootDirection,MIN(controlRange,ccpLength(controlVector)))),_centerJointNode.positionInPoints);
@@ -178,6 +184,12 @@ static float controlRange = 300;
 - (void)updateTouchLocation:(CGPoint) touchLocation {
     // update the position of mouse joint with touchLocation
     if (isTouched){
+        // if the touch is on the right side of body, adjust it
+        if(touchLocation.x>_centerJointNode.positionInPoints.x){
+            touchLocation = CGPointMake(_centerJointNode.positionInPoints.x,touchLocation.y);
+        }
+        
+        // constrain the max moving distance of the hand to be within controlRange
         CGPoint controlVector = ccpSub(touchLocation,_centerJointNode.positionInPoints);
         _shootDirection = ccpNormalize(ccpNeg(controlVector));
         _hand.position = ccpAdd(ccpNeg(ccpMult(_shootDirection,MIN(controlRange,ccpLength(controlVector)))),_centerJointNode.positionInPoints);
