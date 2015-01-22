@@ -76,6 +76,8 @@
     monster.positionType = CCPositionTypeNormalized;
     monster.position = ccp(self.positionX, self.positionY);
     monster.elementType = self.elementType;
+    monster.isElite = self.isElite;
+    monster.hp = self.health;
     return monster;
 }
 

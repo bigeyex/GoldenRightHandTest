@@ -17,8 +17,9 @@
 @property int number;
 @property CGFloat positionY;
 @property CGFloat positionX;
-@property int health;
+@property float health;
 @property int elementType;
+@property BOOL isElite;
 
 + (id)fromSpriteName: (NSString*) spriteName;
 - (id)initWithSpriteName: (NSString*) spriteName;
