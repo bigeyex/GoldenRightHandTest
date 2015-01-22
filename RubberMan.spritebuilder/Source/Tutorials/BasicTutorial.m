@@ -30,10 +30,12 @@ float const secondsBeforeFirstTutorial=2;
 }
 
 - (void)firstTutorial{
-    CCScene* mainScene = [[CCDirector sharedDirector] runningScene];
-    CCNode* tutorialLayer = (CCNode*)[CCBReader load:@"Tutorial/tutorial1"];
-    [GameEvent dispatch:@"PauseMonsters" withArgument:nil];
-    [mainScene addChild:tutorialLayer];
+    if(![[CCDirector sharedDirector] isPaused]){
+        CCScene* mainScene = [[CCDirector sharedDirector] runningScene];
+        CCNode* tutorialLayer = (CCNode*)[CCBReader load:@"Tutorial/tutorial1"];
+        [GameEvent dispatch:@"PauseMonsters" withArgument:nil];
+        [mainScene addChild:tutorialLayer];
+    }
 }
 
 @end

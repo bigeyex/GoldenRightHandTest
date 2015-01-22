@@ -13,6 +13,5 @@
 @property NSString *levelName;
 
 
-- (void)pauseGame;
 
 @end
