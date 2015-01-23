@@ -211,37 +211,39 @@
 }
 
 -(void)changeHand{
-    int elementType = 0;
-    NSString *ccbName = @"Hand";
-    
-    if(_skillbox1.highlighted){
-        elementType = 0;
-        ccbName = @"FireHand";
-    } else if(_skillbox2.highlighted){
-        elementType = 1;
-        ccbName = @"IceHand";
-    } else if(_skillbox3.highlighted){
-        elementType = 2;
-        ccbName = @"DarkHand";
+    if(_player.isTouched){
+        int elementType = 0;
+        NSString *ccbName = @"Hand";
+        
+        if(_skillbox1.highlighted){
+            elementType = 0;
+            ccbName = @"FireHand";
+        } else if(_skillbox2.highlighted){
+            elementType = 1;
+            ccbName = @"IceHand";
+        } else if(_skillbox3.highlighted){
+            elementType = 2;
+            ccbName = @"DarkHand";
+        }
+        
+        // recover the unused player mana
+        if((_player.hand.handType!=-1)&&(_player.hand.skillTimes)){
+            _player.mana[_player.hand.handType] = [_player.mana[_player.hand.handType] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d", _player.skillcost]]];
+            [_skillbox[_player.hand.handType] setEnabled:YES];
+        }
+        
+        // player's mana is decreased by skill cost
+        _player.mana[elementType] = [_player.mana[elementType] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d", _player.skillcost]]];
+        
+        // remove the normal hand
+        [_player removeHand];
+        
+        // add the new fire hand
+        [_player addHandwithName:ccbName];
+        
+        // disable the skill button if mana is insufficient
+        [_skillbox[elementType] setEnabled:NO];
     }
-    
-    // recover the unused player mana
-    if((_player.hand.handType!=-1)&&(_player.hand.skillTimes)){
-        _player.mana[_player.hand.handType] = [_player.mana[_player.hand.handType] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d", _player.skillcost]]];
-        [_skillbox[_player.hand.handType] setEnabled:YES];
-    }
-    
-    // player's mana is decreased by skill cost
-    _player.mana[elementType] = [_player.mana[elementType] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d", _player.skillcost]]];
-    
-    // remove the normal hand
-    [_player removeHand];
-    
-    // add the new fire hand
-    [_player addHandwithName:ccbName];
-    
-    // disable the skill button if mana is insufficient
-    [_skillbox[elementType] setEnabled:NO];
 }
 
 -(void)battleLose{

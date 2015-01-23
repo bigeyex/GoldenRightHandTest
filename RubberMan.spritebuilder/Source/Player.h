@@ -17,6 +17,7 @@
 @property BOOL isStopTimeReached;
 @property BOOL isGoBack;
 @property BOOL isReleased;
+@property BOOL isTouched;
 @property float playerHP;
 @property CCNode *centerJointNode;
 @property CGPoint handPositionAtHit;
