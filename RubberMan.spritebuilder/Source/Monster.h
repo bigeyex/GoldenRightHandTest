@@ -8,7 +8,6 @@
 
 #import "CCSprite.h"
 @class MonsterData;
-#import "Hand.h"
 
 @interface Monster : CCSprite
 

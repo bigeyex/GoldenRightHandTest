@@ -22,7 +22,7 @@
     _level = [NSMutableArray arrayWithObjects:_level1,_level2,_level3,_level4,nil];
     _levelNames = [NSMutableArray arrayWithObjects:@"level1",@"level2",@"level3",@"level4",nil];
     
-    // obtain the information the stars of each comleted level
+    // obtain the information of the stars of each comleted level
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     int numOfLevels = 4;
