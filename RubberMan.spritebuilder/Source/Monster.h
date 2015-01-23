@@ -18,7 +18,7 @@
 @property float speed;
 @property BOOL isAttacking;
 @property float atkPeriod;
-@property BOOL isCharging;
+@property BOOL isEvading;
 @property BOOL isStopped;
 @property BOOL isElite;
 

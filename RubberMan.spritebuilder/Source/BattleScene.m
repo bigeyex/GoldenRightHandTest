@@ -50,8 +50,6 @@
     for (int i=0;i<=2;i++){
         [_skillbox[i] setEnabled:NO];
     }
-    
-    
 }
 
 - (void)onEnter{
@@ -262,6 +260,12 @@
     [uiScoreBoard giveStarForReason:@"Accuracy > 75%"];
     [uiScoreBoard giveStarForReason:@"Find Sausage"];
     [uiScoreBoard displayStars];
+    
+    // save the star of current level
+    int stars = 3;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithInt:stars] forKey:_levelName];
+    [defaults synchronize];
 }
 
 
