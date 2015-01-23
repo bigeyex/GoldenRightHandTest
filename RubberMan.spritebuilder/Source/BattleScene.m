@@ -211,7 +211,7 @@
 }
 
 -(void)changeHand{
-    if(_player.isTouched){
+    if(!_player.isTouched){
         int elementType = 0;
         NSString *ccbName = @"Hand";
         
