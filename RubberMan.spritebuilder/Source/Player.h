@@ -8,7 +8,6 @@
 
 #import "CCNode.h"
 #import "Hand.h"
-#import "FireHand.h"
 
 @interface Player : CCNode
 
