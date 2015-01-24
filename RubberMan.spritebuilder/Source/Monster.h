@@ -12,7 +12,7 @@
 @interface Monster : CCSprite
 
 @property float hp;
-@property int elementType; // 0 for fire, 1 for ice ...
+@property NSString *elementType; // fire, ice and dark
 @property float atk;
 @property float speed;
 @property BOOL isAttacking;

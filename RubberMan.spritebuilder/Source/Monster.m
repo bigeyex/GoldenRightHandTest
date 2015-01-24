@@ -137,6 +137,7 @@ CGFloat const outOfBoundThreshold=10;
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 30;
+    self.elementType = @"ice";
 }
 
 -(void)monsterEvade{
@@ -157,6 +158,7 @@ CGFloat const outOfBoundThreshold=10;
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 40;
+    self.elementType = @"fire";
 }
 
 -(void)monsterEvade{
@@ -177,6 +179,7 @@ CGFloat const outOfBoundThreshold=10;
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 50;
+    self.elementType = @"dark";
 }
 
 -(void)monsterEvade{

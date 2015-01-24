@@ -121,12 +121,6 @@
             monsterData.health = [healthNode.stringValue floatValue];
         }
         
-        NSArray *elementTypes = [enemyNode elementsForName:@"ElementType"];
-        if (elementTypes.count > 0) {
-            GDataXMLElement *elementTypeNode = (GDataXMLElement *) [elementTypes objectAtIndex:0];
-            monsterData.elementType = [elementTypeNode.stringValue intValue];
-        }
-        
         NSArray *isElite = [enemyNode elementsForName:@"IsElite"];
         if (isElite.count > 0) {
             GDataXMLElement *isEliteNode = (GDataXMLElement *) [isElite objectAtIndex:0];
