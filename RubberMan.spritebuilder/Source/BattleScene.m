@@ -50,6 +50,12 @@
     for (int i=0;i<=2;i++){
         [_skillbox[i] setEnabled:NO];
     }
+    
+    // play bgm
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    // play background sound
+    [audio playBg:@"iceloop.mp3" loop:TRUE];
+    
 }
 
 - (void)onEnter{
@@ -187,7 +193,7 @@
         
         int numOfMonstersNew = (int)[_monsterList.children count];
         _monstersKilled = _monstersKilled + numOfMonstersOld - numOfMonstersNew;
-        if(_monstersKilled == _totalNumOfMonsters){
+        if([self satifsyWinningCondition]){
             [self scheduleOnce:@selector(battleWin:) delay:2.0f];
         }
     }
@@ -241,6 +247,15 @@
         
         // disable the skill button if mana is insufficient
         [_skillbox[elementType] setEnabled:NO];
+    }
+}
+
+- (BOOL)satifsyWinningCondition{
+    if(![_monsterList hasMoreMonsters] && ([_monsterList children].count==0)){
+        return YES;
+    }
+    else{
+        return NO;
     }
 }
 

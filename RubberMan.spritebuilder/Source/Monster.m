@@ -94,6 +94,7 @@
             _isStopped = NO;
         }
     }
+    
 }
 
 -(void)startAttack{
