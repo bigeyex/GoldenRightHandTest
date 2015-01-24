@@ -125,6 +125,7 @@
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 30;
+    self.elementType = @"ice";
 }
 
 -(void)monsterEvade{
@@ -145,6 +146,7 @@
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 40;
+    self.elementType = @"fire";
 }
 
 -(void)monsterEvade{
@@ -165,6 +167,7 @@
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 50;
+    self.elementType = @"dark";
 }
 
 -(void)monsterEvade{

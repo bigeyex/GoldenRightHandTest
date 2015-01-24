@@ -14,18 +14,16 @@
 #import "LevelLoader.h"
 #import "LifeBar.h"
 #import "UIScoreBoard.h"
+#import "SkillButtonUI.h"
 
 @implementation BattleScene{
     CCPhysicsNode *_physicsNode;
     Player *_player;
     LevelLoader *_monsterList;
     LifeBar *_playerLifeBar;
-    CCButton *_skillbox1;
-    CCButton *_skillbox2;
-    CCButton *_skillbox3;
     int _totalNumOfMonsters;
     int _monstersKilled;
-    NSMutableArray *_skillbox;
+    SkillButtonUI *_skillButton;
     
     CCNode* pauseButton;
     CCNode* pauseMenu;
@@ -45,16 +43,12 @@
     // sign up as the collision delegate of physics node
     _physicsNode.collisionDelegate = self;
     
-    // disable the button
-    _skillbox = [NSMutableArray arrayWithObjects:_skillbox1,_skillbox2,_skillbox3,nil];
-    for (int i=0;i<=2;i++){
-        [_skillbox[i] setEnabled:NO];
-    }
-    
     // play bgm
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     // play background sound
     [audio playBg:@"iceloop.mp3" loop:TRUE];
+    
+    [_skillButton.children[0] setEnabled:NO];
     
 }
 
@@ -177,18 +171,17 @@
         nodeA.physicsBody.velocity = ccp(0,0);
         
         if(isDefeated){
-            // player's mana is increased by 1
-            _player.mana[nodeA.elementType] = [_player.mana[nodeA.elementType] decimalNumberByAdding:[NSDecimalNumber one]];
-            
             // remove the monster from the scene
             [nodeA removeFromParent];
             
-            // enable the skill button if the mana is enough
-            for (int i=0;i<=2;i++){
-                if([_player.mana[i] intValue]>=_player.skillcost){
-                    [_skillbox[i] setEnabled:YES];
-                }
+            // assign the element type to the skill button ui
+            _skillButton.lowerRightElement = _skillButton.lowerLeftElement;
+            _skillButton.lowerLeftElement = _skillButton.upperElement;
+            _skillButton.upperElement = nodeA.elementType;
+            if(![_skillButton.lowerRightElement isEqualToString:@"none"]){
+                [_skillButton.children[0] setEnabled:YES];
             }
+            
         }
         
         int numOfMonstersNew = (int)[_monsterList.children count];
@@ -212,42 +205,6 @@
             }
         }
     } key:nodeA];
-}
-
--(void)changeHand{
-    if(!_player.isTouched){
-        int elementType = 0;
-        NSString *ccbName = @"Hand";
-        
-        if(_skillbox1.highlighted){
-            elementType = 0;
-            ccbName = @"FireHand";
-        } else if(_skillbox2.highlighted){
-            elementType = 1;
-            ccbName = @"IceHand";
-        } else if(_skillbox3.highlighted){
-            elementType = 2;
-            ccbName = @"DarkHand";
-        }
-        
-        // recover the unused player mana
-        if((_player.hand.handType!=-1)&&(_player.hand.skillTimes)){
-            _player.mana[_player.hand.handType] = [_player.mana[_player.hand.handType] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d", _player.skillcost]]];
-            [_skillbox[_player.hand.handType] setEnabled:YES];
-        }
-        
-        // player's mana is decreased by skill cost
-        _player.mana[elementType] = [_player.mana[elementType] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d", _player.skillcost]]];
-        
-        // remove the normal hand
-        [_player removeHand];
-        
-        // add the new fire hand
-        [_player addHandwithName:ccbName];
-        
-        // disable the skill button if mana is insufficient
-        [_skillbox[elementType] setEnabled:NO];
-    }
 }
 
 - (BOOL)satifsyWinningCondition{
@@ -283,5 +240,61 @@
     [defaults synchronize];
 }
 
+-(void)activateSkill{
+    NSDictionary *map = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:0],@"fire",[NSNumber numberWithInt:1],@"ice",[NSNumber numberWithInt:2],@"dark", nil];
+    int skillOptions = [map[_skillButton.upperElement] intValue] + [map[_skillButton.lowerLeftElement] intValue] + [map[_skillButton.lowerRightElement] intValue];
+    switch(skillOptions){
+        case 0:
+            // remove the normal hand
+            [_player removeHand];
+            
+            // add the new fire hand
+            [_player addHandwithName:@"FireHand"];
+            
+            break;
+        
+        case 1:
+            break;
+            
+        case 2:
+            break;
+            
+        case 3:
+            // remove the normal hand
+            [_player removeHand];
+            
+            // add the new fire hand
+            [_player addHandwithName:@"IceHand"];
+            
+            break;
+            
+        case 4:
+            break;
+            
+        case 5:
+            break;
+            
+        case 6:
+            break;
+            
+        case 7:
+            break;
+            
+        case 8:
+            break;
+            
+        case 9:
+            // remove the normal hand
+            [_player removeHand];
+            
+            // add the new fire hand
+            [_player addHandwithName:@"DarkHand"];
+            
+            break;
+    }
+    
+    [_skillButton resetElement];
+    [_skillButton.children[0] setEnabled:NO];
+}
 
 @end

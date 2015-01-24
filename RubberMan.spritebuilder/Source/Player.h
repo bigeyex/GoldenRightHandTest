@@ -20,8 +20,6 @@
 @property float playerHP;
 @property CCNode *centerJointNode;
 @property CGPoint handPositionAtHit;
-@property NSMutableArray *mana;
-@property int skillcost;
 @property CGPoint shootDirection;
 
 - (void)touchAtLocation:(CGPoint) touchLocation;

@@ -53,10 +53,6 @@ static float controlRange = 300;
     _isTouched = NO;
     _isReleased = NO;
     _initialPosition = _hand.position;
-    _skillcost = 3;
-    
-    // there are three element type, fire, ice and dark
-    _mana = [NSMutableArray arrayWithObjects:[NSDecimalNumber zero], [NSDecimalNumber zero],[NSDecimalNumber zero],nil];
 }
 
 -(void)addHandwithName:(NSString *)ccbName{

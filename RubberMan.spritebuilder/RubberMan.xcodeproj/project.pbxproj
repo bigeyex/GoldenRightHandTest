@@ -110,6 +110,7 @@
 		D24D0E911A6B8D5400DA162E /* level3.xml in Resources */ = {isa = PBXBuildFile; fileRef = D24D0E901A6B8D5400DA162E /* level3.xml */; };
 		D24D0E931A6B8D6F00DA162E /* level4.xml in Resources */ = {isa = PBXBuildFile; fileRef = D24D0E921A6B8D6F00DA162E /* level4.xml */; };
 		D24D0E961A6B91AF00DA162E /* BattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D24D0E951A6B91AF00DA162E /* BattleScene.m */; };
+		D29481F51A7408AD002B597D /* SkillButtonUI.m in Sources */ = {isa = PBXBuildFile; fileRef = D29481F41A7408AD002B597D /* SkillButtonUI.m */; };
 		D2E8845E1A64D999004423FC /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E8845D1A64D999004423FC /* Player.m */; };
 		D2E884791A64F2F6004423FC /* Monster.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E884781A64F2F6004423FC /* Monster.m */; };
 /* End PBXBuildFile section */
@@ -278,6 +279,8 @@
 		D24D0E921A6B8D6F00DA162E /* level4.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level4.xml; sourceTree = "<group>"; };
 		D24D0E941A6B91AF00DA162E /* BattleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BattleScene.h; path = Source/BattleScene.h; sourceTree = "<group>"; };
 		D24D0E951A6B91AF00DA162E /* BattleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BattleScene.m; path = Source/BattleScene.m; sourceTree = "<group>"; };
+		D29481F31A7408AD002B597D /* SkillButtonUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkillButtonUI.h; path = Source/SkillButtonUI.h; sourceTree = "<group>"; };
+		D29481F41A7408AD002B597D /* SkillButtonUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkillButtonUI.m; path = Source/SkillButtonUI.m; sourceTree = "<group>"; };
 		D2E8845C1A64D999004423FC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Source/Player.h; sourceTree = "<group>"; };
 		D2E8845D1A64D999004423FC /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = Source/Player.m; sourceTree = "<group>"; };
 		D2E884771A64F2F6004423FC /* Monster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Monster.h; path = Source/Monster.h; sourceTree = "<group>"; };
@@ -585,6 +588,8 @@
 				88A231611A719EC600EA3E2E /* UIScoreBoard.m */,
 				88A231631A71B1D800EA3E2E /* LevelClearScreenStar.h */,
 				88A231641A71B1D800EA3E2E /* LevelClearScreenStar.m */,
+				D29481F31A7408AD002B597D /* SkillButtonUI.h */,
+				D29481F41A7408AD002B597D /* SkillButtonUI.m */,
 			);
 			name = UIClasses;
 			sourceTree = "<group>";
@@ -1039,6 +1044,7 @@
 				88A231651A71B1D800EA3E2E /* LevelClearScreenStar.m in Sources */,
 				8898925B1A6F456C00011AE8 /* GameEvent.m in Sources */,
 				88A231621A719EC600EA3E2E /* UIScoreBoard.m in Sources */,
+				D29481F51A7408AD002B597D /* SkillButtonUI.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				8808EA1B1A6893AC0020AB90 /* MonsterData.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
