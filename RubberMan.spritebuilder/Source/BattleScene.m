@@ -241,55 +241,47 @@
 }
 
 -(void)activateSkill{
-    NSDictionary *map = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:0],@"fire",[NSNumber numberWithInt:1],@"ice",[NSNumber numberWithInt:2],@"dark", nil];
-    int skillOptions = [map[_skillButton.upperElement] intValue] + [map[_skillButton.lowerLeftElement] intValue] + [map[_skillButton.lowerRightElement] intValue];
+    NSDictionary *map = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:1],@"fire",[NSNumber numberWithInt:2],@"ice",[NSNumber numberWithInt:3],@"dark", nil];
+    int skillOptions = [map[_skillButton.upperElement] intValue] * [map[_skillButton.lowerLeftElement] intValue] * [map[_skillButton.lowerRightElement] intValue];
     switch(skillOptions){
-        case 0:
-            // remove the normal hand
+        case 1: // fire * fire * fire
+
             [_player removeHand];
-            
-            // add the new fire hand
             [_player addHandwithName:@"FireHand"];
-            
             break;
         
-        case 1:
+        case 2: // fire * fire * ice
             break;
             
-        case 2:
+        case 3: // fire * fire * dark
             break;
             
-        case 3:
-            // remove the normal hand
+        case 4: // fire * ice * ice
+            
+            break;
+            
+        case 6: // fire * ice * dark
+            break;
+            
+        case 8: // ice * ice * ice
+            
             [_player removeHand];
-            
-            // add the new fire hand
             [_player addHandwithName:@"IceHand"];
-            
             break;
             
-        case 4:
+        case 9: // fire * dark * dark
             break;
             
-        case 5:
+        case 12: // ice * ice * dark
             break;
             
-        case 6:
+        case 18: // ice * dark * dark
             break;
             
-        case 7:
-            break;
-            
-        case 8:
-            break;
-            
-        case 9:
-            // remove the normal hand
+        case 27: // dark * dark * dark
+
             [_player removeHand];
-            
-            // add the new fire hand
             [_player addHandwithName:@"DarkHand"];
-            
             break;
     }
     

@@ -24,8 +24,13 @@
 
 -(void) resetElement{
     _upperElement = @"none";
+    [self removeChildByName:@"upper"];
+    
     _lowerLeftElement = @"none";
+    [self removeChildByName:@"lowerLeft"];
+
     _lowerRightElement =@"none";
+    [self removeChildByName:@"lowerRight"];
 }
 
 -(void)setUpperElement:(NSString *)newString{
