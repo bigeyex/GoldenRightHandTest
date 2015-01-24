@@ -9,6 +9,8 @@
 #import "Monster.h"
 #import "GameEvent.h"
 
+CGFloat const outOfBoundThreshold=10;
+
 @implementation Monster{
     CGPoint _moveDirection;
     CGPoint _attackPosition;
@@ -93,6 +95,16 @@
         if(_stopDuration<=0){
             _isStopped = NO;
         }
+    }
+    
+    CGRect ub = self.boundingBox;
+    CGRect pb = self.parent.boundingBox;
+    if(ub.origin.x+ub.size.width+outOfBoundThreshold < pb.origin.x ||
+       ub.origin.y+ub.size.height+outOfBoundThreshold < pb.origin.y ||
+       ub.origin.x > pb.origin.x+pb.size.width+outOfBoundThreshold ||
+       ub.origin.y > pb.origin.y+pb.size.height+outOfBoundThreshold){
+        [self removeFromParent];
+        [GameEvent dispatch:@"MonsterRemoved" withArgument:nil];
     }
     
 }

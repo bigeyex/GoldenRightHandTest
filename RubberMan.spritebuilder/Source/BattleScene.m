@@ -14,6 +14,7 @@
 #import "LevelLoader.h"
 #import "LifeBar.h"
 #import "UIScoreBoard.h"
+#import "GameEvent.h"
 
 @implementation BattleScene{
     CCPhysicsNode *_physicsNode;
@@ -55,6 +56,8 @@
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     // play background sound
     [audio playBg:@"iceloop.mp3" loop:TRUE];
+    
+    [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(checkWinningCondition)];
     
 }
 
@@ -191,11 +194,6 @@
             }
         }
         
-        int numOfMonstersNew = (int)[_monsterList.children count];
-        _monstersKilled = _monstersKilled + numOfMonstersOld - numOfMonstersNew;
-        if([self satifsyWinningCondition]){
-            [self scheduleOnce:@selector(battleWin:) delay:2.0f];
-        }
     }
 }
 
@@ -263,6 +261,12 @@
     [[CCDirector sharedDirector] pause];
     gameOverMenu.visible = YES;
     pauseMenu.visible = NO;
+}
+
+- (void)checkWinningCondition{
+    if([self satifsyWinningCondition]){
+        [self scheduleOnce:@selector(battleWin:) delay:2.0f];
+    }
 }
 
 -(void)battleWin:(CCTime)delta{
