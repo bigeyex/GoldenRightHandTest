@@ -1023,8 +1023,6 @@
 						<array/>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 				<key>seqExpanded</key>
 				<true/>
 			</dict>
@@ -1075,7 +1073,7 @@
 						<key>value</key>
 						<array>
 							<real>50</real>
-							<real>2</real>
+							<real>4</real>
 							<integer>0</integer>
 							<integer>0</integer>
 						</array>

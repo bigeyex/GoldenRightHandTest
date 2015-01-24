@@ -35,6 +35,15 @@
     self.paused = NO;
 }
 
+- (BOOL)hasMoreMonsters{
+    if(monsterDataList.count != 0){
+        return YES;
+    }
+    else{
+        return NO;
+    }
+}
+
 - (void)update:(CCTime)delta{
     timeSinceStarted += delta;
     

@@ -80,18 +80,13 @@
 		</dict>
 		<key>Monsters/MonsterResources</key>
 		<dict>
-			<key>isDirty</key>
-			<true/>
 			<key>isSmartSpriteSheet</key>
 			<true/>
 		</dict>
 		<key>Sprites</key>
 		<dict/>
 		<key>UI/button-base.png</key>
-		<dict>
-			<key>isDirty</key>
-			<true/>
-		</dict>
+		<dict/>
 		<key>ccbResources</key>
 		<dict>
 			<key>previewFolderHidden</key>

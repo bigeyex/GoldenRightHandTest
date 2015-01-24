@@ -1,14 +1,54 @@
 <LevelData>
     <MonsterData>
         <Monster>
-            <SpriteName>MonsterBat</SpriteName>
+            <SpriteName>MonsterWalker</SpriteName>
             <EnterTime>0</EnterTime>
-            <Number>3</Number>
-            <RespawnInterval>5</RespawnInterval>
-            <PositionY>0.6</PositionY>
-            <Health>5</Health>
-            <ElementType>0</ElementType>
+            <Number>6</Number>
+            <RespawnInterval>3</RespawnInterval>
+            <PositionY>0.1</PositionY>
+            <Health>10</Health>
+            <ElementType>1</ElementType>
             <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterGhost</SpriteName>
+            <EnterTime>0</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>6</RespawnInterval>
+            <PositionY>0.6</PositionY>
+            <Health>10</Health>
+            <ElementType>2</ElementType>
+            <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterGhost</SpriteName>
+            <EnterTime>3</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>6</RespawnInterval>
+            <PositionY>0.6</PositionY>
+            <Health>10</Health>
+            <ElementType>2</ElementType>
+            <IsElite>1</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterGhost</SpriteName>
+            <EnterTime>9</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>6</RespawnInterval>
+            <PositionY>0.6</PositionY>
+            <Health>10</Health>
+            <ElementType>2</ElementType>
+            <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterGhost</SpriteName>
+            <EnterTime>12</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>6</RespawnInterval>
+            <PositionY>0.6</PositionY>
+            <Health>10</Health>
+            <ElementType>2</ElementType>
+            <IsElite>1</IsElite>
         </Monster>
     </MonsterData>
 </LevelData>

@@ -8,7 +8,6 @@
 
 #import "CCSprite.h"
 @class MonsterData;
-#import "Hand.h"
 
 @interface Monster : CCSprite
 
@@ -18,7 +17,7 @@
 @property float speed;
 @property BOOL isAttacking;
 @property float atkPeriod;
-@property BOOL isCharging;
+@property BOOL isEvading;
 @property BOOL isStopped;
 @property BOOL isElite;
 
@@ -36,5 +35,9 @@
 @end
 
 @interface MonsterBat : Monster
+
+@end
+
+@interface MonsterGhost : Monster
 
 @end

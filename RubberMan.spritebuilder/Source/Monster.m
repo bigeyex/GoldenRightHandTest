@@ -23,10 +23,9 @@
 
 - (void)didLoadFromCCB {
     _atk = 5;
-    _speed = 30;
     _isAttacking = NO;
     _atkPeriod = 2.0;
-    _isCharging = NO;
+    _isEvading = NO;
     self.physicsBody.collisionType = @"monster";
     self.physicsBody.collisionMask = @[@"human",@"hand"];
     self.physicsBody.collisionCategories = @[@"monster"];
@@ -72,7 +71,7 @@
 
 -(void)update:(CCTime)delta{
     
-    if(!_isCharging){
+    if(!_isEvading){
         //_moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
         _moveDirection = ccp(-1,0);
         self.physicsBody.velocity = CGPointMake((_isStopped?0:1)*self.speed * _moveDirection.x,(_isStopped?0:1)*self.speed * _moveDirection.y);
@@ -95,6 +94,7 @@
             _isStopped = NO;
         }
     }
+    
 }
 
 -(void)startAttack{
@@ -124,13 +124,18 @@
 
 @implementation MonsterWalker
 
+-(void)didLoadFromCCB{
+    [super didLoadFromCCB];
+    self.speed = 30;
+}
+
 -(void)monsterEvade{
     if(!self.isStopped){
-        self.isCharging = YES;
+        self.isEvading = YES;
         self.physicsBody.velocity = ccp(0,0);
         CGPoint previousPosition = self.position;
         id jumpSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0,0.25)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
-            self.isCharging = NO;}],nil];
+            self.isEvading = NO;}],nil];
         [self runAction:jumpSequence];
     }
 }
@@ -139,13 +144,38 @@
 
 @implementation MonsterBat
 
+-(void)didLoadFromCCB{
+    [super didLoadFromCCB];
+    self.speed = 40;
+}
+
 -(void)monsterEvade{
     if(!self.isStopped){
-        self.isCharging = YES;
+        self.isEvading = YES;
         self.physicsBody.velocity = ccp(0,0);
         CGPoint previousPosition = self.position;
         id jumpSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0.25,0)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
-            self.isCharging = NO;}],nil];
+            self.isEvading = NO;}],nil];
+        [self runAction:jumpSequence];
+    }
+}
+
+@end
+
+@implementation MonsterGhost
+
+-(void)didLoadFromCCB{
+    [super didLoadFromCCB];
+    self.speed = 50;
+}
+
+-(void)monsterEvade{
+    if(!self.isStopped){
+        self.isEvading = YES;
+        self.physicsBody.velocity = ccp(0,0);
+        CGPoint previousPosition = self.position;
+        id jumpSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0.25,0)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
+            self.isEvading = NO;}],nil];
         [self runAction:jumpSequence];
     }
 }

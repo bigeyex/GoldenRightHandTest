@@ -11,6 +11,6 @@
 @interface LevelLoader : CCNode
 
 - (int)loadLevel:(NSString*)levelName;
-
+- (BOOL)hasMoreMonsters;
 
 @end

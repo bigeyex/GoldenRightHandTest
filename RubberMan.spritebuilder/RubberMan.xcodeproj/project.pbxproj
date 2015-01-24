@@ -56,6 +56,7 @@
 		8898925B1A6F456C00011AE8 /* GameEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8898925A1A6F456C00011AE8 /* GameEvent.m */; };
 		889892621A6F4F4A00011AE8 /* BasicTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 889892611A6F4F4A00011AE8 /* BasicTutorial.m */; };
 		8898927D1A6F6CD900011AE8 /* TutorialNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8898927C1A6F6CD900011AE8 /* TutorialNode.m */; };
+		88A21F891A72172E00BC9A9C /* iceloop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 88A21F881A72172E00BC9A9C /* iceloop.mp3 */; };
 		88A231621A719EC600EA3E2E /* UIScoreBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A231611A719EC600EA3E2E /* UIScoreBoard.m */; };
 		88A231651A71B1D800EA3E2E /* LevelClearScreenStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A231641A71B1D800EA3E2E /* LevelClearScreenStar.m */; };
 		927F619E196C771E000F43EF /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B7378993180767190076A88C /* MainScene.m */; };
@@ -109,11 +110,6 @@
 		D24D0E911A6B8D5400DA162E /* level3.xml in Resources */ = {isa = PBXBuildFile; fileRef = D24D0E901A6B8D5400DA162E /* level3.xml */; };
 		D24D0E931A6B8D6F00DA162E /* level4.xml in Resources */ = {isa = PBXBuildFile; fileRef = D24D0E921A6B8D6F00DA162E /* level4.xml */; };
 		D24D0E961A6B91AF00DA162E /* BattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D24D0E951A6B91AF00DA162E /* BattleScene.m */; };
-		D24D0EA41A6BA17C00DA162E /* WinScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D24D0EA31A6BA17C00DA162E /* WinScene.m */; };
-		D24D0EA81A6BA18F00DA162E /* LoseScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D24D0EA71A6BA18F00DA162E /* LoseScene.m */; };
-		D2920FE41A6AD8EB00B45C85 /* IceHand.m in Sources */ = {isa = PBXBuildFile; fileRef = D2920FE31A6AD8EA00B45C85 /* IceHand.m */; };
-		D29210061A6AEA8E00B45C85 /* DarkHand.m in Sources */ = {isa = PBXBuildFile; fileRef = D29210051A6AEA8E00B45C85 /* DarkHand.m */; };
-		D2972C061A683B97009D3E0E /* FireHand.m in Sources */ = {isa = PBXBuildFile; fileRef = D2972C051A683B97009D3E0E /* FireHand.m */; };
 		D2E8845E1A64D999004423FC /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E8845D1A64D999004423FC /* Player.m */; };
 		D2E884791A64F2F6004423FC /* Monster.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E884781A64F2F6004423FC /* Monster.m */; };
 /* End PBXBuildFile section */
@@ -233,6 +229,7 @@
 		889892611A6F4F4A00011AE8 /* BasicTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicTutorial.m; path = Source/Tutorials/BasicTutorial.m; sourceTree = "<group>"; };
 		8898927B1A6F6CD900011AE8 /* TutorialNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialNode.h; path = Source/Tutorials/TutorialNode.h; sourceTree = "<group>"; };
 		8898927C1A6F6CD900011AE8 /* TutorialNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialNode.m; path = Source/Tutorials/TutorialNode.m; sourceTree = "<group>"; };
+		88A21F881A72172E00BC9A9C /* iceloop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = iceloop.mp3; sourceTree = "<group>"; };
 		88A231601A719EC600EA3E2E /* UIScoreBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIScoreBoard.h; path = Source/UIScoreBoard.h; sourceTree = "<group>"; };
 		88A231611A719EC600EA3E2E /* UIScoreBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIScoreBoard.m; path = Source/UIScoreBoard.m; sourceTree = "<group>"; };
 		88A231631A71B1D800EA3E2E /* LevelClearScreenStar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelClearScreenStar.h; path = Source/LevelClearScreenStar.h; sourceTree = "<group>"; };
@@ -281,16 +278,6 @@
 		D24D0E921A6B8D6F00DA162E /* level4.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level4.xml; sourceTree = "<group>"; };
 		D24D0E941A6B91AF00DA162E /* BattleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BattleScene.h; path = Source/BattleScene.h; sourceTree = "<group>"; };
 		D24D0E951A6B91AF00DA162E /* BattleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BattleScene.m; path = Source/BattleScene.m; sourceTree = "<group>"; };
-		D24D0EA21A6BA17C00DA162E /* WinScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WinScene.h; path = Source/WinScene.h; sourceTree = "<group>"; };
-		D24D0EA31A6BA17C00DA162E /* WinScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WinScene.m; path = Source/WinScene.m; sourceTree = "<group>"; };
-		D24D0EA61A6BA18F00DA162E /* LoseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoseScene.h; path = Source/LoseScene.h; sourceTree = "<group>"; };
-		D24D0EA71A6BA18F00DA162E /* LoseScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoseScene.m; path = Source/LoseScene.m; sourceTree = "<group>"; };
-		D2920FE21A6AD8EA00B45C85 /* IceHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IceHand.h; path = Source/IceHand.h; sourceTree = "<group>"; };
-		D2920FE31A6AD8EA00B45C85 /* IceHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IceHand.m; path = Source/IceHand.m; sourceTree = "<group>"; };
-		D29210041A6AEA8E00B45C85 /* DarkHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DarkHand.h; path = Source/DarkHand.h; sourceTree = "<group>"; };
-		D29210051A6AEA8E00B45C85 /* DarkHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DarkHand.m; path = Source/DarkHand.m; sourceTree = "<group>"; };
-		D2972C041A683B97009D3E0E /* FireHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FireHand.h; path = Source/FireHand.h; sourceTree = "<group>"; };
-		D2972C051A683B97009D3E0E /* FireHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FireHand.m; path = Source/FireHand.m; sourceTree = "<group>"; };
 		D2E8845C1A64D999004423FC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Source/Player.h; sourceTree = "<group>"; };
 		D2E8845D1A64D999004423FC /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = Source/Player.m; sourceTree = "<group>"; };
 		D2E884771A64F2F6004423FC /* Monster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Monster.h; path = Source/Monster.h; sourceTree = "<group>"; };
@@ -581,6 +568,14 @@
 			name = Tutorials;
 			sourceTree = "<group>";
 		};
+		88A21F861A72172100BC9A9C /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				88A21F881A72172E00BC9A9C /* iceloop.mp3 */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
 		88A2315F1A719EA100EA3E2E /* UIClasses */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,20 +612,10 @@
 				D24D0E8B1A6B88B000DA162E /* LevelSelectScene.m */,
 				D24D0E941A6B91AF00DA162E /* BattleScene.h */,
 				D24D0E951A6B91AF00DA162E /* BattleScene.m */,
-				D24D0EA21A6BA17C00DA162E /* WinScene.h */,
-				D24D0EA31A6BA17C00DA162E /* WinScene.m */,
-				D24D0EA61A6BA18F00DA162E /* LoseScene.h */,
-				D24D0EA71A6BA18F00DA162E /* LoseScene.m */,
 				D2E8845C1A64D999004423FC /* Player.h */,
 				D2E8845D1A64D999004423FC /* Player.m */,
 				D225B3DF1A65F96C005787F2 /* Hand.h */,
 				D225B3E01A65F96D005787F2 /* Hand.m */,
-				D2972C041A683B97009D3E0E /* FireHand.h */,
-				D2972C051A683B97009D3E0E /* FireHand.m */,
-				D2920FE21A6AD8EA00B45C85 /* IceHand.h */,
-				D2920FE31A6AD8EA00B45C85 /* IceHand.m */,
-				D29210041A6AEA8E00B45C85 /* DarkHand.h */,
-				D29210051A6AEA8E00B45C85 /* DarkHand.m */,
 				D2E884771A64F2F6004423FC /* Monster.h */,
 				D2E884781A64F2F6004423FC /* Monster.m */,
 				D352B48019EC608A00829775 /* MetalShaders */,
@@ -710,6 +695,7 @@
 		B77F1B4617B978D7009739AE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				88A21F861A72172100BC9A9C /* Audio */,
 				7A40366119DDF8C2007B6E8F /* Platforms */,
 				5B12100D197483EE004C1E1D /* res */,
 				B73789911807667A0076A88C /* Icons */,
@@ -952,6 +938,7 @@
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
 				D24D0E911A6B8D5400DA162E /* level3.xml in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
+				88A21F891A72172E00BC9A9C /* iceloop.mp3 in Resources */,
 				D24D0E8F1A6B8D3A00DA162E /* level2.xml in Resources */,
 				B71F5915188484E7003F4D28 /* iPhone-old.png in Resources */,
 				B71F5917188484E7003F4D28 /* iPhone.png in Resources */,
@@ -1041,8 +1028,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2920FE41A6AD8EB00B45C85 /* IceHand.m in Sources */,
-				D24D0EA41A6BA17C00DA162E /* WinScene.m in Sources */,
 				889892621A6F4F4A00011AE8 /* BasicTutorial.m in Sources */,
 				8882A96D1A6880CD00458955 /* LevelLoader.m in Sources */,
 				D225B3E11A65F96D005787F2 /* Hand.m in Sources */,
@@ -1052,15 +1037,12 @@
 				D2E8845E1A64D999004423FC /* Player.m in Sources */,
 				D2E884791A64F2F6004423FC /* Monster.m in Sources */,
 				88A231651A71B1D800EA3E2E /* LevelClearScreenStar.m in Sources */,
-				D24D0EA81A6BA18F00DA162E /* LoseScene.m in Sources */,
 				8898925B1A6F456C00011AE8 /* GameEvent.m in Sources */,
 				88A231621A719EC600EA3E2E /* UIScoreBoard.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
-				D29210061A6AEA8E00B45C85 /* DarkHand.m in Sources */,
 				8808EA1B1A6893AC0020AB90 /* MonsterData.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
 				D24D0E8C1A6B88B000DA162E /* LevelSelectScene.m in Sources */,
-				D2972C061A683B97009D3E0E /* FireHand.m in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
 				8898927D1A6F6CD900011AE8 /* TutorialNode.m in Sources */,
 			);
