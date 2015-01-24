@@ -98,7 +98,6 @@
 }
 
 -(void)startAttack{
-    if(!_isStopped){
         // back up the attack position
         _attackPosition = self.position;
         _isAttacking = YES;
@@ -113,7 +112,6 @@
                 [self.animationManager runAnimationsForSequenceNamed:@"moving"];
             }
         }];
-    }
 }
 
 - (void)monsterEvade{

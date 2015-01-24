@@ -202,7 +202,7 @@
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA human:(CCNode *)nodeB
 {
     [[_physicsNode space] addPostStepBlock:^{
-        if(!(nodeA.isAttacking)){
+        if(!(nodeA.isAttacking)&&(!nodeA.isStopped)){
             [nodeA startAttack];
             [_player receiveAttack];
             _player.playerHP = _player.playerHP - nodeA.atk;
