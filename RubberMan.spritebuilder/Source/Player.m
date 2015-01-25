@@ -53,6 +53,8 @@ static float controlRange = 300;
     _isTouched = NO;
     _isReleased = NO;
     _initialPosition = _hand.position;
+    _atkBuff = 1.0;
+    _damageReduction = 1.0;
 }
 
 -(void)addHandwithName:(NSString *)ccbName{
@@ -80,6 +82,7 @@ static float controlRange = 300;
 -(void)update:(CCTime)delta{
     
     if(_isReleased){
+
         // make sure the hand moves only in the shoot directions
         double velocity = ccpDot(_hand.physicsBody.velocity,_shootDirection);
         _hand.physicsBody.velocity = CGPointMake(velocity * _shootDirection.x,velocity * _shootDirection.y);
@@ -226,5 +229,16 @@ static float controlRange = 300;
 -(void)receiveAttack{
     [self.animationManager runAnimationsForSequenceNamed:@"beAttacked"];
 }
+
+-(void)doubleAttackForDuration:(float)duration{
+    id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_atkBuff = 2.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_atkBuff = 1.0;}],nil];
+    [self runAction:doubleAttack];
+}
+
+-(void)immuneFromAttackForDuration:(float)duration{
+    id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_damageReduction = 0.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_damageReduction = 1.0;}],nil];
+    [self runAction:doubleAttack];
+}
+
 
 @end
