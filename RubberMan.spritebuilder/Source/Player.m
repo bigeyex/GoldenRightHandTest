@@ -55,6 +55,7 @@ static float controlRange = 300;
     _initialPosition = _hand.position;
     _atkBuff = 1.0;
     _damageReduction = 1.0;
+    _isShooting = NO;
 }
 
 -(void)addHandwithName:(NSString *)ccbName{
@@ -82,7 +83,7 @@ static float controlRange = 300;
 -(void)update:(CCTime)delta{
     
     if(_isReleased){
-
+        
         // make sure the hand moves only in the shoot directions
         double velocity = ccpDot(_hand.physicsBody.velocity,_shootDirection);
         _hand.physicsBody.velocity = CGPointMake(velocity * _shootDirection.x,velocity * _shootDirection.y);
@@ -94,7 +95,7 @@ static float controlRange = 300;
             isRangeReached = YES;
             _isStopTimeReached = NO;
         }
-        
+
         if(isRangeReached||_isMonsterHit){
             if(!_isStopTimeReached){
                 
@@ -214,7 +215,8 @@ static float controlRange = 300;
             
             // after the hand is released, hand can collide with monsters
             _hand.physicsBody.collisionMask = @[@"monster"];
-        } else {
+        }
+        else {
             _hand.position = _initialPosition;
         }
         
@@ -238,6 +240,11 @@ static float controlRange = 300;
 -(void)immuneFromAttackForDuration:(float)duration{
     id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_damageReduction = 0.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_damageReduction = 1.0;}],nil];
     [self runAction:doubleAttack];
+}
+
+-(void)shootingForDuration:(float)duration{
+    id shooting = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_isShooting = YES;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_isShooting = NO;}],nil];
+    [self runAction:shooting];
 }
 
 

@@ -116,7 +116,7 @@
 {
     // tell player the touch is ended
     BOOL isReleased = [_player releaseTouch];
-    if(isReleased){
+    if(isReleased &  !_player.isShooting){
         [self monsterAI];
     }
 }
@@ -125,7 +125,7 @@
 {
     // tell player the touch is cancelled
     BOOL isReleased = [_player releaseTouch];
-    if(isReleased){
+    if(isReleased &  !_player.isShooting){
         [self monsterAI];
     }
 }
@@ -273,10 +273,13 @@
             break;
             
         case 9: // fire * dark * dark
+            [_player removeHand];
+            [_player addHandwithName:@"DeathHand"];
             break;
             
         case 12: // ice * ice * dark
-            // trace target for 10s
+            // hit that can't be evaded
+            [_player shootingForDuration:10.0];
             break;
             
         case 18: // ice * dark * dark
