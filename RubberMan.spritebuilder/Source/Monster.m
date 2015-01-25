@@ -102,7 +102,7 @@ CGFloat const outOfBoundThreshold=10;
     CGRect pb = self.parent.boundingBox;
     if(ub.origin.x+ub.size.width+outOfBoundThreshold < pb.origin.x ||
        ub.origin.y+ub.size.height+outOfBoundThreshold < pb.origin.y ||
-       ub.origin.x > pb.origin.x+pb.size.width+outOfBoundThreshold ||
+       //ub.origin.x > pb.origin.x+pb.size.width+outOfBoundThreshold ||
        ub.origin.y > pb.origin.y+pb.size.height+outOfBoundThreshold){
         [self removeFromParent];
         [GameEvent dispatch:@"MonsterRemoved" withArgument:nil];
@@ -111,20 +111,20 @@ CGFloat const outOfBoundThreshold=10;
 }
 
 -(void)startAttack{
-        // back up the attack position
-        _attackPosition = self.position;
-        _isAttacking = YES;
-        _attackTime = 0.0;
-        
-        // running attacking animations
-        [self.animationManager runAnimationsForSequenceNamed:@"attacking"];
-        
-        // when the attacking animation is completed, runing the moving animations
-        [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
-            if ([self.animationManager.lastCompletedSequenceName isEqualToString:@"attacking"]) {
-                [self.animationManager runAnimationsForSequenceNamed:@"moving"];
-            }
-        }];
+    // back up the attack position
+    _attackPosition = self.position;
+    _isAttacking = YES;
+    _attackTime = 0.0;
+    
+    // running attacking animations
+    [self.animationManager runAnimationsForSequenceNamed:@"attacking"];
+    
+    // when the attacking animation is completed, runing the moving animations
+    [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
+        if ([self.animationManager.lastCompletedSequenceName isEqualToString:@"attacking"]) {
+            [self.animationManager runAnimationsForSequenceNamed:@"moving"];
+        }
+    }];
 }
 
 - (void)monsterEvade{

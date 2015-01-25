@@ -191,6 +191,7 @@
         if(isDefeated){
             // remove the monster from the scene
             [nodeA removeFromParent];
+            [self checkWinningCondition];
             
             // assign the element type to the skill button ui
             _skillButton.lowerRightElement = _skillButton.lowerLeftElement;
