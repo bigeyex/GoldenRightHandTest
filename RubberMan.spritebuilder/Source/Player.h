@@ -25,7 +25,7 @@
 @property float damageReduction;
 @property BOOL isShooting;
 
-- (void)touchAtLocation:(CGPoint) touchLocation;
+- (BOOL)touchAtLocation:(CGPoint) touchLocation;
 - (void)updateTouchLocation:(CGPoint) touchLocation;
 - (BOOL)releaseTouch;
 - (void)addHandwithName:(NSString *)ccbName;
