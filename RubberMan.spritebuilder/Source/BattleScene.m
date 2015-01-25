@@ -157,7 +157,7 @@
 {
     if((!_player.isGoBack) && (!_player.isMonsterHit)){
                 
-        BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk];
+        BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk * _player.atkBuff];
         float recoverHP = [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
         
         _player.playerHP = MIN(_player.playerHP + recoverHP,100);
@@ -180,9 +180,7 @@
             if(![_skillButton.lowerRightElement isEqualToString:@"none"]){
                 [_skillButton.children[0] setEnabled:YES];
             }
-            
         }
-        
     }
 }
 
@@ -191,11 +189,14 @@
     [[_physicsNode space] addPostStepBlock:^{
         if(!(nodeA.isAttacking)&&(!nodeA.isStopped)){
             [nodeA startAttack];
-            [_player receiveAttack];
-            _player.playerHP = _player.playerHP - nodeA.atk;
-            [_playerLifeBar setLength:_player.playerHP];
-            if(_player.playerHP<=0){
-                [self battleLose];
+            
+            if(_player.damageReduction != 0.0){
+                _player.playerHP = _player.playerHP - nodeA.atk * _player.damageReduction;
+                [_player receiveAttack];
+                [_playerLifeBar setLength:_player.playerHP];
+                if(_player.playerHP<=0){
+                    [self battleLose];
+                }
             }
         }
     } key:nodeA];
@@ -245,7 +246,6 @@
     int skillOptions = [map[_skillButton.upperElement] intValue] * [map[_skillButton.lowerLeftElement] intValue] * [map[_skillButton.lowerRightElement] intValue];
     switch(skillOptions){
         case 1: // fire * fire * fire
-
             [_player removeHand];
             [_player addHandwithName:@"FireHand"];
             break;
@@ -254,17 +254,20 @@
             break;
             
         case 3: // fire * fire * dark
+            // double the attack for 5s
+            [_player doubleAttackForDuration:5.0];
             break;
             
         case 4: // fire * ice * ice
-            
+            // heal for 30 hp
+            _player.playerHP = MIN(_player.playerHP + 30,100);
+            [_playerLifeBar setLength:_player.playerHP];
             break;
             
         case 6: // fire * ice * dark
             break;
             
         case 8: // ice * ice * ice
-            
             [_player removeHand];
             [_player addHandwithName:@"IceHand"];
             break;
@@ -273,13 +276,15 @@
             break;
             
         case 12: // ice * ice * dark
+            // trace target for 10s
             break;
             
         case 18: // ice * dark * dark
+            // receive zero damage for 10s
+            [_player immuneFromAttackForDuration:10.0];
             break;
             
         case 27: // dark * dark * dark
-
             [_player removeHand];
             [_player addHandwithName:@"DarkHand"];
             break;

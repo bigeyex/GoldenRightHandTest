@@ -50,7 +50,7 @@
     _skillRange = 100.0;
     self.skillTimes = 1;
     self.handType = 0;
-    _skillDamage = 0.5*self.atk;
+    _skillDamage = 1.0*self.atk;
 }
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos{
