@@ -20,13 +20,15 @@
 @property BOOL isEvading;
 @property BOOL isStopped;
 @property BOOL isElite;
-
+@property float spdBuff;
 
 - (BOOL)receiveHitWithDamage:(float)Damage;
 - (void)loadMonsterData: (MonsterData*)monsterData;
 - (void)startAttack;
 - (void)stopMovingForDuration:(float)duration;
 - (void)monsterEvade;
+- (void)monsterCharge;
+- (void)monsterChargeCancel;
 
 @end
 

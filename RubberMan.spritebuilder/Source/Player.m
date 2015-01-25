@@ -151,7 +151,7 @@ static float controlRange = 300;
     
 }
 
-- (void)touchAtLocation:(CGPoint) touchLocation {
+- (BOOL)touchAtLocation:(CGPoint) touchLocation {
     
     // connect the hand touched by the user to a mouse joint at the touchLocation, when the hand is in the status of being released, the touch is invalid
     if ((!_isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
@@ -178,6 +178,8 @@ static float controlRange = 300;
         _arrow.rotation = ccpAngleSigned(_shootDirection, ccp(0,0)) / M_PI * 180;
         [self addChild:_arrow];
     }
+    
+    return _isTouched;
 }
 
 - (void)updateTouchLocation:(CGPoint) touchLocation {

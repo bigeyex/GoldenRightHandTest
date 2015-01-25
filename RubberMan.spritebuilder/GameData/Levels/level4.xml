@@ -7,10 +7,10 @@
             <RespawnInterval>3</RespawnInterval>
             <PositionY>0.6</PositionY>
             <Health>5</Health>
-            <IsElite>0</IsElite>
+            <IsElite>1</IsElite>
         </Monster>
         <Monster>
-            <SpriteName>MonsterGhost</SpriteName>
+            <SpriteName>MonsterBat</SpriteName>
             <EnterTime>15</EnterTime>
             <Number>3</Number>
             <RespawnInterval>3</RespawnInterval>

@@ -39,7 +39,7 @@
     self.userInteractionEnabled = TRUE;
     
     // visualize physics bodies & joints
-    //_physicsNode.debugDraw = YES;
+    _physicsNode.debugDraw = YES;
     
     // sign up as the collision delegate of physics node
     _physicsNode.collisionDelegate = self;
@@ -99,8 +99,15 @@
     CGPoint touchLocation = [touch locationInNode:_player];
     
     // call Player's method touchAtLocation to deal with the touch event
-    [_player touchAtLocation:touchLocation];
+    BOOL isTouched = [_player touchAtLocation:touchLocation];
     
+    if (isTouched){
+        int numOfMonsters = (int)[_monsterList.children count];
+        for (int i = 0;i<numOfMonsters;i++){
+            Monster *_checkNode = _monsterList.children[i];
+            [_checkNode monsterCharge];
+        }
+    }
 }
 
 - (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -116,8 +123,13 @@
 {
     // tell player the touch is ended
     BOOL isReleased = [_player releaseTouch];
-    if(isReleased &  !_player.isShooting){
+    if(isReleased){
         [self monsterAI];
+        int numOfMonsters = (int)[_monsterList.children count];
+        for (int i = 0;i<numOfMonsters;i++){
+            Monster *_checkNode = _monsterList.children[i];
+            [_checkNode monsterChargeCancel];
+        }
     }
 }
 
@@ -125,24 +137,31 @@
 {
     // tell player the touch is cancelled
     BOOL isReleased = [_player releaseTouch];
-    if(isReleased &  !_player.isShooting){
+    if(isReleased){
         [self monsterAI];
+        int numOfMonsters = (int)[_monsterList.children count];
+        for (int i = 0;i<numOfMonsters;i++){
+            Monster *_checkNode = _monsterList.children[i];
+            [_checkNode monsterChargeCancel];
+        }
     }
 }
 
 - (void) monsterAI{
-    int numOfMonsters = (int)[_monsterList.children count];
-    for (int i = 0;i<numOfMonsters;i++){
-        Monster *_checkNode = _monsterList.children[i];
-        if(_checkNode.isElite){
-            CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
-            CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
-            float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
-            
-            // NOTE: this is to assume the hand size is 20 and the monster size is 20 also, potential bug
-            // if the monster is targeted
-            if (distance<=20*2){
-                [_checkNode monsterEvade];
+    if(!_player.isShooting){
+        int numOfMonsters = (int)[_monsterList.children count];
+        for (int i = 0;i<numOfMonsters;i++){
+            Monster *_checkNode = _monsterList.children[i];
+            if(_checkNode.isElite){
+                CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
+                CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
+                float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
+                
+                // NOTE: this is to assume the hand size is 20 and the monster size is 20 also, potential bug
+                // if the monster is targeted
+                if (distance<=20*2){
+                    [_checkNode monsterEvade];
+                }
             }
         }
     }
@@ -156,7 +175,7 @@
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA hand:(Hand *)nodeB
 {
     if((!_player.isGoBack) && (!_player.isMonsterHit)){
-                
+        
         BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk * _player.atkBuff];
         float recoverHP = [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
         
@@ -249,8 +268,10 @@
             [_player removeHand];
             [_player addHandwithName:@"FireHand"];
             break;
-        
+            
         case 2: // fire * fire * ice
+            // hit that can't be evaded
+            [_player shootingForDuration:10.0];
             break;
             
         case 3: // fire * fire * dark
@@ -265,6 +286,8 @@
             break;
             
         case 6: // fire * ice * dark
+            // deal damage to all the monsters
+            [self dealDamageToAllMonsters:5.0];
             break;
             
         case 8: // ice * ice * ice
@@ -273,13 +296,12 @@
             break;
             
         case 9: // fire * dark * dark
-            [_player removeHand];
-            [_player addHandwithName:@"DeathHand"];
+
             break;
             
         case 12: // ice * ice * dark
-            // hit that can't be evaded
-            [_player shootingForDuration:10.0];
+            [_player removeHand];
+            [_player addHandwithName:@"DeathHand"];
             break;
             
         case 18: // ice * dark * dark
@@ -295,6 +317,19 @@
     
     [_skillButton resetElement];
     [_skillButton.children[0] setEnabled:NO];
+}
+
+-(void) dealDamageToAllMonsters:(float)damage{
+    int numOfMonsters = (int)[_monsterList.children count];
+    for (int i = 0;i<numOfMonsters;i++){
+        Monster *_checkNode = _monsterList.children[i];
+        BOOL isDefeated = [_checkNode receiveHitWithDamage:5.0];
+        if(isDefeated){
+            [_checkNode removeFromParent];
+            i--;
+            numOfMonsters--;
+        }
+    }
 }
 
 @end
