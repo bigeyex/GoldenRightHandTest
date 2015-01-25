@@ -37,7 +37,8 @@
     _upperElement = newString;
     if(![newString isEqualToString:@"none"]){
         [self removeChildByName:@"upper"];
-        [self addChild:[self addElementToUI:_upperElement Position:ccp(-50,70)] z:1 name:@"upper"];
+        id sequence = [CCActionSequence actions:[CCActionDelay actionWithDuration:0.5],[CCActionCallBlock actionWithBlock:^{[self addChild:[self addElementToUI:_upperElement Position:ccp(-50,70)] z:1 name:@"upper"];}],nil];
+        [self runAction:sequence];
     }
 }
 
@@ -45,7 +46,10 @@
     _lowerLeftElement = newString;
     if(![newString isEqualToString:@"none"]){
         [self removeChildByName:@"lowerLeft"];
-        [self addChild:[self addElementToUI:_lowerLeftElement Position:ccp(-66,40)] z:2 name:@"lowerLeft"];
+        CCSprite *newElement =[self addElementToUI:_lowerLeftElement Position:ccp(-50,70)];
+        [self addChild:newElement z:2 name:@"lowerLeft"];
+        id elementMotion = [CCActionMoveTo actionWithDuration:0.5 position:ccp(-66,40)];
+        [newElement runAction:elementMotion];
     }
 }
 
@@ -53,7 +57,10 @@
     _lowerRightElement = newString;
     if(![newString isEqualToString:@"none"]){
         [self removeChildByName:@"lowerRight"];
-        [self addChild:[self addElementToUI:_lowerRightElement Position:ccp(-33,40)] z:3 name:@"lowerRight"];
+        CCSprite *newElement =[self addElementToUI:_lowerLeftElement Position:ccp(-66,40)];
+        [self addChild:newElement z:3 name:@"lowerRight"];
+        id elementMotion = [CCActionMoveTo actionWithDuration:0.5 position:ccp(-33,40)];
+        [newElement runAction:elementMotion];
     }
 }
 

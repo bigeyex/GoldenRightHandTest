@@ -189,6 +189,13 @@
         nodeA.physicsBody.velocity = ccp(0,0);
         
         if(isDefeated){
+            CCSprite *element = [CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"UI/%@.png",nodeA.elementType]];
+            element.position = nodeA.positionInPoints;
+            element.opacity = 0.5;
+            [self addChild:element];
+            id elementMotion = [CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.5 position:ccpAdd(_skillButton.positionInPoints,ccp(-50,70))],[CCActionCallBlock actionWithBlock:^{[element removeFromParent];}],nil];
+            [element runAction:elementMotion];
+            
             // remove the monster from the scene
             [nodeA removeFromParent];
             [self checkWinningCondition];
