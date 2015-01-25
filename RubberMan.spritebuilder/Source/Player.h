@@ -23,6 +23,7 @@
 @property CGPoint shootDirection;
 @property float atkBuff;
 @property float damageReduction;
+@property BOOL isShooting;
 
 - (void)touchAtLocation:(CGPoint) touchLocation;
 - (void)updateTouchLocation:(CGPoint) touchLocation;
@@ -32,5 +33,6 @@
 - (void)receiveAttack;
 - (void)doubleAttackForDuration:(float)duration;
 - (void)immuneFromAttackForDuration:(float)duration;
+- (void)shootingForDuration:(float)duration;
 
 @end
