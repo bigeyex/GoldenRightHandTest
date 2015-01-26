@@ -14,18 +14,18 @@
 #import "LevelLoader.h"
 #import "LifeBar.h"
 #import "UIScoreBoard.h"
+#import "GameEvent.h"
+#import "SkillButtonUI.h"
+#import "GameGlobals.h"
 
 @implementation BattleScene{
     CCPhysicsNode *_physicsNode;
     Player *_player;
     LevelLoader *_monsterList;
     LifeBar *_playerLifeBar;
-    CCButton *_skillbox1;
-    CCButton *_skillbox2;
-    CCButton *_skillbox3;
     int _totalNumOfMonsters;
     int _monstersKilled;
-    NSMutableArray *_skillbox;
+    SkillButtonUI *_skillButton;
     
     CCNode* pauseButton;
     CCNode* pauseMenu;
@@ -33,6 +33,27 @@
     CCNode* scoreBoardMenu;
     UIScoreBoard *uiScoreBoard;
     
+}
+
++ (void)loadSceneByLevelIndex:(int)levelIndex{
+    NSString* levelName = [[GameGlobals sharedInstance] levelNameAtIndex:levelIndex];
+    if(levelName != nil){
+        CCScene *battleScene = [CCBReader loadAsScene:@"BattleScene"];
+        BattleScene *sceneNode = [[battleScene children] firstObject];
+        sceneNode.levelName = levelName;
+        sceneNode.levelIndex = levelIndex;
+        // in case the game is paused (when selecting "restart" in the pause screen)
+        [[CCDirector sharedDirector] resume];
+        [[CCDirector sharedDirector] replaceScene:battleScene];
+        
+        // show or hide "next level" button
+        if([[GameGlobals sharedInstance] levelNames].count <= sceneNode.levelIndex+1){
+            sceneNode.nextLevelButton.visible = NO;
+        }
+        else{
+            sceneNode.nextLevelButton.visible = YES;
+        }
+    }
 }
 
 - (void)didLoadFromCCB {
@@ -45,16 +66,14 @@
     // sign up as the collision delegate of physics node
     _physicsNode.collisionDelegate = self;
     
-    // disable the button
-    _skillbox = [NSMutableArray arrayWithObjects:_skillbox1,_skillbox2,_skillbox3,nil];
-    for (int i=0;i<=2;i++){
-        [_skillbox[i] setEnabled:NO];
-    }
-    
     // play bgm
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     // play background sound
     [audio playBg:@"iceloop.mp3" loop:TRUE];
+    
+    [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(checkWinningCondition)];
+    [_skillButton.children[0] setEnabled:NO];
+    [uiScoreBoard reset];
     
 }
 
@@ -86,7 +105,7 @@
 }
 
 - (void)goToNextLevel{
-    
+    [[self class] loadSceneByLevelIndex:self.levelIndex+1];
 }
 
 - (void)exitToMenu{
@@ -104,8 +123,15 @@
     CGPoint touchLocation = [touch locationInNode:_player];
     
     // call Player's method touchAtLocation to deal with the touch event
-    [_player touchAtLocation:touchLocation];
+    BOOL isTouched = [_player touchAtLocation:touchLocation];
     
+    if (isTouched){
+        int numOfMonsters = (int)[_monsterList.children count];
+        for (int i = 0;i<numOfMonsters;i++){
+            Monster *_checkNode = _monsterList.children[i];
+            [_checkNode monsterCharge];
+        }
+    }
 }
 
 - (void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -123,6 +149,11 @@
     BOOL isReleased = [_player releaseTouch];
     if(isReleased){
         [self monsterAI];
+        int numOfMonsters = (int)[_monsterList.children count];
+        for (int i = 0;i<numOfMonsters;i++){
+            Monster *_checkNode = _monsterList.children[i];
+            [_checkNode monsterChargeCancel];
+        }
     }
 }
 
@@ -132,22 +163,29 @@
     BOOL isReleased = [_player releaseTouch];
     if(isReleased){
         [self monsterAI];
+        int numOfMonsters = (int)[_monsterList.children count];
+        for (int i = 0;i<numOfMonsters;i++){
+            Monster *_checkNode = _monsterList.children[i];
+            [_checkNode monsterChargeCancel];
+        }
     }
 }
 
 - (void) monsterAI{
-    int numOfMonsters = (int)[_monsterList.children count];
-    for (int i = 0;i<numOfMonsters;i++){
-        Monster *_checkNode = _monsterList.children[i];
-        if(_checkNode.isElite){
-            CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
-            CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
-            float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
-            
-            // NOTE: this is to assume the hand size is 20 and the monster size is 20 also, potential bug
-            // if the monster is targeted
-            if (distance<=20*2){
-                [_checkNode monsterEvade];
+    if(!_player.isShooting){
+        int numOfMonsters = (int)[_monsterList.children count];
+        for (int i = 0;i<numOfMonsters;i++){
+            Monster *_checkNode = _monsterList.children[i];
+            if(_checkNode.isElite){
+                CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
+                CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
+                float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
+                
+                // NOTE: this is to assume the hand size is 20 and the monster size is 20 also, potential bug
+                // if the monster is targeted
+                if (distance<=20*2){
+                    [_checkNode monsterEvade];
+                }
             }
         }
     }
@@ -162,12 +200,10 @@
 {
     if((!_player.isGoBack) && (!_player.isMonsterHit)){
         
-        int numOfMonstersOld = (int)[_monsterList.children count];
-        
-        BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk];
+        BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk * _player.atkBuff];
         float recoverHP = [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
         
-        _player.playerHP = MIN(_player.playerHP + recoverHP,100);
+        [_player heal:recoverHP]; 
         [_playerLifeBar setLength:_player.playerHP];
         
         _player.handPositionAtHit = _player.hand.positionInPoints;
@@ -177,24 +213,25 @@
         nodeA.physicsBody.velocity = ccp(0,0);
         
         if(isDefeated){
-            // player's mana is increased by 1
-            _player.mana[nodeA.elementType] = [_player.mana[nodeA.elementType] decimalNumberByAdding:[NSDecimalNumber one]];
+            // the skill element motion animation
+            CCSprite *element = [CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"UI/%@.png",nodeA.elementType]];
+            element.position = nodeA.positionInPoints;
+            element.opacity = 0.5;
+            [self addChild:element];
+            id elementMotion = [CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.5 position:ccpAdd(_skillButton.positionInPoints,ccp(-50,70))],[CCActionCallBlock actionWithBlock:^{[element removeFromParent];}],nil];
+            [element runAction:elementMotion];
             
             // remove the monster from the scene
             [nodeA removeFromParent];
+            [self checkWinningCondition];
             
-            // enable the skill button if the mana is enough
-            for (int i=0;i<=2;i++){
-                if([_player.mana[i] intValue]>=_player.skillcost){
-                    [_skillbox[i] setEnabled:YES];
-                }
+            // assign the element type to the skill button ui
+            _skillButton.lowerRightElement = _skillButton.lowerLeftElement;
+            _skillButton.lowerLeftElement = _skillButton.upperElement;
+            _skillButton.upperElement = nodeA.elementType;
+            if(![_skillButton.lowerRightElement isEqualToString:@"none"]){
+                [_skillButton.children[0] setEnabled:YES];
             }
-        }
-        
-        int numOfMonstersNew = (int)[_monsterList.children count];
-        _monstersKilled = _monstersKilled + numOfMonstersOld - numOfMonstersNew;
-        if([self satifsyWinningCondition]){
-            [self scheduleOnce:@selector(battleWin:) delay:2.0f];
         }
     }
 }
@@ -202,52 +239,19 @@
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA human:(CCNode *)nodeB
 {
     [[_physicsNode space] addPostStepBlock:^{
-        if(!(nodeA.isAttacking)){
+        if(!(nodeA.isAttacking)&&(!nodeA.isStopped)){
             [nodeA startAttack];
-            [_player receiveAttack];
-            _player.playerHP = _player.playerHP - nodeA.atk;
-            [_playerLifeBar setLength:_player.playerHP];
-            if(_player.playerHP<=0){
-                [self battleLose];
+            
+            if(_player.damageReduction != 0.0){
+                _player.playerHP = _player.playerHP - nodeA.atk * _player.damageReduction;
+                [_player receiveAttack];
+                [_playerLifeBar setLength:_player.playerHP];
+                if(_player.playerHP<=0){
+                    [self battleLose];
+                }
             }
         }
     } key:nodeA];
-}
-
--(void)changeHand{
-    if(!_player.isTouched){
-        int elementType = 0;
-        NSString *ccbName = @"Hand";
-        
-        if(_skillbox1.highlighted){
-            elementType = 0;
-            ccbName = @"FireHand";
-        } else if(_skillbox2.highlighted){
-            elementType = 1;
-            ccbName = @"IceHand";
-        } else if(_skillbox3.highlighted){
-            elementType = 2;
-            ccbName = @"DarkHand";
-        }
-        
-        // recover the unused player mana
-        if((_player.hand.handType!=-1)&&(_player.hand.skillTimes)){
-            _player.mana[_player.hand.handType] = [_player.mana[_player.hand.handType] decimalNumberByAdding:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d", _player.skillcost]]];
-            [_skillbox[_player.hand.handType] setEnabled:YES];
-        }
-        
-        // player's mana is decreased by skill cost
-        _player.mana[elementType] = [_player.mana[elementType] decimalNumberBySubtracting:[NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%d", _player.skillcost]]];
-        
-        // remove the normal hand
-        [_player removeHand];
-        
-        // add the new fire hand
-        [_player addHandwithName:ccbName];
-        
-        // disable the skill button if mana is insufficient
-        [_skillbox[elementType] setEnabled:NO];
-    }
 }
 
 - (BOOL)satifsyWinningCondition{
@@ -263,6 +267,12 @@
     [[CCDirector sharedDirector] pause];
     gameOverMenu.visible = YES;
     pauseMenu.visible = NO;
+}
+
+- (void)checkWinningCondition{
+    if([self satifsyWinningCondition]){
+        [self scheduleOnce:@selector(battleWin:) delay:2.0f];
+    }
 }
 
 -(void)battleWin:(CCTime)delta{
@@ -283,5 +293,99 @@
     [defaults synchronize];
 }
 
+-(void)activateSkill{
+    NSDictionary *map = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:1],@"fire",[NSNumber numberWithInt:2],@"ice",[NSNumber numberWithInt:3],@"dark", nil];
+    int skillOptions = [map[_skillButton.upperElement] intValue] * [map[_skillButton.lowerLeftElement] intValue] * [map[_skillButton.lowerRightElement] intValue];
+    switch(skillOptions){
+        case 1: // fire * fire * fire
+            [_player removeHand];
+            [_player addHandwithName:@"FireHand"];
+            break;
+            
+        case 2: // fire * fire * ice
+            // hit that can't be evaded
+            [_player shootingForDuration:10.0];
+            break;
+            
+        case 3: // fire * fire * dark
+            // deal damage to all the monsters
+            [self dealDamageToAllMonsters:5.0];
+            break;
+            
+        case 4: // fire * ice * ice
+            // freeze all monsters
+            [self freezeAllMonsters:5.0];
+            break;
+            
+        case 6: // fire * ice * dark
+            // double the attack for 10s
+            [_player doubleAttackForDuration:10.0];
+            break;
+            
+        case 8: // ice * ice * ice
+            [_player removeHand];
+            [_player addHandwithName:@"IceHand"];
+            break;
+            
+        case 9: // fire * dark * dark
+            // heal for 30 hp
+            [_player heal:30.0];
+            [_playerLifeBar setLength:_player.playerHP];
+            break;
+            
+        case 12: // ice * ice * dark
+            [_player removeHand];
+            [_player addHandwithName:@"DeathHand"];
+            break;
+            
+        case 18: // ice * dark * dark
+            // receive zero damage for 10s
+            [_player immuneFromAttackForDuration:10.0];
+            break;
+            
+        case 27: // dark * dark * dark
+            [_player removeHand];
+            [_player addHandwithName:@"DarkHand"];
+            break;
+    }
+    
+    [_skillButton resetElement];
+    [_skillButton.children[0] setEnabled:NO];
+}
+
+-(void) dealDamageToAllMonsters:(float)damage{
+    // add particle effect
+    CCParticleSystem *attackAllEffect = (CCParticleSystem *)[CCBReader load:@"AttackAllEffect"];
+    attackAllEffect.autoRemoveOnFinish = TRUE;
+    attackAllEffect.position = ccp(350,32);
+    [self addChild:attackAllEffect];
+
+    
+    int numOfMonsters = (int)[_monsterList.children count];
+    for (int i = 0;i<numOfMonsters;i++){
+        Monster *_checkNode = _monsterList.children[i];
+        BOOL isDefeated = [_checkNode receiveHitWithDamage:5.0];
+        if(isDefeated){
+            [_checkNode removeFromParent];
+            i--;
+            numOfMonsters--;
+            [self checkWinningCondition];
+        }
+    }
+}
+
+-(void) freezeAllMonsters:(float)duration{
+    // add particle effect
+    CCParticleSystem *attackAllEffect = (CCParticleSystem *)[CCBReader load:@"FreezeAllEffect"];
+    attackAllEffect.autoRemoveOnFinish = TRUE;
+    attackAllEffect.position = ccp(350,308);
+    [self addChild:attackAllEffect];
+    
+    int numOfMonsters = (int)[_monsterList.children count];
+    for (int i = 0;i<numOfMonsters;i++){
+        Monster *_checkNode = _monsterList.children[i];
+        [_checkNode stopMovingForDuration:duration];
+    }
+}
 
 @end

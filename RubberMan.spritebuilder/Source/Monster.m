@@ -9,6 +9,8 @@
 #import "Monster.h"
 #import "GameEvent.h"
 
+CGFloat const outOfBoundThreshold=10;
+
 @implementation Monster{
     CGPoint _moveDirection;
     CGPoint _attackPosition;
@@ -26,6 +28,7 @@
     _isAttacking = NO;
     _atkPeriod = 2.0;
     _isEvading = NO;
+    _spdBuff = 1.0;
     self.physicsBody.collisionType = @"monster";
     self.physicsBody.collisionMask = @[@"human",@"hand"];
     self.physicsBody.collisionCategories = @[@"monster"];
@@ -62,6 +65,7 @@
 - (void)stopMovingForDuration:(float)duration{
     _isStopped = YES;
     _stopDuration = duration;
+    [self.animationManager runAnimationsForSequenceNamed:@"default"];
 }
 
 
@@ -74,7 +78,7 @@
     if(!_isEvading){
         //_moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
         _moveDirection = ccp(-1,0);
-        self.physicsBody.velocity = CGPointMake((_isStopped?0:1)*self.speed * _moveDirection.x,(_isStopped?0:1)*self.speed * _moveDirection.y);
+        self.physicsBody.velocity = CGPointMake((_isStopped?0:1)*self.speed*_spdBuff * _moveDirection.x,(_isStopped?0:1)*self.speed*_spdBuff * _moveDirection.y);
     }
     
     if(_isAttacking){
@@ -92,31 +96,48 @@
         _stopDuration = _stopDuration - delta;
         if(_stopDuration<=0){
             _isStopped = NO;
+            [self.animationManager runAnimationsForSequenceNamed:@"moving"];
         }
+    }
+    
+    CGRect ub = self.boundingBox;
+    CGRect pb = self.parent.boundingBox;
+    if(ub.origin.x+ub.size.width+outOfBoundThreshold < pb.origin.x ||
+       ub.origin.y+ub.size.height+outOfBoundThreshold < pb.origin.y ||
+       //ub.origin.x > pb.origin.x+pb.size.width+outOfBoundThreshold ||
+       ub.origin.y > pb.origin.y+pb.size.height+outOfBoundThreshold){
+        [self removeFromParent];
+        [GameEvent dispatch:@"MonsterRemoved" withArgument:nil];
     }
     
 }
 
 -(void)startAttack{
-    if(!_isStopped){
-        // back up the attack position
-        _attackPosition = self.position;
-        _isAttacking = YES;
-        _attackTime = 0.0;
-        
-        // running attacking animations
-        [self.animationManager runAnimationsForSequenceNamed:@"attacking"];
-        
-        // when the attacking animation is completed, runing the moving animations
-        [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
-            if ([self.animationManager.lastCompletedSequenceName isEqualToString:@"attacking"]) {
-                [self.animationManager runAnimationsForSequenceNamed:@"moving"];
-            }
-        }];
-    }
+    // back up the attack position
+    _attackPosition = self.position;
+    _isAttacking = YES;
+    _attackTime = 0.0;
+    
+    // running attacking animations
+    [self.animationManager runAnimationsForSequenceNamed:@"attacking"];
+    
+    // when the attacking animation is completed, runing the moving animations
+    [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
+        if ([self.animationManager.lastCompletedSequenceName isEqualToString:@"attacking"]) {
+            [self.animationManager runAnimationsForSequenceNamed:@"moving"];
+        }
+    }];
 }
 
 - (void)monsterEvade{
+    
+}
+
+- (void)monsterCharge{
+    
+}
+
+- (void)monsterChargeCancel{
     
 }
 
@@ -127,6 +148,7 @@
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 30;
+    self.elementType = @"ice";
 }
 
 -(void)monsterEvade{
@@ -147,6 +169,7 @@
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 40;
+    self.elementType = @"fire";
 }
 
 -(void)monsterEvade{
@@ -154,9 +177,9 @@
         self.isEvading = YES;
         self.physicsBody.velocity = ccp(0,0);
         CGPoint previousPosition = self.position;
-        id jumpSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0.25,0)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
+        id evadeSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0.25,0)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
             self.isEvading = NO;}],nil];
-        [self runAction:jumpSequence];
+        [self runAction:evadeSequence];
     }
 }
 
@@ -167,16 +190,18 @@
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 50;
+    self.elementType = @"dark";
 }
 
--(void)monsterEvade{
-    if(!self.isStopped){
-        self.isEvading = YES;
-        self.physicsBody.velocity = ccp(0,0);
-        CGPoint previousPosition = self.position;
-        id jumpSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0.25,0)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
-            self.isEvading = NO;}],nil];
-        [self runAction:jumpSequence];
+-(void)monsterCharge{
+    if(self.isElite){
+        self.spdBuff = 5.0;
+    }
+}
+
+- (void)monsterChargeCancel{
+    if(self.isElite){
+        self.spdBuff = 1.0;
     }
 }
 

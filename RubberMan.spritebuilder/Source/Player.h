@@ -20,15 +20,20 @@
 @property float playerHP;
 @property CCNode *centerJointNode;
 @property CGPoint handPositionAtHit;
-@property NSMutableArray *mana;
-@property int skillcost;
 @property CGPoint shootDirection;
+@property float atkBuff;
+@property float damageReduction;
+@property BOOL isShooting;
 
-- (void)touchAtLocation:(CGPoint) touchLocation;
+- (BOOL)touchAtLocation:(CGPoint) touchLocation;
 - (void)updateTouchLocation:(CGPoint) touchLocation;
 - (BOOL)releaseTouch;
 - (void)addHandwithName:(NSString *)ccbName;
 - (void)removeHand;
 - (void)receiveAttack;
+- (void)doubleAttackForDuration:(float)duration;
+- (void)immuneFromAttackForDuration:(float)duration;
+- (void)shootingForDuration:(float)duration;
+- (void)heal:(float)recoverHP;
 
 @end

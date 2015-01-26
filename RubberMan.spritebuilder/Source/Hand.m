@@ -19,8 +19,6 @@
     _range = 800.0;
     _atk = 5.0;
     _skillTimes = 1;
-    _handType = -1;
-    
 }
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos{
@@ -49,8 +47,7 @@
     self.atk = 10.0;
     _skillRange = 100.0;
     self.skillTimes = 1;
-    self.handType = 0;
-    _skillDamage = 0.5*self.atk;
+    _skillDamage = 1.0*self.atk;
 }
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos{
@@ -98,7 +95,6 @@
     self.atk = 10;
     _skillRange = 150.0;
     self.skillTimes = 1;
-    self.handType = 1;
     _skillDuration = 5;
 }
 
@@ -142,7 +138,6 @@
     // set up the hand type
     self.atk = 10.0;
     self.skillTimes = 1;
-    self.handType = 2;
 }
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos{
@@ -168,5 +163,35 @@
 
 @end
 
+@implementation DeathHand
 
+-(void)didLoadFromCCB{
+    [super didLoadFromCCB];
+    
+    // set up the hand type
+    self.atk = 100.0; // this hand is designed to kill any monster upon hit
+    self.skillTimes = 1;
+}
 
+-(void)handParticleEffectAtPosition:(CGPoint)pos{
+    
+    // load particle effect
+    CCParticleSystem *fistHitEffect = (CCParticleSystem *)[CCBReader load:@"DeathHandHitEffect"];
+    
+    fistHitEffect.autoRemoveOnFinish = TRUE;
+    fistHitEffect.position = pos;
+    [self addChild:fistHitEffect];
+}
+
+-(float)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterList{
+    
+    // load hand particle effect
+    [self handParticleEffectAtPosition:self.anchorPointInPoints];
+    
+    // decrease the number of times this skill can be used
+    self.skillTimes--;
+    
+    return 0.0;
+}
+
+@end

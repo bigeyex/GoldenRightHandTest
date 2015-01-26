@@ -101,7 +101,7 @@
 				<key>type</key>
 				<string>IntegerLabeled</string>
 				<key>value</key>
-				<integer>1</integer>
+				<integer>0</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -110,8 +110,8 @@
 				<string>Point</string>
 				<key>value</key>
 				<array>
-					<real>0.0</real>
-					<real>0.0</real>
+					<real>25</real>
+					<real>50</real>
 				</array>
 			</dict>
 			<dict>
@@ -120,7 +120,7 @@
 				<key>type</key>
 				<string>Float</string>
 				<key>value</key>
-				<real>10000</real>
+				<real>25</real>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -128,7 +128,7 @@
 				<key>type</key>
 				<string>Float</string>
 				<key>value</key>
-				<real>0.5</real>
+				<real>1</real>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -136,7 +136,7 @@
 				<key>type</key>
 				<string>Integer</string>
 				<key>value</key>
-				<integer>1000</integer>
+				<integer>500</integer>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -145,8 +145,8 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>0.0</real>
 					<real>1</real>
+					<real>0.0</real>
 				</array>
 			</dict>
 			<dict>
@@ -156,8 +156,8 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>35</real>
-					<real>35</real>
+					<real>25</real>
+					<real>25</real>
 				</array>
 			</dict>
 			<dict>
@@ -167,8 +167,8 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>0.0</real>
-					<real>0.0</real>
+					<real>50</real>
+					<real>50</real>
 				</array>
 			</dict>
 			<dict>
@@ -200,8 +200,8 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>0.0</real>
-					<real>359</real>
+					<real>18</real>
+					<real>200</real>
 				</array>
 			</dict>
 			<dict>
@@ -212,15 +212,15 @@
 				<key>value</key>
 				<array>
 					<array>
-						<real>0.75999999046325684</real>
-						<real>0.25</real>
-						<real>0.11999999731779099</real>
-						<real>255</real>
+						<real>0.80000001192092896</real>
+						<real>1</real>
+						<real>0.40000000596046448</real>
+						<real>1</real>
 					</array>
 					<array>
-						<real>0.0</real>
-						<real>0.0</real>
-						<real>0.0</real>
+						<real>0.12756428122520447</real>
+						<real>0.21567735075950623</real>
+						<real>0.96940702199935913</real>
 						<real>0.0</real>
 					</array>
 				</array>
@@ -233,16 +233,16 @@
 				<key>value</key>
 				<array>
 					<array>
-						<real>0.0</real>
-						<real>0.0</real>
-						<real>0.0</real>
-						<real>255</real>
+						<real>1</real>
+						<real>1</real>
+						<real>0.40000000596046448</real>
+						<real>1</real>
 					</array>
 					<array>
-						<real>0.0</real>
-						<real>0.0</real>
-						<real>0.0</real>
-						<real>0.0</real>
+						<real>0.90136039257049561</real>
+						<real>0.94488817453384399</real>
+						<real>0.55498611927032471</real>
+						<real>0.039999999105930328</real>
 					</array>
 				</array>
 			</dict>
@@ -267,29 +267,40 @@
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>startRadius</string>
+				<string>gravity</string>
+				<key>type</key>
+				<string>Point</string>
+				<key>value</key>
+				<array>
+					<real>2</real>
+					<real>500</real>
+				</array>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>speed</string>
+				<key>type</key>
+				<string>FloatVar</string>
+				<key>value</key>
+				<array>
+					<real>100</real>
+					<real>0.0</real>
+				</array>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>tangentialAccel</string>
 				<key>type</key>
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
 					<real>0.0</real>
-					<real>150</real>
-				</array>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>endRadius</string>
-				<key>type</key>
-				<string>FloatVar</string>
-				<key>value</key>
-				<array>
 					<real>0.0</real>
-					<real>90</real>
 				</array>
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>rotatePerSecond</string>
+				<string>radialAccel</string>
 				<key>type</key>
 				<string>FloatVar</string>
 				<key>value</key>
@@ -304,7 +315,7 @@
 				<key>type</key>
 				<string>Texture</string>
 				<key>value</key>
-				<string>ccbResources/ccbParticleFire.png</string>
+				<string>UI/healParticle.png</string>
 			</dict>
 		</array>
 		<key>selected</key>

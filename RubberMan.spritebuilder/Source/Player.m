@@ -53,10 +53,9 @@ static float controlRange = 300;
     _isTouched = NO;
     _isReleased = NO;
     _initialPosition = _hand.position;
-    _skillcost = 3;
-    
-    // there are three element type, fire, ice and dark
-    _mana = [NSMutableArray arrayWithObjects:[NSDecimalNumber zero], [NSDecimalNumber zero],[NSDecimalNumber zero],nil];
+    _atkBuff = 1.0;
+    _damageReduction = 1.0;
+    _isShooting = NO;
 }
 
 -(void)addHandwithName:(NSString *)ccbName{
@@ -84,6 +83,7 @@ static float controlRange = 300;
 -(void)update:(CCTime)delta{
     
     if(_isReleased){
+        
         // make sure the hand moves only in the shoot directions
         double velocity = ccpDot(_hand.physicsBody.velocity,_shootDirection);
         _hand.physicsBody.velocity = CGPointMake(velocity * _shootDirection.x,velocity * _shootDirection.y);
@@ -95,7 +95,7 @@ static float controlRange = 300;
             isRangeReached = YES;
             _isStopTimeReached = NO;
         }
-        
+
         if(isRangeReached||_isMonsterHit){
             if(!_isStopTimeReached){
                 
@@ -151,10 +151,12 @@ static float controlRange = 300;
     
 }
 
-- (void)touchAtLocation:(CGPoint) touchLocation {
+- (BOOL)touchAtLocation:(CGPoint) touchLocation {
     
     // connect the hand touched by the user to a mouse joint at the touchLocation, when the hand is in the status of being released, the touch is invalid
-    if ((!_isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
+//    if ((!_isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
+    // now you can just slide in the left region to activate hand.
+    if ((!_isReleased) && touchLocation.x<_centerJointNode.positionInPoints.x)
     {
         // if the touch is on the right side of body, adjust it
         if(touchLocation.x>_centerJointNode.positionInPoints.x){
@@ -178,6 +180,8 @@ static float controlRange = 300;
         _arrow.rotation = ccpAngleSigned(_shootDirection, ccp(0,0)) / M_PI * 180;
         [self addChild:_arrow];
     }
+    
+    return _isTouched;
 }
 
 - (void)updateTouchLocation:(CGPoint) touchLocation {
@@ -215,7 +219,8 @@ static float controlRange = 300;
             
             // after the hand is released, hand can collide with monsters
             _hand.physicsBody.collisionMask = @[@"monster"];
-        } else {
+        }
+        else {
             _hand.position = _initialPosition;
         }
         
@@ -229,6 +234,31 @@ static float controlRange = 300;
 
 -(void)receiveAttack{
     [self.animationManager runAnimationsForSequenceNamed:@"beAttacked"];
+}
+
+-(void)doubleAttackForDuration:(float)duration{
+    id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_atkBuff = 2.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_atkBuff = 1.0;}],nil];
+    [self runAction:doubleAttack];
+}
+
+-(void)immuneFromAttackForDuration:(float)duration{
+    id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_damageReduction = 0.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_damageReduction = 1.0;}],nil];
+    [self runAction:doubleAttack];
+}
+
+-(void)shootingForDuration:(float)duration{
+    id shooting = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_isShooting = YES;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_isShooting = NO;}],nil];
+    [self runAction:shooting];
+}
+
+-(void)heal:(float)recoverHP{
+    if(recoverHP>0){
+        _playerHP = MIN(_playerHP + recoverHP,100);
+        CCParticleSystem *healEffect = (CCParticleSystem *)[CCBReader load:@"HealEffect"];
+        healEffect.autoRemoveOnFinish = TRUE;
+        healEffect.position = _centerJointNode.positionInPoints;
+        [self addChild:healEffect];
+    }
 }
 
 @end

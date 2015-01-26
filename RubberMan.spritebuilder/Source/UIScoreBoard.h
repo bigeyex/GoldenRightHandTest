@@ -12,5 +12,6 @@
 
 - (void)giveStarForReason: (NSString*)reason;
 - (void)displayStars;
+- (void)reset;
 
 @end

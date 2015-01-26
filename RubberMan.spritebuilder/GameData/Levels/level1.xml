@@ -7,7 +7,6 @@
             <RespawnInterval>5</RespawnInterval>
             <PositionY>0.6</PositionY>
             <Health>5</Health>
-            <ElementType>0</ElementType>
             <IsElite>0</IsElite>
         </Monster>
     </MonsterData>

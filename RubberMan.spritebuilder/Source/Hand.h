@@ -14,7 +14,6 @@
 @property float range;
 @property float atk;
 @property int skillTimes;
-@property int handType; // this is only used for recover player's mana when switching between two skills
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos;
 -(float)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterlist;
@@ -38,4 +37,9 @@
 @interface DarkHand : Hand
 
 @end
+
+@interface DeathHand : Hand
+
+@end
+
 
