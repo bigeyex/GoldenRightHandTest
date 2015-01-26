@@ -19,6 +19,7 @@
     double _stopTime;
     CGPoint _initialPosition;
     CCSprite *_arrow;
+    float _minTouchTime;
     
     CCNode* _hpBar;
 }
@@ -95,7 +96,7 @@ static float controlRange = 300;
             isRangeReached = YES;
             _isStopTimeReached = NO;
         }
-
+        
         if(isRangeReached||_isMonsterHit){
             if(!_isStopTimeReached){
                 
@@ -112,7 +113,7 @@ static float controlRange = 300;
                 
                 // after the hand has stopped for enough time, apply an impluse to let the hand go back
                 if(_stopTime>=stopDuration){
-                    double impulseScale = _hand.physicsBody.mass*2500;
+                    double impulseScale = _hand.physicsBody.mass*1500;
                     
                     // change the shoot direction to the vector of _initialPosition to hand.position
                     _shootDirection = ccpNormalize(ccpSub(_hand.positionInPoints,_initialPosition));
@@ -153,8 +154,9 @@ static float controlRange = 300;
 
 - (BOOL)touchAtLocation:(CGPoint) touchLocation {
     
-    // connect the hand touched by the user to a mouse joint at the touchLocation, when the hand is in the status of being released, the touch is invalid
-//    if ((!_isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
+    // move the hand to the touch location, when the hand is in the status of being released, the touch is invalid
+    //if ((!_isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
+    
     // now you can just slide in the left region to activate hand.
     if ((!_isReleased) && touchLocation.x<_centerJointNode.positionInPoints.x)
     {
@@ -180,7 +182,6 @@ static float controlRange = 300;
         _arrow.rotation = ccpAngleSigned(_shootDirection, ccp(0,0)) / M_PI * 180;
         [self addChild:_arrow];
     }
-    
     return _isTouched;
 }
 
@@ -205,24 +206,17 @@ static float controlRange = 300;
 - (BOOL)releaseTouch{
     
     if (_isTouched){
-        // check whether the hand is moved or tapped
-        double distance = ccpDistance(_initialPosition,_hand.positionInPoints);
-        if(distance>85){
-            // add an impulse to the hand when the touch is released
-            double impulseScale = _hand.physicsBody.mass*2500;
-            _shootDirection = ccpNormalize(ccpSub(_centerJointNode.positionInPoints,_hand.positionInPoints));
-            [_hand.physicsBody applyImpulse:ccp(_shootDirection.x*impulseScale,_shootDirection.y*impulseScale) atLocalPoint:_hand.anchorPointInPoints];
-            
-            _isReleased = YES;
-            _isGoBack = NO;
-            _stopTime = 0;
-            
-            // after the hand is released, hand can collide with monsters
-            _hand.physicsBody.collisionMask = @[@"monster"];
-        }
-        else {
-            _hand.position = _initialPosition;
-        }
+        // add an impulse to the hand when the touch is released
+        double impulseScale = _hand.physicsBody.mass*1500;
+        _shootDirection = ccpNormalize(ccpSub(_centerJointNode.positionInPoints,_hand.positionInPoints));
+        [_hand.physicsBody applyImpulse:ccp(_shootDirection.x*impulseScale,_shootDirection.y*impulseScale) atLocalPoint:_hand.anchorPointInPoints];
+        
+        _isReleased = YES;
+        _isGoBack = NO;
+        _stopTime = 0;
+        
+        // after the hand is released, hand can collide with monsters
+        _hand.physicsBody.collisionMask = @[@"monster"];
         
         _isTouched = NO;
         
