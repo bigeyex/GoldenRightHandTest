@@ -175,7 +175,7 @@
     if(!_player.isShooting){
         int numOfMonsters = (int)[_monsterList.children count];
         Monster *monsterBeAttacked;
-        float minProjectDistance=1000;
+        float minProjectDistance=10000;
         for (int i = 0;i<numOfMonsters;i++){
             Monster *_checkNode = _monsterList.children[i];
             CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
@@ -190,6 +190,7 @@
                     [_checkNode monsterEvade];
                 }
                 
+                // calculate which monster is being attacked
                 float projectDistance = ccpDot(_player.shootDirection,ccpSub(monsterPosition,handPosition));
                 if(minProjectDistance>projectDistance){
                         monsterBeAttacked = _checkNode;
@@ -197,6 +198,8 @@
                 }
             }
         }
+        
+        // the being hitted monster ask for protection
         if(monsterBeAttacked){
             [monsterBeAttacked seekProtection:_monsterList];
         }

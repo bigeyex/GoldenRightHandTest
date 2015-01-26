@@ -150,7 +150,7 @@ CGFloat const outOfBoundThreshold=10;
     for (int i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = monsterList.children[i];
         if(_checkNode.isElite){
-            if(self!=_checkNode){
+            if(self!=_checkNode && !_checkNode.isEvading){
                 [_checkNode protectMonsters:self];
                 self.physicsBody.velocity = ccp(0,0);
                 break;
