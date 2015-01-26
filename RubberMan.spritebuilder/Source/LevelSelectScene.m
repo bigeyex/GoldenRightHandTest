@@ -8,6 +8,7 @@
 
 #import "LevelSelectScene.h"
 #import "BattleScene.h"
+#import "GameGlobals.h"
 
 @implementation LevelSelectScene{
     CCButton *_level1;
@@ -21,11 +22,12 @@
 - (void)didLoadFromCCB {
     _level = [NSMutableArray arrayWithObjects:_level1,_level2,_level3,_level4,nil];
     _levelNames = [NSMutableArray arrayWithObjects:@"level1",@"level2",@"level3",@"level4",nil];
+    [[GameGlobals sharedInstance] setLevelNames:@[@"level1",@"level2",@"level3",@"level4"]];
     
     // obtain the information of the stars of each comleted level
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    int numOfLevels = 4;
+    int numOfLevels = [_level count];
     for (int i = 0;i<=numOfLevels-1;i++){
         // star = 1,2,3 for one, two and three stars and 0 for not complted levels
          int stars = [[defaults objectForKey:_levelNames[i]] intValue];
@@ -49,10 +51,8 @@
     } else if(_level4.highlighted){
         levelNum = 3;
     }
-    CCScene *battleScene = [CCBReader loadAsScene:@"BattleScene"];
-    BattleScene *sceneNode = [[battleScene children] firstObject];
-    sceneNode.levelName = _levelNames[levelNum];
-    [[CCDirector sharedDirector] replaceScene:battleScene];
+    
+    [BattleScene loadSceneByLevelIndex:levelNum];
 }
 
 @end
