@@ -249,5 +249,14 @@ static float controlRange = 300;
     [self runAction:shooting];
 }
 
+-(void)heal:(float)recoverHP{
+    if(recoverHP>0){
+        _playerHP = MIN(_playerHP + recoverHP,100);
+        CCParticleSystem *healEffect = (CCParticleSystem *)[CCBReader load:@"HealEffect"];
+        healEffect.autoRemoveOnFinish = TRUE;
+        healEffect.position = _centerJointNode.positionInPoints;
+        [self addChild:healEffect];
+    }
+}
 
 @end

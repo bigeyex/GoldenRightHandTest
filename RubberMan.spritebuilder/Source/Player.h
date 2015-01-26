@@ -34,5 +34,6 @@
 - (void)doubleAttackForDuration:(float)duration;
 - (void)immuneFromAttackForDuration:(float)duration;
 - (void)shootingForDuration:(float)duration;
+- (void)heal:(float)recoverHP;
 
 @end

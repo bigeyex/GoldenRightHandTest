@@ -39,7 +39,7 @@
     self.userInteractionEnabled = TRUE;
     
     // visualize physics bodies & joints
-    _physicsNode.debugDraw = YES;
+    //_physicsNode.debugDraw = YES;
     
     // sign up as the collision delegate of physics node
     _physicsNode.collisionDelegate = self;
@@ -179,7 +179,7 @@
         BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk * _player.atkBuff];
         float recoverHP = [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
         
-        _player.playerHP = MIN(_player.playerHP + recoverHP,100);
+        [_player heal:recoverHP]; 
         [_playerLifeBar setLength:_player.playerHP];
         
         _player.handPositionAtHit = _player.hand.positionInPoints;
@@ -189,6 +189,7 @@
         nodeA.physicsBody.velocity = ccp(0,0);
         
         if(isDefeated){
+            // the skill element motion animation
             CCSprite *element = [CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"UI/%@.png",nodeA.elementType]];
             element.position = nodeA.positionInPoints;
             element.opacity = 0.5;
@@ -289,7 +290,7 @@
             
         case 4: // fire * ice * ice
             // heal for 30 hp
-            _player.playerHP = MIN(_player.playerHP + 30,100);
+            [_player heal:30.0];
             [_playerLifeBar setLength:_player.playerHP];
             break;
             
