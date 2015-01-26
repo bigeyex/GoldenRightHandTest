@@ -154,7 +154,9 @@ static float controlRange = 300;
 - (BOOL)touchAtLocation:(CGPoint) touchLocation {
     
     // connect the hand touched by the user to a mouse joint at the touchLocation, when the hand is in the status of being released, the touch is invalid
-    if ((!_isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
+//    if ((!_isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
+    // now you can just slide in the left region to activate hand.
+    if ((!_isReleased) && touchLocation.x<_centerJointNode.positionInPoints.x)
     {
         // if the touch is on the right side of body, adjust it
         if(touchLocation.x>_centerJointNode.positionInPoints.x){

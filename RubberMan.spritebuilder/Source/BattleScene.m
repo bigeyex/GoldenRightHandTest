@@ -16,6 +16,7 @@
 #import "UIScoreBoard.h"
 #import "GameEvent.h"
 #import "SkillButtonUI.h"
+#import "GameGlobals.h"
 
 @implementation BattleScene{
     CCPhysicsNode *_physicsNode;
@@ -32,6 +33,27 @@
     CCNode* scoreBoardMenu;
     UIScoreBoard *uiScoreBoard;
     
+}
+
++ (void)loadSceneByLevelIndex:(int)levelIndex{
+    NSString* levelName = [[GameGlobals sharedInstance] levelNameAtIndex:levelIndex];
+    if(levelName != nil){
+        CCScene *battleScene = [CCBReader loadAsScene:@"BattleScene"];
+        BattleScene *sceneNode = [[battleScene children] firstObject];
+        sceneNode.levelName = levelName;
+        sceneNode.levelIndex = levelIndex;
+        // in case the game is paused (when selecting "restart" in the pause screen)
+        [[CCDirector sharedDirector] resume];
+        [[CCDirector sharedDirector] replaceScene:battleScene];
+        
+        // show or hide "next level" button
+        if([[GameGlobals sharedInstance] levelNames].count <= sceneNode.levelIndex+1){
+            sceneNode.nextLevelButton.visible = NO;
+        }
+        else{
+            sceneNode.nextLevelButton.visible = YES;
+        }
+    }
 }
 
 - (void)didLoadFromCCB {
@@ -52,6 +74,7 @@
     [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(checkWinningCondition)];
     [_skillButton.children[0] setEnabled:NO];
     [uiScoreBoard reset];
+    
 }
 
 - (void)onEnter{
@@ -82,7 +105,7 @@
 }
 
 - (void)goToNextLevel{
-    
+    [[self class] loadSceneByLevelIndex:self.levelIndex+1];
 }
 
 - (void)exitToMenu{
