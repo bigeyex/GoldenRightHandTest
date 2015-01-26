@@ -65,6 +65,7 @@ CGFloat const outOfBoundThreshold=10;
 - (void)stopMovingForDuration:(float)duration{
     _isStopped = YES;
     _stopDuration = duration;
+    [self.animationManager runAnimationsForSequenceNamed:@"default"];
 }
 
 
@@ -95,6 +96,7 @@ CGFloat const outOfBoundThreshold=10;
         _stopDuration = _stopDuration - delta;
         if(_stopDuration<=0){
             _isStopped = NO;
+            [self.animationManager runAnimationsForSequenceNamed:@"moving"];
         }
     }
     

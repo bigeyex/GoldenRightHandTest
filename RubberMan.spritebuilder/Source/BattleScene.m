@@ -284,19 +284,18 @@
             break;
             
         case 3: // fire * fire * dark
-            // double the attack for 5s
-            [_player doubleAttackForDuration:5.0];
+            // deal damage to all the monsters
+            [self dealDamageToAllMonsters:5.0];
             break;
             
         case 4: // fire * ice * ice
-            // heal for 30 hp
-            [_player heal:30.0];
-            [_playerLifeBar setLength:_player.playerHP];
+            // freeze all monsters
+            [self freezeAllMonsters:5.0];
             break;
             
         case 6: // fire * ice * dark
-            // deal damage to all the monsters
-            [self dealDamageToAllMonsters:5.0];
+            // double the attack for 10s
+            [_player doubleAttackForDuration:10.0];
             break;
             
         case 8: // ice * ice * ice
@@ -305,7 +304,9 @@
             break;
             
         case 9: // fire * dark * dark
-
+            // heal for 30 hp
+            [_player heal:30.0];
+            [_playerLifeBar setLength:_player.playerHP];
             break;
             
         case 12: // ice * ice * dark
@@ -329,6 +330,13 @@
 }
 
 -(void) dealDamageToAllMonsters:(float)damage{
+    // add particle effect
+    CCParticleSystem *attackAllEffect = (CCParticleSystem *)[CCBReader load:@"AttackAllEffect"];
+    attackAllEffect.autoRemoveOnFinish = TRUE;
+    attackAllEffect.position = ccp(350,32);
+    [self addChild:attackAllEffect];
+
+    
     int numOfMonsters = (int)[_monsterList.children count];
     for (int i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = _monsterList.children[i];
@@ -337,7 +345,22 @@
             [_checkNode removeFromParent];
             i--;
             numOfMonsters--;
+            [self checkWinningCondition];
         }
+    }
+}
+
+-(void) freezeAllMonsters:(float)duration{
+    // add particle effect
+    CCParticleSystem *attackAllEffect = (CCParticleSystem *)[CCBReader load:@"FreezeAllEffect"];
+    attackAllEffect.autoRemoveOnFinish = TRUE;
+    attackAllEffect.position = ccp(350,308);
+    [self addChild:attackAllEffect];
+    
+    int numOfMonsters = (int)[_monsterList.children count];
+    for (int i = 0;i<numOfMonsters;i++){
+        Monster *_checkNode = _monsterList.children[i];
+        [_checkNode stopMovingForDuration:duration];
     }
 }
 
