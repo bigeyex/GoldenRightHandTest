@@ -150,12 +150,14 @@ CGFloat const outOfBoundThreshold=10;
     for (int i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = monsterList.children[i];
         if(_checkNode.isElite){
-            [_checkNode protectMonsters:self];
-            self.physicsBody.velocity = ccp(0,0);
-            break;
+            if(self!=_checkNode){
+                [_checkNode protectMonsters:self];
+                self.physicsBody.velocity = ccp(0,0);
+                break;
+            }
         }
     }
-
+    
     
 }
 
@@ -170,17 +172,17 @@ CGFloat const outOfBoundThreshold=10;
 }
 
 /*
--(void)monsterEvade{
-    if(!self.isStopped){
-        self.isEvading = YES;
-        self.physicsBody.velocity = ccp(0,0);
-        CGPoint previousPosition = self.position;
-        id jumpSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0,0.25)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
-            self.isEvading = NO;}],nil];
-        [self runAction:jumpSequence];
-    }
-}
-*/
+ -(void)monsterEvade{
+ if(!self.isStopped){
+ self.isEvading = YES;
+ self.physicsBody.velocity = ccp(0,0);
+ CGPoint previousPosition = self.position;
+ id jumpSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0,0.25)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{
+ self.isEvading = NO;}],nil];
+ [self runAction:jumpSequence];
+ }
+ }
+ */
 
 - (void)protectMonsters:(Monster *)nodeA{
     if(!self.isStopped){
