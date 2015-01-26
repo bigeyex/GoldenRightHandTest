@@ -242,6 +242,7 @@
             _skillButton.lowerLeftElement = _skillButton.upperElement;
             _skillButton.upperElement = nodeA.elementType;
             if(![_skillButton.lowerRightElement isEqualToString:@"none"]){
+                [GameEvent dispatch:@"GetSkill"];
                 [_skillButton.children[0] setEnabled:YES];
             }
         }

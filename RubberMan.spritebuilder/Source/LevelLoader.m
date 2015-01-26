@@ -11,6 +11,7 @@
 #import "GDataXMLNode.h"
 #import "Monster.h"
 #import "GameEvent.h"
+#import "TutorialManager.h"
 
 // Tutorials - has to hard code classes for lack of dynamic loading capability.
 #import "BasicTutorial.h"
@@ -133,9 +134,7 @@
     // load (tutorial) events
     NSArray *eventNodes = [doc nodesForXPath:@"//LevelData/EventData/Event" error:nil];
     for (GDataXMLElement *eventNode in eventNodes) {
-        if([eventNode.stringValue isEqualToString:@"BasicTutorial"]){
-            [BasicTutorial setUp];
-        }
+        [TutorialManager createTutorial:eventNode.stringValue];
     }
     
     

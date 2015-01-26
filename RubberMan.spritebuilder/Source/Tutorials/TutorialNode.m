@@ -16,12 +16,11 @@
     if (self = [super init])
     {
         // activate touches on this scene
-        self.userInteractionEnabled = TRUE;
     }
     return self;
 }
 
-- (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+- (void)dismissTutorial
 {
     [GameEvent dispatch:@"ResumeMonsters"];
     [self removeFromParent];

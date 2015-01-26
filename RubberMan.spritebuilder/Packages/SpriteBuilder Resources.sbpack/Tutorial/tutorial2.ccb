@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>16</integer>
+	<integer>17</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -137,6 +137,8 @@
 						<real>0.5</real>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -170,8 +172,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>385.33193969726562</real>
-							<real>205.22016906738281</real>
+							<real>332.33193969726562</real>
+							<real>212.22016906738281</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -208,12 +210,9 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>aim:
-touch &amp; slide
-Inside this region
-
-Attack:
-Release finger</string>
+							<string>tap this button
+to use special skills*
+</string>
 							<false/>
 						</array>
 					</dict>
@@ -382,8 +381,8 @@ Release finger</string>
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>348.28741455078125</real>
-							<real>54.000015258789062</real>
+							<real>275.28741455078125</real>
+							<real>55.000015258789062</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -678,7 +677,7 @@ Release finger</string>
 			</dict>
 			<dict>
 				<key>UUID</key>
-				<integer>13</integer>
+				<integer>15</integer>
 				<key>animatedProperties</key>
 				<dict>
 					<key>0</key>
@@ -701,8 +700,8 @@ Release finger</string>
 									<integer>3</integer>
 									<key>value</key>
 									<array>
-										<real>214.23753356933594</real>
-										<real>120.15507507324219</real>
+										<real>491</real>
+										<real>151</real>
 									</array>
 								</dict>
 								<dict>
@@ -719,8 +718,8 @@ Release finger</string>
 									<integer>3</integer>
 									<key>value</key>
 									<array>
-										<real>179.24620056152344</real>
-										<real>120.19999694824219</real>
+										<real>491</real>
+										<real>115</real>
 									</array>
 								</dict>
 							</array>
@@ -738,7 +737,7 @@ Release finger</string>
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>tut-arrow-left</string>
+				<string>tut-arrow-down</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -756,8 +755,8 @@ Release finger</string>
 					<dict>
 						<key>baseValue</key>
 						<array>
-							<real>217</real>
-							<real>215</real>
+							<real>491</real>
+							<real>140</real>
 						</array>
 						<key>name</key>
 						<string>position</string>
@@ -765,8 +764,8 @@ Release finger</string>
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>186.24446105957031</real>
-							<real>120.19100952148438</real>
+							<real>491</real>
+							<real>148.60000610351562</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -804,7 +803,7 @@ Release finger</string>
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Tutorial/TutorialResources/tut-arrow-left.png</string>
+							<string>Tutorial/TutorialResources/tut-arrow-down.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -840,22 +839,20 @@ Release finger</string>
 						<array/>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 				<key>seqExpanded</key>
 				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
-				<integer>14</integer>
+				<integer>16</integer>
 				<key>baseClass</key>
-				<string>CCSprite</string>
+				<string>CCLabelTTF</string>
 				<key>children</key>
 				<array/>
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>a-region</string>
+				<string>CCLabelTTF</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -877,8 +874,8 @@ Release finger</string>
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>80.328636169433594</real>
-							<real>154.28741455078125</real>
+							<real>298.33193969726562</real>
+							<real>114.22016906738281</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -902,39 +899,85 @@ Release finger</string>
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>0.88080596923828125</real>
-							<real>0.98151832818984985</real>
+							<real>1</real>
+							<real>1</real>
 							<false/>
 							<integer>0</integer>
 						</array>
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>spriteFrame</string>
+						<string>string</string>
 						<key>type</key>
-						<string>SpriteFrame</string>
+						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string></string>
-							<string>Tutorial/TutorialResources/a-region.png</string>
+							<string>*skills differ by 
+elemental combination</string>
+							<false/>
 						</array>
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>normalMapSpriteFrame</string>
+						<string>fontName</string>
 						<key>type</key>
-						<string>SpriteFrame</string>
+						<string>FontTTF</string>
+						<key>value</key>
+						<string>Tutorial/TutorialResources/Action_Man.ttf</string>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>fontSize</string>
+						<key>type</key>
+						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<string></string>
-							<string></string>
+							<real>20</real>
+							<integer>0</integer>
 						</array>
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>color</string>
+						<string>adjustsFontSizeToFit</string>
 						<key>type</key>
-						<string>Color3</string>
+						<string>Check</string>
+						<key>value</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>dimensions</string>
+						<key>type</key>
+						<string>Size</string>
+						<key>value</key>
+						<array>
+							<real>0.0</real>
+							<real>0.0</real>
+							<integer>0</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>horizontalAlignment</string>
+						<key>type</key>
+						<string>IntegerLabeled</string>
+						<key>value</key>
+						<integer>0</integer>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>verticalAlignment</string>
+						<key>type</key>
+						<string>IntegerLabeled</string>
+						<key>value</key>
+						<integer>0</integer>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>fontColor</string>
+						<key>type</key>
+						<string>Color4</string>
 						<key>value</key>
 						<array>
 							<real>1</real>
@@ -945,11 +988,65 @@ Release finger</string>
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>effects</string>
+						<string>outlineColor</string>
 						<key>type</key>
-						<string>EffectControl</string>
+						<string>Color4</string>
 						<key>value</key>
-						<array/>
+						<array>
+							<real>0.0</real>
+							<real>0.0</real>
+							<real>0.0</real>
+							<real>0.0</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>outlineWidth</string>
+						<key>type</key>
+						<string>FloatScale</string>
+						<key>value</key>
+						<array>
+							<real>1</real>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>shadowColor</string>
+						<key>type</key>
+						<string>Color4</string>
+						<key>value</key>
+						<array>
+							<real>0.0</real>
+							<real>0.0</real>
+							<real>0.0</real>
+							<real>0.0</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>shadowBlurRadius</string>
+						<key>type</key>
+						<string>FloatScale</string>
+						<key>value</key>
+						<array>
+							<real>0.0</real>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>shadowOffset</string>
+						<key>type</key>
+						<string>Position</string>
+						<key>value</key>
+						<array>
+							<real>0.0</real>
+							<real>0.0</real>
+							<integer>0</integer>
+							<integer>0</integer>
+							<integer>0</integer>
+						</array>
 					</dict>
 				</array>
 			</dict>
@@ -1079,7 +1176,7 @@ Release finger</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.80000001192092896</real>
+			<real>0.066666670143604279</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>

@@ -60,6 +60,9 @@
 		88A231621A719EC600EA3E2E /* UIScoreBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A231611A719EC600EA3E2E /* UIScoreBoard.m */; };
 		88A231651A71B1D800EA3E2E /* LevelClearScreenStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A231641A71B1D800EA3E2E /* LevelClearScreenStar.m */; };
 		88F5CBE91A75F7A800CCB1B6 /* GameGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F5CBE81A75F7A800CCB1B6 /* GameGlobals.m */; };
+		88F5CBF91A76146100CCB1B6 /* SpecialSkillTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F5CBF81A76146100CCB1B6 /* SpecialSkillTutorial.m */; };
+		88F5CBFD1A76150A00CCB1B6 /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F5CBFC1A76150A00CCB1B6 /* Tutorial.m */; };
+		88F5CC001A761AF100CCB1B6 /* TutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F5CBFF1A761AF100CCB1B6 /* TutorialManager.m */; };
 		927F619E196C771E000F43EF /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B7378993180767190076A88C /* MainScene.m */; };
 		927F61A5196C771E000F43EF /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3517B978D7009739AE /* OpenAL.framework */; };
 		927F61A9196C771E000F43EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3D17B978D7009739AE /* Foundation.framework */; };
@@ -238,6 +241,12 @@
 		88A231641A71B1D800EA3E2E /* LevelClearScreenStar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LevelClearScreenStar.m; path = Source/LevelClearScreenStar.m; sourceTree = "<group>"; };
 		88F5CBE71A75F7A800CCB1B6 /* GameGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameGlobals.h; path = Source/GameGlobals.h; sourceTree = "<group>"; };
 		88F5CBE81A75F7A800CCB1B6 /* GameGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameGlobals.m; path = Source/GameGlobals.m; sourceTree = "<group>"; };
+		88F5CBF71A76146100CCB1B6 /* SpecialSkillTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpecialSkillTutorial.h; path = Source/SpecialSkillTutorial.h; sourceTree = "<group>"; };
+		88F5CBF81A76146100CCB1B6 /* SpecialSkillTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpecialSkillTutorial.m; path = Source/SpecialSkillTutorial.m; sourceTree = "<group>"; };
+		88F5CBFB1A76150A00CCB1B6 /* Tutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tutorial.h; path = Source/Tutorial.h; sourceTree = "<group>"; };
+		88F5CBFC1A76150A00CCB1B6 /* Tutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tutorial.m; path = Source/Tutorial.m; sourceTree = "<group>"; };
+		88F5CBFE1A761AF100CCB1B6 /* TutorialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialManager.h; path = Source/TutorialManager.h; sourceTree = "<group>"; };
+		88F5CBFF1A761AF100CCB1B6 /* TutorialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialManager.m; path = Source/TutorialManager.m; sourceTree = "<group>"; };
 		927F61BF196C771E000F43EF /* RubberMan Android.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RubberMan Android.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
@@ -572,6 +581,12 @@
 				889892611A6F4F4A00011AE8 /* BasicTutorial.m */,
 				8898927B1A6F6CD900011AE8 /* TutorialNode.h */,
 				8898927C1A6F6CD900011AE8 /* TutorialNode.m */,
+				88F5CBF71A76146100CCB1B6 /* SpecialSkillTutorial.h */,
+				88F5CBF81A76146100CCB1B6 /* SpecialSkillTutorial.m */,
+				88F5CBFB1A76150A00CCB1B6 /* Tutorial.h */,
+				88F5CBFC1A76150A00CCB1B6 /* Tutorial.m */,
+				88F5CBFE1A761AF100CCB1B6 /* TutorialManager.h */,
+				88F5CBFF1A761AF100CCB1B6 /* TutorialManager.m */,
 			);
 			name = Tutorials;
 			sourceTree = "<group>";
@@ -1043,14 +1058,17 @@
 				D225B3E11A65F96D005787F2 /* Hand.m in Sources */,
 				D24D0E961A6B91AF00DA162E /* BattleScene.m in Sources */,
 				8882A9671A687CFC00458955 /* GDataXMLNode.m in Sources */,
+				88F5CBF91A76146100CCB1B6 /* SpecialSkillTutorial.m in Sources */,
 				888BA9771A69EC2600E0BD96 /* LifeBar.m in Sources */,
 				D2E8845E1A64D999004423FC /* Player.m in Sources */,
 				D2E884791A64F2F6004423FC /* Monster.m in Sources */,
 				88F5CBE91A75F7A800CCB1B6 /* GameGlobals.m in Sources */,
 				88A231651A71B1D800EA3E2E /* LevelClearScreenStar.m in Sources */,
+				88F5CBFD1A76150A00CCB1B6 /* Tutorial.m in Sources */,
 				8898925B1A6F456C00011AE8 /* GameEvent.m in Sources */,
 				88A231621A719EC600EA3E2E /* UIScoreBoard.m in Sources */,
 				D29481F51A7408AD002B597D /* SkillButtonUI.m in Sources */,
+				88F5CC001A761AF100CCB1B6 /* TutorialManager.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				8808EA1B1A6893AC0020AB90 /* MonsterData.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
