@@ -51,6 +51,7 @@
     
     [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(checkWinningCondition)];
     [_skillButton.children[0] setEnabled:NO];
+    [uiScoreBoard reset];
 }
 
 - (void)onEnter{
