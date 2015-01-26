@@ -37,4 +37,7 @@
             <IsElite>0</IsElite>
         </Monster>
     </MonsterData>
+    <EventData>
+        <Event>SpecialSkillTutorial</Event>
+    </EventData>
 </LevelData>

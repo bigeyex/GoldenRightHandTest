@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Tutorial.h"
 
-@interface BasicTutorial : Tutorial
+@interface Tutorial : NSObject
 
 + (void)setUp;
+- (void)showTutorialScreen:(NSString*)screenName afterDelay:(float)delay;
 
 @end

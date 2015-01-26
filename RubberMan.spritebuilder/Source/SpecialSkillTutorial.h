@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Tutorial.h"
 
-@interface BasicTutorial : Tutorial
+@interface SpecialSkillTutorial : Tutorial
 
 + (void)setUp;
 

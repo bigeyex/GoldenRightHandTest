@@ -26,6 +26,27 @@ static NSMutableDictionary* eventList;
     [subscriberList addObject:@[object, NSStringFromSelector(selector)]];
 }
 
++ (void)unsubscribe:(NSString*)eventName forObject:(id) object withSelector:(SEL) selector{
+    if(eventList==nil){
+        return;
+    }
+    
+    NSMutableArray* subscriberList = [eventList valueForKey:eventName];
+    if(subscriberList==nil){
+        return;
+    }
+    
+    NSMutableArray *discardedItems = [NSMutableArray array];
+    for(NSArray *pair in subscriberList){
+        SEL candidateSelector = NSSelectorFromString(pair[1]);
+        id subscriber = pair[0];
+        if(object==subscriber && selector==candidateSelector){
+            [discardedItems addObject:pair];
+        }
+    }
+    [subscriberList removeObjectsInArray:discardedItems];
+}
+
 + (void)dispatch: (NSString*)eventName{
     [self dispatch:eventName withArgument:nil];
 }
