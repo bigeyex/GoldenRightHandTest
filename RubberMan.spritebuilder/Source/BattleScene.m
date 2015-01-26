@@ -174,19 +174,31 @@
 - (void) monsterAI{
     if(!_player.isShooting){
         int numOfMonsters = (int)[_monsterList.children count];
+        Monster *monsterBeAttacked;
+        float minProjectDistance=1000;
         for (int i = 0;i<numOfMonsters;i++){
             Monster *_checkNode = _monsterList.children[i];
-            if(_checkNode.isElite){
-                CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
-                CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
-                float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
+            CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
+            CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
+ 
+            float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
+            // if the monster is targeted
+            if (distance<=20*2){
                 
-                // NOTE: this is to assume the hand size is 20 and the monster size is 20 also, potential bug
-                // if the monster is targeted
-                if (distance<=20*2){
+                // if the monster is elite, perform evade behavior
+                if(_checkNode.isElite){
                     [_checkNode monsterEvade];
                 }
+                
+                float projectDistance = ccpDot(_player.shootDirection,ccpSub(monsterPosition,handPosition));
+                if(minProjectDistance>projectDistance){
+                        monsterBeAttacked = _checkNode;
+                        minProjectDistance = projectDistance;
+                }
             }
+        }
+        if(monsterBeAttacked){
+            [monsterBeAttacked seekProtection:_monsterList];
         }
     }
 }
@@ -203,7 +215,7 @@
         BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk * _player.atkBuff];
         float recoverHP = [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
         
-        [_player heal:recoverHP]; 
+        [_player heal:recoverHP];
         [_playerLifeBar setLength:_player.playerHP];
         
         _player.handPositionAtHit = _player.hand.positionInPoints;
@@ -298,6 +310,7 @@
     int skillOptions = [map[_skillButton.upperElement] intValue] * [map[_skillButton.lowerLeftElement] intValue] * [map[_skillButton.lowerRightElement] intValue];
     switch(skillOptions){
         case 1: // fire * fire * fire
+            // use a fire fist which deal damage to an area
             [_player removeHand];
             [_player addHandwithName:@"FireHand"];
             break;
@@ -308,13 +321,13 @@
             break;
             
         case 3: // fire * fire * dark
-            // deal damage to all the monsters
+            // deal 5 damage to all the monsters
             [self dealDamageToAllMonsters:5.0];
             break;
             
         case 4: // fire * ice * ice
-            // freeze all monsters
-            [self freezeAllMonsters:5.0];
+            // freeze all monsters for 5.0s
+            [self freezeAllMonsters:5];
             break;
             
         case 6: // fire * ice * dark
@@ -323,6 +336,7 @@
             break;
             
         case 8: // ice * ice * ice
+            // use an ice fist to deal damage to one monster and freeze all others surrounding it
             [_player removeHand];
             [_player addHandwithName:@"IceHand"];
             break;
@@ -334,6 +348,7 @@
             break;
             
         case 12: // ice * ice * dark
+            // use a death fist which kill any monster touched
             [_player removeHand];
             [_player addHandwithName:@"DeathHand"];
             break;
@@ -344,6 +359,7 @@
             break;
             
         case 27: // dark * dark * dark
+            // use a dark fist to absorb hp from monsters
             [_player removeHand];
             [_player addHandwithName:@"DarkHand"];
             break;
@@ -359,7 +375,7 @@
     attackAllEffect.autoRemoveOnFinish = TRUE;
     attackAllEffect.position = ccp(350,32);
     [self addChild:attackAllEffect];
-
+    
     
     int numOfMonsters = (int)[_monsterList.children count];
     for (int i = 0;i<numOfMonsters;i++){
