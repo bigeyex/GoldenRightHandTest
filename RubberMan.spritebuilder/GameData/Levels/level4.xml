@@ -24,8 +24,8 @@
             <Number>3</Number>
             <RespawnInterval>3</RespawnInterval>
             <PositionY>0.1</PositionY>
-            <Health>20</Health>
-            <IsElite>1</IsElite>
+            <Health>5</Health>
+            <IsElite>0</IsElite>
         </Monster>
         </MonsterData>
 </LevelData>

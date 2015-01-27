@@ -91,7 +91,7 @@
 - (void) initSkillDescriptionArray{
     _skillDescriptionArray = [NSMutableArray arrayWithObjects:
                               @"Attack all monsters with fire",
-                              @"Fist can't be evaded/protected",
+                              @"Fist can't be evaded for 10s",
                               @"AOE Attack with fire fist",
                               @"Freeze monsters with ice fist",@"n/a",
                               @"Double the attack for 10s",@"n/a",

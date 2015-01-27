@@ -209,7 +209,7 @@ CGFloat const outOfBoundThreshold=10;
 }
 
 -(void)monsterEvade{
-    if(!self.isStopped){
+    if(!self.isStopped && !self.isEvading){
         self.isEvading = YES;
         self.physicsBody.velocity = ccp(0,0);
         CGPoint previousPosition = self.position;
