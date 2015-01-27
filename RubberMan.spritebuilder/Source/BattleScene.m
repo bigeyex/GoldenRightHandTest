@@ -71,7 +71,6 @@
     // play bgm
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     // play background sound
-    [audio preloadBg:@"iceloop.mp3"];
     [audio playBgWithLoop:true];
 //    [audio playBg:@"iceloop.mp3" loop:TRUE];
     

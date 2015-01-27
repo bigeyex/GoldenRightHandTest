@@ -5,6 +5,7 @@
 -(void)didLoadFromCCB{
     // preload sound effects
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio preloadBg:@"iceloop.mp3"];
     [audio preloadEffect:@"normalFist.mp3"];
     [audio preloadEffect:@"fireFist.mp3"];
     [audio preloadEffect:@"fireSpell.mp3"];
