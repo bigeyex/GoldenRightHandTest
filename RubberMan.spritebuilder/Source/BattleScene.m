@@ -26,6 +26,8 @@
     int _totalNumOfMonsters;
     int _monstersKilled;
     SkillButtonUI *_skillButton;
+    CCLabelTTF *_skillDescription;
+    NSMutableArray *_skillDescriptionArray;
     
     CCNode* pauseButton;
     CCNode* pauseMenu;
@@ -74,6 +76,9 @@
     [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(checkWinningCondition)];
     [_skillButton.children[0] setEnabled:NO];
     [uiScoreBoard reset];
+    [self initSkillDescriptionArray];
+    _skillDescription.string = @"Collect 3 element to use skills";
+    _skillDescription.opacity = 0.5;
     
 }
 
@@ -81,6 +86,21 @@
     [super onEnter];
     _totalNumOfMonsters = [_monsterList loadLevel:_levelName];
     _monstersKilled = 0;
+}
+
+- (void) initSkillDescriptionArray{
+    _skillDescriptionArray = [NSMutableArray arrayWithObjects:
+                              @"Attack all monsters with fire",
+                              @"Fist can't be evaded/protected",
+                              @"AOE Attack with fire fist",
+                              @"Freeze monsters with ice fist",@"n/a",
+                              @"Double the attack for 10s",@"n/a",
+                              @"Freeze all monsters for 5s",
+                              @"Heal 30% hp",@"n/a",@"n/a",
+                              @"Kill any monster with death fist",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",
+                              @"Absorb hp with dark fist",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",
+                              @"Receive 0 damage for 10s",
+                              nil];
 }
 
 - (void)showPauseMenu{
@@ -247,6 +267,7 @@
             if(![_skillButton.lowerRightElement isEqualToString:@"none"]){
                 [GameEvent dispatch:@"GetSkill"];
                 [_skillButton.children[0] setEnabled:YES];
+                [self showSkillDescription];
             }
         }
     }
@@ -314,9 +335,8 @@
     int skillOptions = [map[_skillButton.upperElement] intValue] * [map[_skillButton.lowerLeftElement] intValue] * [map[_skillButton.lowerRightElement] intValue];
     switch(skillOptions){
         case 1: // fire * fire * fire
-            // use a fire fist which deal damage to an area
-            [_player removeHand];
-            [_player addHandwithName:@"FireHand"];
+            // deal 5 damage to all the monsters
+            [self dealDamageToAllMonsters:5.0];
             break;
             
         case 2: // fire * fire * ice
@@ -325,13 +345,15 @@
             break;
             
         case 3: // fire * fire * dark
-            // deal 5 damage to all the monsters
-            [self dealDamageToAllMonsters:5.0];
+            // use a fire fist which deal damage to an area
+            [_player removeHand];
+            [_player addHandwithName:@"FireHand"];
             break;
             
         case 4: // fire * ice * ice
-            // freeze all monsters for 5.0s
-            [self freezeAllMonsters:5];
+            // use an ice fist to deal damage to one monster and freeze all others surrounding it
+            [_player removeHand];
+            [_player addHandwithName:@"IceHand"];
             break;
             
         case 6: // fire * ice * dark
@@ -340,9 +362,8 @@
             break;
             
         case 8: // ice * ice * ice
-            // use an ice fist to deal damage to one monster and freeze all others surrounding it
-            [_player removeHand];
-            [_player addHandwithName:@"IceHand"];
+            // freeze all monsters for 5.0s
+            [self freezeAllMonsters:5];
             break;
             
         case 9: // fire * dark * dark
@@ -358,19 +379,21 @@
             break;
             
         case 18: // ice * dark * dark
-            // receive zero damage for 10s
-            [_player immuneFromAttackForDuration:10.0];
-            break;
-            
-        case 27: // dark * dark * dark
             // use a dark fist to absorb hp from monsters
             [_player removeHand];
             [_player addHandwithName:@"DarkHand"];
+            break;
+            
+        case 27: // dark * dark * dark
+            // receive zero damage for 10s
+            [_player immuneFromAttackForDuration:10.0];
             break;
     }
     
     [_skillButton resetElement];
     [_skillButton.children[0] setEnabled:NO];
+    _skillDescription.string = @"Collect 3 element to use skills";
+    _skillDescription.opacity = 0.5;
 }
 
 -(void) dealDamageToAllMonsters:(float)damage{
@@ -406,6 +429,13 @@
         Monster *_checkNode = _monsterList.children[i];
         [_checkNode stopMovingForDuration:duration];
     }
+}
+
+-(void) showSkillDescription{
+    NSDictionary *map = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:1],@"fire",[NSNumber numberWithInt:2],@"ice",[NSNumber numberWithInt:3],@"dark", nil];
+    int skillOptions = [map[_skillButton.upperElement] intValue] * [map[_skillButton.lowerLeftElement] intValue] * [map[_skillButton.lowerRightElement] intValue];
+    _skillDescription.string = _skillDescriptionArray[skillOptions-1];
+    _skillDescription.opacity = 1.0;
 }
 
 @end
