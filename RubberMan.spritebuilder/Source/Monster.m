@@ -38,6 +38,7 @@ CGFloat const outOfBoundThreshold=10;
 }
 
 - (void)setIsElite:(BOOL)isElite{
+    _isElite = isElite;
     self.rankIcon.visible = isElite;
 }
 
