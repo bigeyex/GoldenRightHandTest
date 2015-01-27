@@ -276,7 +276,12 @@ static float controlRange = 300;
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     [audio playEffect:@"buff.ogg"];
     
-    id shooting = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_isShooting = YES;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_isShooting = NO;}],nil];
+    // load particle effect
+    CCParticleSystem *buffEffect = (CCParticleSystem *)[CCBReader load:@"AccurancyBuffEffect"];
+    buffEffect.position = ccp(90,80);
+    [self.hand addChild:buffEffect];
+    
+    id shooting = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_isShooting = YES;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_isShooting = NO;[buffEffect removeFromParent];}],nil];
     [self runAction:shooting];
 }
 

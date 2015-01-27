@@ -42,6 +42,10 @@
     [audio playEffect:@"normalFist.mp3"];
 }
 
+- (void)removeParticleEffect{
+    
+}
+
 @end
 
 @implementation FireHand

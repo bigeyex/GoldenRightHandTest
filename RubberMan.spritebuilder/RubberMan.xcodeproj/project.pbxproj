@@ -114,9 +114,9 @@
 		D24D0E911A6B8D5400DA162E /* level3.xml in Resources */ = {isa = PBXBuildFile; fileRef = D24D0E901A6B8D5400DA162E /* level3.xml */; };
 		D24D0E931A6B8D6F00DA162E /* level4.xml in Resources */ = {isa = PBXBuildFile; fileRef = D24D0E921A6B8D6F00DA162E /* level4.xml */; };
 		D24D0E961A6B91AF00DA162E /* BattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D24D0E951A6B91AF00DA162E /* BattleScene.m */; };
+		D288E0201A78507200F3AC37 /* fireSpell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D288E01F1A78507200F3AC37 /* fireSpell.mp3 */; };
+		D288E0221A78507700F3AC37 /* fireFist.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D288E0211A78507700F3AC37 /* fireFist.mp3 */; };
 		D29481F51A7408AD002B597D /* SkillButtonUI.m in Sources */ = {isa = PBXBuildFile; fileRef = D29481F41A7408AD002B597D /* SkillButtonUI.m */; };
-		D2D361241A7768C9002DB2E7 /* fireFist.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D2D361231A7768C9002DB2E7 /* fireFist.mp3 */; };
-		D2D361261A777085002DB2E7 /* fireSpell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D2D361251A777085002DB2E7 /* fireSpell.mp3 */; };
 		D2E8845E1A64D999004423FC /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E8845D1A64D999004423FC /* Player.m */; };
 		D2E884791A64F2F6004423FC /* Monster.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E884781A64F2F6004423FC /* Monster.m */; };
 		D2ECF59C1A78189500A82160 /* normalFist2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D2ECF59B1A78189500A82160 /* normalFist2.mp3 */; };
@@ -302,10 +302,10 @@
 		D24D0E921A6B8D6F00DA162E /* level4.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level4.xml; sourceTree = "<group>"; };
 		D24D0E941A6B91AF00DA162E /* BattleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BattleScene.h; path = Source/BattleScene.h; sourceTree = "<group>"; };
 		D24D0E951A6B91AF00DA162E /* BattleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BattleScene.m; path = Source/BattleScene.m; sourceTree = "<group>"; };
+		D288E01F1A78507200F3AC37 /* fireSpell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fireSpell.mp3; sourceTree = "<group>"; };
+		D288E0211A78507700F3AC37 /* fireFist.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fireFist.mp3; sourceTree = "<group>"; };
 		D29481F31A7408AD002B597D /* SkillButtonUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkillButtonUI.h; path = Source/SkillButtonUI.h; sourceTree = "<group>"; };
 		D29481F41A7408AD002B597D /* SkillButtonUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkillButtonUI.m; path = Source/SkillButtonUI.m; sourceTree = "<group>"; };
-		D2D361231A7768C9002DB2E7 /* fireFist.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = fireFist.mp3; path = ../../../../../../Downloads/fireFist.mp3; sourceTree = "<group>"; };
-		D2D361251A777085002DB2E7 /* fireSpell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = fireSpell.mp3; path = ../../../../../../Downloads/fireSpell.mp3; sourceTree = "<group>"; };
 		D2E8845C1A64D999004423FC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Source/Player.h; sourceTree = "<group>"; };
 		D2E8845D1A64D999004423FC /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = Source/Player.m; sourceTree = "<group>"; };
 		D2E884771A64F2F6004423FC /* Monster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Monster.h; path = Source/Monster.h; sourceTree = "<group>"; };
@@ -626,10 +626,10 @@
 				D2ECF5A41A7818E700A82160 /* iceFist2.mp3 */,
 				D2ECF5A01A7818C400A82160 /* buff.ogg */,
 				D2ECF59B1A78189500A82160 /* normalFist2.mp3 */,
+				D288E01F1A78507200F3AC37 /* fireSpell.mp3 */,
 				D2ECF5A21A7818E200A82160 /* iceFist.mp3 */,
+				D288E0211A78507700F3AC37 /* fireFist.mp3 */,
 				D2ECF59E1A7818AE00A82160 /* normalFist.mp3 */,
-				D2D361251A777085002DB2E7 /* fireSpell.mp3 */,
-				D2D361231A7768C9002DB2E7 /* fireFist.mp3 */,
 			);
 			name = Audio;
 			sourceTree = "<group>";
@@ -986,14 +986,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2D361261A777085002DB2E7 /* fireSpell.mp3 in Resources */,
-				D2D361241A7768C9002DB2E7 /* fireFist.mp3 in Resources */,
 				D2ECF5A71A7818FC00A82160 /* deathFist.mp3 in Resources */,
 				D2ECF5AB1A78190F00A82160 /* darkFist.mp3 in Resources */,
 				D2ECF59C1A78189500A82160 /* normalFist2.mp3 in Resources */,
 				8882A9751A68882100458955 /* level1.xml in Resources */,
 				D24D0E931A6B8D6F00DA162E /* level4.xml in Resources */,
 				D2ECF59F1A7818AE00A82160 /* normalFist.mp3 in Resources */,
+				D288E0221A78507700F3AC37 /* fireFist.mp3 in Resources */,
 				B71F5919188484E7003F4D28 /* Settings.png in Resources */,
 				D2ECF5A11A7818C400A82160 /* buff.ogg in Resources */,
 				D2ECF5AD1A78191500A82160 /* iceSpell.mp3 in Resources */,
@@ -1007,6 +1006,7 @@
 				B737893B180761570076A88C /* Published-iOS in Resources */,
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
 				D24D0E911A6B8D5400DA162E /* level3.xml in Resources */,
+				D288E0201A78507200F3AC37 /* fireSpell.mp3 in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
 				88A21F891A72172E00BC9A9C /* iceloop.mp3 in Resources */,
 				D24D0E8F1A6B8D3A00DA162E /* level2.xml in Resources */,
