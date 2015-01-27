@@ -20,6 +20,7 @@
     CGPoint _initialPosition;
     CCSprite *_arrow;
     float _minTouchTime;
+    BOOL _isMoved;
     
     CCNode* _hpBar;
 }
@@ -53,6 +54,7 @@ static float controlRange = 300;
     _playerHP = 100.0;
     _isTouched = NO;
     _isReleased = NO;
+    _isMoved = NO;
     _initialPosition = _hand.position;
     _atkBuff = 1.0;
     _damageReduction = 1.0;
@@ -171,6 +173,7 @@ static float controlRange = 300;
         _hand.position = ccpAdd(ccpNeg(ccpMult(_shootDirection,MIN(controlRange,ccpLength(controlVector)))),_centerJointNode.positionInPoints);
         
         _isTouched = YES;
+        _isMoved = NO;
         _isReleased = NO;
         
         // add an arrow to indicate the direction
@@ -188,6 +191,7 @@ static float controlRange = 300;
 - (void)updateTouchLocation:(CGPoint) touchLocation {
     // update the position of mouse joint with touchLocation
     if (_isTouched){
+        _isMoved = YES;
         // if the touch is on the right side of body, adjust it
         if(touchLocation.x>_centerJointNode.positionInPoints.x){
             touchLocation = CGPointMake(_centerJointNode.positionInPoints.x,touchLocation.y);
@@ -205,7 +209,7 @@ static float controlRange = 300;
 
 - (BOOL)releaseTouch{
     
-    if (_isTouched){
+    if (_isTouched&&_isMoved){
         // add an impulse to the hand when the touch is released
         double impulseScale = _hand.physicsBody.mass*1500;
         _shootDirection = ccpNormalize(ccpSub(_centerJointNode.positionInPoints,_hand.positionInPoints));
@@ -222,6 +226,10 @@ static float controlRange = 300;
         
         // remove the arrow
         [_arrow removeFromParent];
+    }
+    
+    if(!_isMoved){
+        _hand.position = _initialPosition;
     }
     return _isReleased;
 }
