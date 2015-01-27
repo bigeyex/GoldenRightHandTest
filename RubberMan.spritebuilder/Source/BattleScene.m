@@ -92,16 +92,16 @@
 
 - (void) initSkillDescriptionArray{
     _skillDescriptionArray = [NSMutableArray arrayWithObjects:
-                              @"Attack all monsters with fire",
-                              @"Fist can't be evaded for 10s",
-                              @"AOE Attack with fire fist",
-                              @"Freeze monsters with ice fist",@"n/a",
-                              @"Double the attack for 10s",@"n/a",
-                              @"Freeze all monsters for 5s",
-                              @"Heal 30% hp",@"n/a",@"n/a",
-                              @"Kill any monster with death fist",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",
-                              @"Absorb hp with dark fist",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",
-                              @"Receive 0 damage for 10s",
+                              @"Firestorm",
+                              @"100% Accuracy (10sec)",
+                              @"Fist of Fire",
+                              @"Fist of Ice",@"n/a",
+                              @"Double Damage",@"n/a",
+                              @"Icestorm",
+                              @"Healing",@"n/a",@"n/a",
+                              @"Instant Kill",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",
+                              @"Fist of Absorbing",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",
+                              @"Invincible (10sec)",
                               nil];
 }
 
