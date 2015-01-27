@@ -243,7 +243,12 @@ static float controlRange = 300;
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     [audio playEffect:@"buff.ogg"];
     
-    id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_atkBuff = 2.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_atkBuff = 1.0;}],nil];
+    // load particle effect
+    CCParticleSystem *AtkBuffEffect = (CCParticleSystem *)[CCBReader load:@"AtkBuff"];
+    AtkBuffEffect.position = ccp(30,-200);
+    [self addChild:AtkBuffEffect z:-1];
+    
+    id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_atkBuff = 2.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_atkBuff = 1.0;[AtkBuffEffect removeFromParent];}],nil];
     [self runAction:doubleAttack];
 }
 
