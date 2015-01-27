@@ -400,7 +400,7 @@
     // add particle effect
     CCParticleSystem *attackAllEffect = (CCParticleSystem *)[CCBReader load:@"AttackAllEffect"];
     attackAllEffect.autoRemoveOnFinish = TRUE;
-    attackAllEffect.position = ccp(350,32);
+    attackAllEffect.position = ccp(350,160);
     [self addChild:attackAllEffect];
     
     
@@ -421,7 +421,7 @@
     // add particle effect
     CCParticleSystem *attackAllEffect = (CCParticleSystem *)[CCBReader load:@"FreezeAllEffect"];
     attackAllEffect.autoRemoveOnFinish = TRUE;
-    attackAllEffect.position = ccp(350,308);
+    attackAllEffect.position = ccp(350,160);
     [self addChild:attackAllEffect];
     
     int numOfMonsters = (int)[_monsterList.children count];

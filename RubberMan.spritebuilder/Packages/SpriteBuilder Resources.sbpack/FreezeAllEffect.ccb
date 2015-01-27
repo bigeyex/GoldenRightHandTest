@@ -111,7 +111,7 @@
 				<key>value</key>
 				<array>
 					<real>200</real>
-					<real>32</real>
+					<real>160</real>
 				</array>
 			</dict>
 			<dict>
@@ -315,7 +315,7 @@
 				<key>type</key>
 				<string>Texture</string>
 				<key>value</key>
-				<string>UI/ice.png</string>
+				<string>ccbResources/ccbParticleSnow.png</string>
 			</dict>
 		</array>
 		<key>selected</key>

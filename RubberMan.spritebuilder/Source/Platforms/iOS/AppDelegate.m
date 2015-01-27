@@ -57,8 +57,8 @@
     
     // initialize defaults
     // the next two lines are used to clean up the user defaults; only for debug
-    //NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-    //[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     
     NSNumber *stars    = (NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"level1"];
     if (stars == nil)     // App first run: set up user defaults.

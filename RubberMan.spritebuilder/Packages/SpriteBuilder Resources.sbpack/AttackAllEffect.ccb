@@ -111,7 +111,7 @@
 				<key>value</key>
 				<array>
 					<real>200</real>
-					<real>32</real>
+					<real>160</real>
 				</array>
 			</dict>
 			<dict>
@@ -212,9 +212,9 @@
 				<key>value</key>
 				<array>
 					<array>
-						<real>0.99990993738174438</real>
 						<real>1</real>
-						<real>0.99987798929214478</real>
+						<real>0.50196081399917603</real>
+						<real>0.0</real>
 						<real>1</real>
 					</array>
 					<array>
@@ -315,7 +315,7 @@
 				<key>type</key>
 				<string>Texture</string>
 				<key>value</key>
-				<string>UI/fire.png</string>
+				<string>ccbResources/ccbParticleMagic.png</string>
 			</dict>
 		</array>
 		<key>selected</key>
