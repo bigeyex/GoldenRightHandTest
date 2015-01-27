@@ -17,6 +17,7 @@
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos;
 -(float)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterlist;
+-(void)playHitSound;
 
 @end
 

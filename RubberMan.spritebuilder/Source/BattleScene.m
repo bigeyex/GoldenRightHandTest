@@ -99,7 +99,7 @@
                               @"Heal 30% hp",@"n/a",@"n/a",
                               @"Kill any monster with death fist",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",
                               @"Absorb hp with dark fist",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",
-                              @"Receive 0 damage for 10s",
+                              @"Receive no damage for 10s",
                               nil];
 }
 
@@ -234,6 +234,9 @@
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA hand:(Hand *)nodeB
 {
     if((!_player.isGoBack) && (!_player.isMonsterHit)){
+        
+        // play sound effect
+        [_player.hand playHitSound];
         
         BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk * _player.atkBuff];
         float recoverHP = [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
@@ -397,6 +400,10 @@
 }
 
 -(void) dealDamageToAllMonsters:(float)damage{
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"fireSpell.mp3"];
+    
     // add particle effect
     CCParticleSystem *attackAllEffect = (CCParticleSystem *)[CCBReader load:@"AttackAllEffect"];
     attackAllEffect.autoRemoveOnFinish = TRUE;
@@ -418,6 +425,10 @@
 }
 
 -(void) freezeAllMonsters:(float)duration{
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"iceSpell.mp3"];
+    
     // add particle effect
     CCParticleSystem *attackAllEffect = (CCParticleSystem *)[CCBReader load:@"FreezeAllEffect"];
     attackAllEffect.autoRemoveOnFinish = TRUE;

@@ -36,6 +36,12 @@
     return 0.0;
 }
 
+-(void)playHitSound{
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"normalFist.mp3"];
+}
+
 @end
 
 @implementation FireHand
@@ -85,6 +91,12 @@
     return 0.0;
 }
 
+-(void)playHitSound{
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"fireFist.mp3"];
+}
+
 @end
 
 @implementation IceHand
@@ -128,6 +140,12 @@
     return 0.0;
 }
 
+-(void)playHitSound{
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"iceFist2.mp3"];
+}
+
 @end
 
 @implementation DarkHand
@@ -161,6 +179,13 @@
     return MAX(self.atk,nodeA.hp);
 }
 
+/*
+-(void)playHitSound{
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"darkFist.mp3"];
+}
+*/
 @end
 
 @implementation DeathHand
@@ -192,6 +217,12 @@
     self.skillTimes--;
     
     return 0.0;
+}
+
+-(void)playHitSound{
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"deathFist2.mp3"];
 }
 
 @end

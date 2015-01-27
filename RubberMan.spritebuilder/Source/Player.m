@@ -239,16 +239,28 @@ static float controlRange = 300;
 }
 
 -(void)doubleAttackForDuration:(float)duration{
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"buff.ogg"];
+    
     id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_atkBuff = 2.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_atkBuff = 1.0;}],nil];
     [self runAction:doubleAttack];
 }
 
 -(void)immuneFromAttackForDuration:(float)duration{
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"buff.ogg"];
+    
     id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_damageReduction = 0.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_damageReduction = 1.0;}],nil];
     [self runAction:doubleAttack];
 }
 
 -(void)shootingForDuration:(float)duration{
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"buff.ogg"];
+    
     id shooting = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_isShooting = YES;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_isShooting = NO;}],nil];
     [self runAction:shooting];
 }
@@ -260,6 +272,10 @@ static float controlRange = 300;
         healEffect.autoRemoveOnFinish = TRUE;
         healEffect.position = _centerJointNode.positionInPoints;
         [self addChild:healEffect];
+        
+        // play sound effect
+        OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+        [audio playEffect:@"heal.ogg"];
     }
 }
 
