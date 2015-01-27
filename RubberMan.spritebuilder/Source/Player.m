@@ -252,8 +252,18 @@ static float controlRange = 300;
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     [audio playEffect:@"buff.ogg"];
     
-    id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_damageReduction = 0.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_damageReduction = 1.0;}],nil];
-    [self runAction:doubleAttack];
+    CCSprite *shield = [CCSprite spriteWithImageNamed:@"UI/shield.png"];
+    shield.position = ccp(140.0,95.0);
+    shield.scaleX = 0;
+    shield.scaleY = 0;
+    [self addChild:shield];
+    id tweenX = [CCActionTween actionWithDuration:1.5 key:@"ScaleX" from:0 to:5];
+    id tweenY = [CCActionTween actionWithDuration:1.5 key:@"ScaleY" from:0 to:3.5];
+    [shield runAction:tweenX];
+    [shield runAction:tweenY];
+    
+    id immune = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_damageReduction = 0.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_damageReduction = 1.0;[shield removeFromParent];}],nil];
+    [self runAction:immune];
 }
 
 -(void)shootingForDuration:(float)duration{
