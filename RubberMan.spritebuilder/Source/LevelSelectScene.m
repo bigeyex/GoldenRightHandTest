@@ -27,7 +27,7 @@
     // obtain the information of the stars of each comleted level
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    int numOfLevels = [_level count];
+    int numOfLevels = (int)[_level count];
     for (int i = 0;i<=numOfLevels-1;i++){
         // star = 1,2,3 for one, two and three stars and 0 for not complted levels
          int stars = [[defaults objectForKey:_levelNames[i]] intValue];

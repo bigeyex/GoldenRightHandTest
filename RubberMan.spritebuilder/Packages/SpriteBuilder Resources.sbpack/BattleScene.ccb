@@ -936,8 +936,8 @@
 								<string>Position</string>
 								<key>value</key>
 								<array>
-									<real>-220</real>
-									<real>16</real>
+									<real>-97.999984741210938</real>
+									<real>20</real>
 									<integer>0</integer>
 									<integer>0</integer>
 									<integer>0</integer>
@@ -950,8 +950,8 @@
 								<string>Point</string>
 								<key>value</key>
 								<array>
-									<real>0.5</real>
-									<real>0.5</real>
+									<real>1.0101908445358276</real>
+									<real>0.53571480512619019</real>
 								</array>
 							</dict>
 							<dict>
@@ -974,7 +974,7 @@
 								<string>Text</string>
 								<key>value</key>
 								<array>
-									<string>Collect 3 element to use skills</string>
+									<string>Collect 3 element to use skil</string>
 									<false/>
 								</array>
 							</dict>
@@ -1033,7 +1033,7 @@
 								<string>Size</string>
 								<key>value</key>
 								<array>
-									<real>0.0</real>
+									<real>280</real>
 									<real>0.0</real>
 									<integer>0</integer>
 									<integer>0</integer>
@@ -1045,7 +1045,7 @@
 								<key>type</key>
 								<string>IntegerLabeled</string>
 								<key>value</key>
-								<integer>0</integer>
+								<integer>2</integer>
 							</dict>
 							<dict>
 								<key>name</key>

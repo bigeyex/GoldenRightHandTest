@@ -27,6 +27,7 @@ float const secondsBetweenStarAppearence = 0.5;
 
 - (void)reset{
     starIndex = 0;
+    starReasonList = [NSMutableArray arrayWithCapacity:3];
 }
 
 - (void)giveStarForReason: (NSString*)reason{
