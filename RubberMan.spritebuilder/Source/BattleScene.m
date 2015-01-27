@@ -71,7 +71,9 @@
     // play bgm
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     // play background sound
-    [audio playBg:@"iceloop.mp3" loop:TRUE];
+    [audio preloadBg:@"iceloop.mp3"];
+    [audio playBgWithLoop:true];
+//    [audio playBg:@"iceloop.mp3" loop:TRUE];
     
     [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(checkWinningCondition)];
     [_skillButton.children[0] setEnabled:NO];
@@ -318,6 +320,7 @@
     pauseMenu.visible = NO;
     
     // TODO: Implement Score System
+    [uiScoreBoard reset];
     [uiScoreBoard giveStarForReason:@"Health > 75%"];
     [uiScoreBoard giveStarForReason:@"Accuracy > 75%"];
     [uiScoreBoard giveStarForReason:@"Find Sausage"];

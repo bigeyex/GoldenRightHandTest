@@ -37,6 +37,10 @@ CGFloat const outOfBoundThreshold=10;
     [GameEvent subscribe:@"ResumeMonsters" forObject:self withSelector:@selector(resumeMonster)];
 }
 
+- (void)setIsElite:(BOOL)isElite{
+    self.rankIcon.visible = isElite;
+}
+
 -(void)onEnter{
     [super onEnter];
     _initialHp = _hp;
