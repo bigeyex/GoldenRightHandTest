@@ -127,11 +127,16 @@ CGFloat const outOfBoundThreshold=10;
     [self.animationManager runAnimationsForSequenceNamed:@"attacking"];
     
     // when the attacking animation is completed, runing the moving animations
-    [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
-        if ([self.animationManager.lastCompletedSequenceName isEqualToString:@"attacking"]) {
-            [self.animationManager runAnimationsForSequenceNamed:@"moving"];
-        }
-    }];
+    // these lines are commented out because:
+    // 1. you can use chained animation to achieve the same effect;
+    // 2. this causes crash when object is removed from the stage
+    
+//    [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
+//        if(!self)return;
+//        if ([self.animationManager.lastCompletedSequenceName isEqualToString:@"attacking"]) {
+//            [self.animationManager runAnimationsForSequenceNamed:@"moving"];
+//        }
+//    }];
 }
 
 - (void)monsterEvade{
@@ -245,5 +250,53 @@ CGFloat const outOfBoundThreshold=10;
         self.spdBuff = 1.0;
     }
 }
+
+@end
+
+@implementation MonsterBomb
+
+- (BOOL)receiveHitWithDamage:(float)damage{
+    self.enlargedEye.visible = YES;
+    self.speed = 500;
+    self.isEvading = false;
+    return [super receiveHitWithDamage:damage];
+}
+
+-(void)didLoadFromCCB{
+    [super didLoadFromCCB];
+    self.speed = 50;
+    self.elementType = @"fire";
+    self.atk = 50;
+}
+
+-(void)onEnter{
+    [super onEnter];
+    self.isEvading = true;  // this is a hack - to delegate movement to the physic engine
+    [self.physicsBody applyImpulse:ccp(0,-6000)];
+}
+
+@end
+
+@implementation MonsterSausage
+
+- (BOOL)receiveHitWithDamage:(float)damage{
+    [GameEvent dispatch:@"FoundSausage"];
+    return YES;
+}
+
+-(void)didLoadFromCCB{
+    [super didLoadFromCCB];
+    self.speed = 50;
+    self.elementType = @"fire";
+}
+
+-(void)onEnter{
+    [super onEnter];
+    self.isEvading = true;  // this is a hack - to delegate movement to the physic engine
+    [self.physicsBody applyImpulse:ccp(50,300)];
+    [self.physicsBody applyAngularImpulse:300.0];
+}
+
+
 
 @end

@@ -47,3 +47,13 @@
 @interface MonsterGhost : Monster
 
 @end
+
+@interface MonsterBomb : Monster
+
+@property CCNode* enlargedEye;
+
+@end
+
+@interface MonsterSausage : Monster
+
+@end

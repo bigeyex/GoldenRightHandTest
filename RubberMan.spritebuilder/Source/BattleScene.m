@@ -29,12 +29,15 @@
     CCLabelTTF *_skillDescription;
     NSMutableArray *_skillDescriptionArray;
     
+    BOOL foundSausage;
+    int countOfPlayerAttacks;
+    int countOfHit;
+    
     CCNode* pauseButton;
     CCNode* pauseMenu;
     CCNode* gameOverMenu;
     CCNode* scoreBoardMenu;
     UIScoreBoard *uiScoreBoard;
-    
 }
 
 + (void)loadSceneByLevelIndex:(int)levelIndex{
@@ -58,7 +61,15 @@
     }
 }
 
++ (id)init{
+    // every scene should start with new game event object.
+    [GameEvent reset];
+    return [super init];
+}
+
 - (void)didLoadFromCCB {
+    [GameEvent clearEvent:@"MonsterRemoved"];
+    [GameEvent clearEvent:@"FoundSausage"];
     // tell this scene to accept touches
     self.userInteractionEnabled = TRUE;
     
@@ -81,6 +92,15 @@
     _skillDescription.string = @"Collect 3 element to use skills";
     _skillDescription.opacity = 0.5;
     
+    countOfPlayerAttacks = 0;
+    countOfHit = 0;
+    foundSausage = NO;
+    [GameEvent subscribe:@"FoundSausage" forObject:self withSelector:@selector(onFoundSausage)];
+    
+}
+
+- (void)onFoundSausage{
+    foundSausage = YES;
 }
 
 - (void)onEnter{
@@ -118,6 +138,8 @@
 }
 
 - (void)restartLevel{
+    // avoid rare case when last BattleScene listens to a event and still exists.
+    [GameEvent reset];
     CCScene *battleScene = [CCBReader loadAsScene:@"BattleScene"];
     BattleScene *sceneNode = [[battleScene children] firstObject];
     sceneNode.levelName = self.levelName;
@@ -145,6 +167,7 @@
     
     // call Player's method touchAtLocation to deal with the touch event
     BOOL isTouched = [_player touchAtLocation:touchLocation];
+    [_player updateTouchLocation:touchLocation];
     
     if (isTouched){
         int numOfMonsters = (int)[_monsterList.children count];
@@ -169,6 +192,7 @@
     // tell player the touch is ended
     BOOL isReleased = [_player releaseTouch];
     if(isReleased){
+        countOfPlayerAttacks++;
         [self monsterAI];
         int numOfMonsters = (int)[_monsterList.children count];
         for (int i = 0;i<numOfMonsters;i++){
@@ -251,6 +275,7 @@
         
         nodeA.physicsBody.velocity = ccp(0,0);
         
+        // when a monster is killed
         if(isDefeated){
             // the skill element motion animation
             CCSprite *element = [CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"UI/%@.png",nodeA.elementType]];
@@ -259,6 +284,8 @@
             [self addChild:element];
             id elementMotion = [CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.5 position:ccpAdd(_skillButton.positionInPoints,ccp(-50,70))],[CCActionCallBlock actionWithBlock:^{[element removeFromParent];}],nil];
             [element runAction:elementMotion];
+            
+            countOfHit++;
             
             // remove the monster from the scene
             [nodeA removeFromParent];
@@ -273,6 +300,7 @@
                 [_skillButton.children[0] setEnabled:YES];
                 [self showSkillDescription];
             }
+            
         }
     }
 }
@@ -323,9 +351,15 @@
     
     // TODO: Implement Score System
     [uiScoreBoard reset];
-    [uiScoreBoard giveStarForReason:@"Health > 75%"];
-    [uiScoreBoard giveStarForReason:@"Accuracy > 75%"];
-    [uiScoreBoard giveStarForReason:@"Find Sausage"];
+    if(_player.playerHP > 75){
+        [uiScoreBoard giveStarForReason:@"Health > 75%"];
+    }
+    if(countOfPlayerAttacks>0 && ((float)countOfHit/(float)countOfPlayerAttacks)>0.75){
+        [uiScoreBoard giveStarForReason:@"Accuracy > 75%"];
+    }
+    if(foundSausage){
+        [uiScoreBoard giveStarForReason:@"Found Sausage"];
+    }
     [uiScoreBoard displayStars];
     
     // save the star of current level
