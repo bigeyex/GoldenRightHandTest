@@ -273,7 +273,7 @@
         _player.isMonsterHit = YES;
         _player.isStopTimeReached = NO;
         
-        nodeA.physicsBody.velocity = ccp(0,0);
+//        nodeA.physicsBody.velocity = ccp(0,0);
         
         // when a monster is killed
         if(isDefeated){
@@ -288,8 +288,8 @@
             countOfHit++;
             
             // remove the monster from the scene
-            [nodeA removeFromParent];
-            [self checkWinningCondition];
+//            [nodeA removeFromParent];
+//            [self checkWinningCondition];
             
             // assign the element type to the skill button ui
             _skillButton.lowerRightElement = _skillButton.lowerLeftElement;
