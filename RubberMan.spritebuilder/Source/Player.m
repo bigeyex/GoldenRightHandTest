@@ -81,6 +81,7 @@ static float controlRange = 300;
         [_handRangeLimitJoint invalidate];
         _handRangeLimitJoint = nil;
     }
+    _isReleased = 0;
 }
 
 -(void)update:(CCTime)delta{
