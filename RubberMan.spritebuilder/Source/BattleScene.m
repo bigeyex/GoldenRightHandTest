@@ -29,12 +29,15 @@
     CCLabelTTF *_skillDescription;
     NSMutableArray *_skillDescriptionArray;
     
+    BOOL foundSausage;
+    int countOfPlayerAttacks;
+    int countOfHit;
+    
     CCNode* pauseButton;
     CCNode* pauseMenu;
     CCNode* gameOverMenu;
     CCNode* scoreBoardMenu;
     UIScoreBoard *uiScoreBoard;
-    
 }
 
 + (void)loadSceneByLevelIndex:(int)levelIndex{
@@ -81,6 +84,15 @@
     _skillDescription.string = @"Collect 3 element to use skills";
     _skillDescription.opacity = 0.5;
     
+    countOfPlayerAttacks = 0;
+    countOfHit = 0;
+    foundSausage = NO;
+    [GameEvent subscribe:@"FoundSausage" forObject:self withSelector:@selector(onFoundSausage)];
+    
+}
+
+- (void)onFoundSausage{
+    foundSausage = YES;
 }
 
 - (void)onEnter{
@@ -170,6 +182,7 @@
     // tell player the touch is ended
     BOOL isReleased = [_player releaseTouch];
     if(isReleased){
+        countOfPlayerAttacks++;
         [self monsterAI];
         int numOfMonsters = (int)[_monsterList.children count];
         for (int i = 0;i<numOfMonsters;i++){
@@ -252,6 +265,7 @@
         
         nodeA.physicsBody.velocity = ccp(0,0);
         
+        // when a monster is killed
         if(isDefeated){
             // the skill element motion animation
             CCSprite *element = [CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"UI/%@.png",nodeA.elementType]];
@@ -274,6 +288,7 @@
                 [_skillButton.children[0] setEnabled:YES];
                 [self showSkillDescription];
             }
+            countOfHit++;
         }
     }
 }
@@ -324,9 +339,15 @@
     
     // TODO: Implement Score System
     [uiScoreBoard reset];
-    [uiScoreBoard giveStarForReason:@"Health > 75%"];
-    [uiScoreBoard giveStarForReason:@"Accuracy > 75%"];
-    [uiScoreBoard giveStarForReason:@"Find Sausage"];
+    if(_player.playerHP > 75){
+        [uiScoreBoard giveStarForReason:@"Health > 75%"];
+    }
+    if(countOfPlayerAttacks>0 && ((float)countOfHit/(float)countOfPlayerAttacks)>0.75){
+        [uiScoreBoard giveStarForReason:@"Accuracy > 75%"];
+    }
+    if(foundSausage){
+        [uiScoreBoard giveStarForReason:@"Found Sausage"];
+    }
     [uiScoreBoard displayStars];
     
     // save the star of current level

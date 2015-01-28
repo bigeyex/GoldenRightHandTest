@@ -247,3 +247,27 @@ CGFloat const outOfBoundThreshold=10;
 }
 
 @end
+
+@implementation MonsterSausage
+
+- (BOOL)receiveHitWithDamage:(float)damage{
+    [GameEvent dispatch:@"FoundSausage"];
+    return YES;
+}
+
+-(void)didLoadFromCCB{
+    [super didLoadFromCCB];
+    self.speed = 50;
+    self.elementType = @"dark";
+}
+
+-(void)onEnter{
+    [super onEnter];
+    self.isEvading = true;  // this is a hack - to delegate movement to the physic engine
+    [self.physicsBody applyImpulse:ccp(50,300)];
+    [self.physicsBody applyAngularImpulse:300.0];
+}
+
+
+
+@end

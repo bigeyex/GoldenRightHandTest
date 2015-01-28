@@ -116,6 +116,12 @@
             monsterData.positionY = [positionYNode.stringValue floatValue];
         }
         
+        NSArray *positionXs = [enemyNode elementsForName:@"PositionX"];
+        if (positionXs.count > 0) {
+            GDataXMLElement *positionXNode = (GDataXMLElement *) [positionXs objectAtIndex:0];
+            monsterData.positionX = [positionXNode.stringValue floatValue];
+        }
+        
         NSArray *health = [enemyNode elementsForName:@"Health"];
         if (health.count > 0) {
             GDataXMLElement *healthNode = (GDataXMLElement *) [health objectAtIndex:0];
