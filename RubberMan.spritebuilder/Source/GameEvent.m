@@ -26,6 +26,10 @@ static NSMutableDictionary* eventList;
     [subscriberList addObject:@[object, NSStringFromSelector(selector)]];
 }
 
++ (void)reset{
+    eventList = [NSMutableDictionary dictionary];
+}
+
 + (void)unsubscribe:(NSString*)eventName forObject:(id) object withSelector:(SEL) selector{
     if(eventList==nil){
         return;

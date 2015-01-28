@@ -12,6 +12,8 @@
 
 + (void)subscribe:(NSString*)eventName forObject:(id) object withSelector:(SEL) selector;
 
++ (void)reset;
+
 + (void)unsubscribe:(NSString*)eventName forObject:(id) object withSelector:(SEL) selector;
 
 + (void)dispatch: (NSString*)eventName;

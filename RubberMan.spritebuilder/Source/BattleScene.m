@@ -61,7 +61,14 @@
     }
 }
 
++ (id)init{
+    // every scene should start with new game event object.
+    [GameEvent reset];
+    return [super init];
+}
+
 - (void)didLoadFromCCB {
+    
     // tell this scene to accept touches
     self.userInteractionEnabled = TRUE;
     
@@ -130,6 +137,8 @@
 }
 
 - (void)restartLevel{
+    // avoid rare case when last BattleScene listens to a event and still exists.
+    [GameEvent reset];
     CCScene *battleScene = [CCBReader loadAsScene:@"BattleScene"];
     BattleScene *sceneNode = [[battleScene children] firstObject];
     sceneNode.levelName = self.levelName;
@@ -275,6 +284,8 @@
             id elementMotion = [CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.5 position:ccpAdd(_skillButton.positionInPoints,ccp(-50,70))],[CCActionCallBlock actionWithBlock:^{[element removeFromParent];}],nil];
             [element runAction:elementMotion];
             
+            countOfHit++;
+            
             // remove the monster from the scene
             [nodeA removeFromParent];
             [self checkWinningCondition];
@@ -288,7 +299,7 @@
                 [_skillButton.children[0] setEnabled:YES];
                 [self showSkillDescription];
             }
-            countOfHit++;
+            
         }
     }
 }
