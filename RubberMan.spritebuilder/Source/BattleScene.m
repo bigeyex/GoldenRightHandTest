@@ -68,7 +68,8 @@
 }
 
 - (void)didLoadFromCCB {
-    
+    [GameEvent clearEvent:@"MonsterRemoved"];
+    [GameEvent clearEvent:@"FoundSausage"];
     // tell this scene to accept touches
     self.userInteractionEnabled = TRUE;
     

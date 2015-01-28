@@ -30,6 +30,10 @@ static NSMutableDictionary* eventList;
     eventList = [NSMutableDictionary dictionary];
 }
 
++ (void)clearEvent:(NSString*) eventName{
+    [eventList removeObjectForKey:eventName];
+}
+
 + (void)unsubscribe:(NSString*)eventName forObject:(id) object withSelector:(SEL) selector{
     if(eventList==nil){
         return;
