@@ -2,7 +2,7 @@
     <MonsterData>
         <Monster>
             <SpriteName>MonsterGhost</SpriteName>
-            <EnterTime>10</EnterTime>
+            <EnterTime>0</EnterTime>
             <Number>3</Number>
             <RespawnInterval>3</RespawnInterval>
             <PositionY>0.6</PositionY>
@@ -11,7 +11,7 @@
         </Monster>
         <Monster>
             <SpriteName>MonsterBat</SpriteName>
-            <EnterTime>0</EnterTime>
+            <EnterTime>10</EnterTime>
             <Number>3</Number>
             <RespawnInterval>3</RespawnInterval>
             <PositionY>0.6</PositionY>
@@ -23,7 +23,7 @@
             <EnterTime>0</EnterTime>
             <Number>3</Number>
             <RespawnInterval>3</RespawnInterval>
-            <PositionY>0.4</PositionY>
+            <PositionY>0.1</PositionY>
             <Health>5</Health>
             <IsElite>0</IsElite>
         </Monster>

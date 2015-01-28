@@ -32,7 +32,7 @@
 
 - (void)setLevelNames:(NSArray *)levelNames{
     _levelNames = levelNames;
-    _totalNumberOfLevels = [levelNames count];
+    _totalNumberOfLevels = (int)[levelNames count];
 }
 
 - (id)init {

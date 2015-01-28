@@ -19,6 +19,8 @@
     double _stopTime;
     CGPoint _initialPosition;
     CCSprite *_arrow;
+    float _minTouchTime;
+    BOOL _isMoved;
     
     CCNode* _hpBar;
 }
@@ -52,6 +54,7 @@ static float controlRange = 300;
     _playerHP = 100.0;
     _isTouched = NO;
     _isReleased = NO;
+    _isMoved = NO;
     _initialPosition = _hand.position;
     _atkBuff = 1.0;
     _damageReduction = 1.0;
@@ -95,7 +98,7 @@ static float controlRange = 300;
             isRangeReached = YES;
             _isStopTimeReached = NO;
         }
-
+        
         if(isRangeReached||_isMonsterHit){
             if(!_isStopTimeReached){
                 
@@ -112,7 +115,7 @@ static float controlRange = 300;
                 
                 // after the hand has stopped for enough time, apply an impluse to let the hand go back
                 if(_stopTime>=stopDuration){
-                    double impulseScale = _hand.physicsBody.mass*2500;
+                    double impulseScale = _hand.physicsBody.mass*1500;
                     
                     // change the shoot direction to the vector of _initialPosition to hand.position
                     _shootDirection = ccpNormalize(ccpSub(_hand.positionInPoints,_initialPosition));
@@ -153,8 +156,9 @@ static float controlRange = 300;
 
 - (BOOL)touchAtLocation:(CGPoint) touchLocation {
     
-    // connect the hand touched by the user to a mouse joint at the touchLocation, when the hand is in the status of being released, the touch is invalid
-//    if ((!_isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
+    // move the hand to the touch location, when the hand is in the status of being released, the touch is invalid
+    //if ((!_isReleased) && CGRectContainsPoint([_hand boundingBox], touchLocation))
+    
     // now you can just slide in the left region to activate hand.
     if ((!_isReleased) && touchLocation.x<_centerJointNode.positionInPoints.x)
     {
@@ -169,6 +173,7 @@ static float controlRange = 300;
         _hand.position = ccpAdd(ccpNeg(ccpMult(_shootDirection,MIN(controlRange,ccpLength(controlVector)))),_centerJointNode.positionInPoints);
         
         _isTouched = YES;
+        _isMoved = NO;
         _isReleased = NO;
         
         // add an arrow to indicate the direction
@@ -180,13 +185,13 @@ static float controlRange = 300;
         _arrow.rotation = ccpAngleSigned(_shootDirection, ccp(0,0)) / M_PI * 180;
         [self addChild:_arrow];
     }
-    
     return _isTouched;
 }
 
 - (void)updateTouchLocation:(CGPoint) touchLocation {
     // update the position of mouse joint with touchLocation
     if (_isTouched){
+        _isMoved = YES;
         // if the touch is on the right side of body, adjust it
         if(touchLocation.x>_centerJointNode.positionInPoints.x){
             touchLocation = CGPointMake(_centerJointNode.positionInPoints.x,touchLocation.y);
@@ -204,30 +209,27 @@ static float controlRange = 300;
 
 - (BOOL)releaseTouch{
     
-    if (_isTouched){
-        // check whether the hand is moved or tapped
-        double distance = ccpDistance(_initialPosition,_hand.positionInPoints);
-        if(distance>85){
-            // add an impulse to the hand when the touch is released
-            double impulseScale = _hand.physicsBody.mass*2500;
-            _shootDirection = ccpNormalize(ccpSub(_centerJointNode.positionInPoints,_hand.positionInPoints));
-            [_hand.physicsBody applyImpulse:ccp(_shootDirection.x*impulseScale,_shootDirection.y*impulseScale) atLocalPoint:_hand.anchorPointInPoints];
-            
-            _isReleased = YES;
-            _isGoBack = NO;
-            _stopTime = 0;
-            
-            // after the hand is released, hand can collide with monsters
-            _hand.physicsBody.collisionMask = @[@"monster"];
-        }
-        else {
-            _hand.position = _initialPosition;
-        }
+    if (_isTouched&&_isMoved){
+        // add an impulse to the hand when the touch is released
+        double impulseScale = _hand.physicsBody.mass*1500;
+        _shootDirection = ccpNormalize(ccpSub(_centerJointNode.positionInPoints,_hand.positionInPoints));
+        [_hand.physicsBody applyImpulse:ccp(_shootDirection.x*impulseScale,_shootDirection.y*impulseScale) atLocalPoint:_hand.anchorPointInPoints];
+        
+        _isReleased = YES;
+        _isGoBack = NO;
+        _stopTime = 0;
+        
+        // after the hand is released, hand can collide with monsters
+        _hand.physicsBody.collisionMask = @[@"monster"];
         
         _isTouched = NO;
         
         // remove the arrow
         [_arrow removeFromParent];
+    }
+    
+    if(!_isMoved){
+        _hand.position = _initialPosition;
     }
     return _isReleased;
 }
@@ -237,17 +239,49 @@ static float controlRange = 300;
 }
 
 -(void)doubleAttackForDuration:(float)duration{
-    id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_atkBuff = 2.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_atkBuff = 1.0;}],nil];
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"buff.ogg"];
+    
+    // load particle effect
+    CCParticleSystem *AtkBuffEffect = (CCParticleSystem *)[CCBReader load:@"AtkBuff"];
+    AtkBuffEffect.position = ccp(30,-200);
+    [self addChild:AtkBuffEffect z:-1];
+    
+    id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_atkBuff = 2.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_atkBuff = 1.0;[AtkBuffEffect removeFromParent];}],nil];
     [self runAction:doubleAttack];
 }
 
 -(void)immuneFromAttackForDuration:(float)duration{
-    id doubleAttack = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_damageReduction = 0.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_damageReduction = 1.0;}],nil];
-    [self runAction:doubleAttack];
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"buff.ogg"];
+    
+    CCSprite *shield = [CCSprite spriteWithImageNamed:@"UI/shield.png"];
+    shield.position = ccp(140.0,95.0);
+    shield.scaleX = 0;
+    shield.scaleY = 0;
+    [self addChild:shield];
+    id tweenX = [CCActionTween actionWithDuration:1.5 key:@"ScaleX" from:0 to:5];
+    id tweenY = [CCActionTween actionWithDuration:1.5 key:@"ScaleY" from:0 to:3.5];
+    [shield runAction:tweenX];
+    [shield runAction:tweenY];
+    
+    id immune = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_damageReduction = 0.0;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_damageReduction = 1.0;[shield removeFromParent];}],nil];
+    [self runAction:immune];
 }
 
 -(void)shootingForDuration:(float)duration{
-    id shooting = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_isShooting = YES;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_isShooting = NO;}],nil];
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"buff.ogg"];
+    
+    // load particle effect
+    CCParticleSystem *buffEffect = (CCParticleSystem *)[CCBReader load:@"AccurancyBuffEffect"];
+    buffEffect.position = ccp(90,80);
+    [self.hand addChild:buffEffect];
+    
+    id shooting = [CCActionSequence actions:[CCActionCallBlock actionWithBlock:^{_isShooting = YES;}],[CCActionDelay actionWithDuration:duration],[CCActionCallBlock actionWithBlock:^{_isShooting = NO;[buffEffect removeFromParent];}],nil];
     [self runAction:shooting];
 }
 
@@ -258,6 +292,10 @@ static float controlRange = 300;
         healEffect.autoRemoveOnFinish = TRUE;
         healEffect.position = _centerJointNode.positionInPoints;
         [self addChild:healEffect];
+        
+        // play sound effect
+        OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+        [audio playEffect:@"heal.ogg"];
     }
 }
 

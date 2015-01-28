@@ -25,7 +25,7 @@
             <RespawnInterval>5</RespawnInterval>
             <PositionY>0.4</PositionY>
             <Health>10</Health>
-            <IsElite>1</IsElite>
+            <IsElite>0</IsElite>
         </Monster>
         <Monster>
             <SpriteName>MonsterBat</SpriteName>
@@ -43,7 +43,7 @@
             <RespawnInterval>5</RespawnInterval>
             <PositionY>0.8</PositionY>
             <Health>10</Health>
-            <IsElite>1</IsElite>
+            <IsElite>0</IsElite>
         </Monster>
         <Monster>
             <SpriteName>MonsterBat</SpriteName>
@@ -52,7 +52,7 @@
             <RespawnInterval>5</RespawnInterval>
             <PositionY>0.5</PositionY>
             <Health>10</Health>
-            <IsElite>1</IsElite>
+            <IsElite>0</IsElite>
         </Monster>
         <Monster>
             <SpriteName>MonsterBat</SpriteName>
@@ -61,7 +61,7 @@
             <RespawnInterval>5</RespawnInterval>
             <PositionY>0.7</PositionY>
             <Health>10</Health>
-            <IsElite>1</IsElite>
+            <IsElite>0</IsElite>
         </Monster>
     </MonsterData>
 </LevelData>

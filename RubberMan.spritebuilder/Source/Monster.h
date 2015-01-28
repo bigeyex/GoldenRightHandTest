@@ -19,8 +19,10 @@
 @property float atkPeriod;
 @property BOOL isEvading;
 @property BOOL isStopped;
-@property BOOL isElite;
+@property (nonatomic) BOOL isElite;
 @property float spdBuff;
+
+@property CCNode* rankIcon;
 
 - (BOOL)receiveHitWithDamage:(float)Damage;
 - (void)loadMonsterData: (MonsterData*)monsterData;
@@ -29,6 +31,8 @@
 - (void)monsterEvade;
 - (void)monsterCharge;
 - (void)monsterChargeCancel;
+- (void)seekProtection:(CCNode *)monsterList;
+- (void)protectMonsters:(Monster *)nodeA;
 
 @end
 

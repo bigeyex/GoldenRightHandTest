@@ -26,6 +26,8 @@
     int _totalNumOfMonsters;
     int _monstersKilled;
     SkillButtonUI *_skillButton;
+    CCLabelTTF *_skillDescription;
+    NSMutableArray *_skillDescriptionArray;
     
     CCNode* pauseButton;
     CCNode* pauseMenu;
@@ -69,11 +71,15 @@
     // play bgm
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     // play background sound
-    [audio playBg:@"iceloop.mp3" loop:TRUE];
+    [audio playBgWithLoop:true];
+//    [audio playBg:@"iceloop.mp3" loop:TRUE];
     
     [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(checkWinningCondition)];
     [_skillButton.children[0] setEnabled:NO];
     [uiScoreBoard reset];
+    [self initSkillDescriptionArray];
+    _skillDescription.string = @"Collect 3 element to use skills";
+    _skillDescription.opacity = 0.5;
     
 }
 
@@ -81,6 +87,21 @@
     [super onEnter];
     _totalNumOfMonsters = [_monsterList loadLevel:_levelName];
     _monstersKilled = 0;
+}
+
+- (void) initSkillDescriptionArray{
+    _skillDescriptionArray = [NSMutableArray arrayWithObjects:
+                              @"Firestorm",
+                              @"100% Accuracy (10sec)",
+                              @"Fist of Fire",
+                              @"Fist of Ice",@"n/a",
+                              @"Double Damage",@"n/a",
+                              @"Icestorm",
+                              @"Healing",@"n/a",@"n/a",
+                              @"Instant Kill",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",
+                              @"Fist of Absorbing",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",
+                              @"Invincible (10sec)",
+                              nil];
 }
 
 - (void)showPauseMenu{
@@ -174,19 +195,34 @@
 - (void) monsterAI{
     if(!_player.isShooting){
         int numOfMonsters = (int)[_monsterList.children count];
+        Monster *monsterBeAttacked;
+        float minProjectDistance=10000;
         for (int i = 0;i<numOfMonsters;i++){
             Monster *_checkNode = _monsterList.children[i];
-            if(_checkNode.isElite){
-                CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
-                CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
-                float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
+            CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
+            CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
+ 
+            float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
+            // if the monster is targeted
+            if (distance<=20*2){
                 
-                // NOTE: this is to assume the hand size is 20 and the monster size is 20 also, potential bug
-                // if the monster is targeted
-                if (distance<=20*2){
+                // if the monster is elite, perform evade behavior
+                if(_checkNode.isElite){
                     [_checkNode monsterEvade];
                 }
+                
+                // calculate which monster is being attacked
+                float projectDistance = ccpDot(_player.shootDirection,ccpSub(monsterPosition,handPosition));
+                if(minProjectDistance>projectDistance){
+                        monsterBeAttacked = _checkNode;
+                        minProjectDistance = projectDistance;
+                }
             }
+        }
+        
+        // the being hitted monster ask for protection
+        if(monsterBeAttacked){
+            [monsterBeAttacked seekProtection:_monsterList];
         }
     }
 }
@@ -200,10 +236,13 @@
 {
     if((!_player.isGoBack) && (!_player.isMonsterHit)){
         
+        // play sound effect
+        [_player.hand playHitSound];
+        
         BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk * _player.atkBuff];
         float recoverHP = [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
         
-        [_player heal:recoverHP]; 
+        [_player heal:recoverHP];
         [_playerLifeBar setLength:_player.playerHP];
         
         _player.handPositionAtHit = _player.hand.positionInPoints;
@@ -232,6 +271,7 @@
             if(![_skillButton.lowerRightElement isEqualToString:@"none"]){
                 [GameEvent dispatch:@"GetSkill"];
                 [_skillButton.children[0] setEnabled:YES];
+                [self showSkillDescription];
             }
         }
     }
@@ -282,6 +322,7 @@
     pauseMenu.visible = NO;
     
     // TODO: Implement Score System
+    [uiScoreBoard reset];
     [uiScoreBoard giveStarForReason:@"Health > 75%"];
     [uiScoreBoard giveStarForReason:@"Accuracy > 75%"];
     [uiScoreBoard giveStarForReason:@"Find Sausage"];
@@ -299,8 +340,8 @@
     int skillOptions = [map[_skillButton.upperElement] intValue] * [map[_skillButton.lowerLeftElement] intValue] * [map[_skillButton.lowerRightElement] intValue];
     switch(skillOptions){
         case 1: // fire * fire * fire
-            [_player removeHand];
-            [_player addHandwithName:@"FireHand"];
+            // deal 5 damage to all the monsters
+            [self dealDamageToAllMonsters:5.0];
             break;
             
         case 2: // fire * fire * ice
@@ -309,13 +350,15 @@
             break;
             
         case 3: // fire * fire * dark
-            // deal damage to all the monsters
-            [self dealDamageToAllMonsters:5.0];
+            // use a fire fist which deal damage to an area
+            [_player removeHand];
+            [_player addHandwithName:@"FireHand"];
             break;
             
         case 4: // fire * ice * ice
-            // freeze all monsters
-            [self freezeAllMonsters:5.0];
+            // use an ice fist to deal damage to one monster and freeze all others surrounding it
+            [_player removeHand];
+            [_player addHandwithName:@"IceHand"];
             break;
             
         case 6: // fire * ice * dark
@@ -324,8 +367,8 @@
             break;
             
         case 8: // ice * ice * ice
-            [_player removeHand];
-            [_player addHandwithName:@"IceHand"];
+            // freeze all monsters for 5.0s
+            [self freezeAllMonsters:5];
             break;
             
         case 9: // fire * dark * dark
@@ -335,32 +378,40 @@
             break;
             
         case 12: // ice * ice * dark
+            // use a death fist which kill any monster touched
             [_player removeHand];
             [_player addHandwithName:@"DeathHand"];
             break;
             
         case 18: // ice * dark * dark
-            // receive zero damage for 10s
-            [_player immuneFromAttackForDuration:10.0];
+            // use a dark fist to absorb hp from monsters
+            [_player removeHand];
+            [_player addHandwithName:@"DarkHand"];
             break;
             
         case 27: // dark * dark * dark
-            [_player removeHand];
-            [_player addHandwithName:@"DarkHand"];
+            // receive zero damage for 10s
+            [_player immuneFromAttackForDuration:10.0];
             break;
     }
     
     [_skillButton resetElement];
     [_skillButton.children[0] setEnabled:NO];
+    _skillDescription.string = @"Collect 3 element to use skills";
+    _skillDescription.opacity = 0.5;
 }
 
 -(void) dealDamageToAllMonsters:(float)damage{
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"fireSpell.mp3"];
+    
     // add particle effect
     CCParticleSystem *attackAllEffect = (CCParticleSystem *)[CCBReader load:@"AttackAllEffect"];
     attackAllEffect.autoRemoveOnFinish = TRUE;
-    attackAllEffect.position = ccp(350,32);
+    attackAllEffect.position = ccp(350,160);
     [self addChild:attackAllEffect];
-
+    
     
     int numOfMonsters = (int)[_monsterList.children count];
     for (int i = 0;i<numOfMonsters;i++){
@@ -376,10 +427,14 @@
 }
 
 -(void) freezeAllMonsters:(float)duration{
+    // play sound effect
+    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+    [audio playEffect:@"iceSpell.mp3"];
+    
     // add particle effect
     CCParticleSystem *attackAllEffect = (CCParticleSystem *)[CCBReader load:@"FreezeAllEffect"];
     attackAllEffect.autoRemoveOnFinish = TRUE;
-    attackAllEffect.position = ccp(350,308);
+    attackAllEffect.position = ccp(350,160);
     [self addChild:attackAllEffect];
     
     int numOfMonsters = (int)[_monsterList.children count];
@@ -387,6 +442,13 @@
         Monster *_checkNode = _monsterList.children[i];
         [_checkNode stopMovingForDuration:duration];
     }
+}
+
+-(void) showSkillDescription{
+    NSDictionary *map = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:1],@"fire",[NSNumber numberWithInt:2],@"ice",[NSNumber numberWithInt:3],@"dark", nil];
+    int skillOptions = [map[_skillButton.upperElement] intValue] * [map[_skillButton.lowerLeftElement] intValue] * [map[_skillButton.lowerRightElement] intValue];
+    _skillDescription.string = _skillDescriptionArray[skillOptions-1];
+    _skillDescription.opacity = 1.0;
 }
 
 @end
