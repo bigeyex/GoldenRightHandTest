@@ -36,8 +36,15 @@
 -(void)setUpperElement:(NSString *)newString{
     _upperElement = newString;
     if(![newString isEqualToString:@"none"]){
-        [self removeChildByName:@"upper"];
-        id sequence = [CCActionSequence actions:[CCActionDelay actionWithDuration:0.5],[CCActionCallBlock actionWithBlock:^{[self addChild:[self addElementToUI:_upperElement Position:ccp(-50,70)] z:1 name:@"upper"];}],nil];
+        CCNode* childToBeRemoved = [self getChildByName:@"upper" recursively:NO];
+        if(childToBeRemoved != nil){
+            [self removeChild:childToBeRemoved];
+        }
+        id sequence = [CCActionSequence actions:[CCActionDelay actionWithDuration:0.5],[CCActionCallBlock actionWithBlock:^{
+                if(![_upperElement isEqualToString:@"none"]){
+                    [self addChild:[self addElementToUI:_upperElement Position:ccp(-50,70)] z:1 name:@"upper"];
+                }
+            }],nil];
         [self runAction:sequence];
     }
 }
@@ -45,7 +52,10 @@
 -(void)setLowerLeftElement:(NSString *)newString{
     _lowerLeftElement = newString;
     if(![newString isEqualToString:@"none"]){
-        [self removeChildByName:@"lowerLeft"];
+        CCNode* childToBeRemoved = [self getChildByName:@"lowerLeft" recursively:NO];
+        if(childToBeRemoved != nil){
+            [self removeChild:childToBeRemoved];
+        }
         CCSprite *newElement =[self addElementToUI:_lowerLeftElement Position:ccp(-50,70)];
         [self addChild:newElement z:2 name:@"lowerLeft"];
         id elementMotion = [CCActionMoveTo actionWithDuration:0.5 position:ccp(-66,40)];
@@ -56,7 +66,10 @@
 -(void)setLowerRightElement:(NSString *)newString{
     _lowerRightElement = newString;
     if(![newString isEqualToString:@"none"]){
-        [self removeChildByName:@"lowerRight"];
+        CCNode* childToBeRemoved = [self getChildByName:@"lowerRight" recursively:NO];
+        if(childToBeRemoved != nil){
+            [self removeChild:childToBeRemoved];
+        }
         CCSprite *newElement =[self addElementToUI:_lowerLeftElement Position:ccp(-66,40)];
         [self addChild:newElement z:3 name:@"lowerRight"];
         id elementMotion = [CCActionMoveTo actionWithDuration:0.5 position:ccp(-33,40)];

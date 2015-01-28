@@ -10,6 +10,16 @@
             <IsElite>0</IsElite>
         </Monster>
         <Monster>
+            <SpriteName>MonsterBomb</SpriteName>
+            <EnterTime>0</EnterTime>
+            <Number>1</Number>
+            <RespawnInterval>5</RespawnInterval>
+            <PositionY>0.7</PositionY>
+            <PositionX>0.5</PositionX>
+            <Health>50</Health>
+            <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
             <SpriteName>MonsterBat</SpriteName>
             <EnterTime>5</EnterTime>
             <Number>1</Number>
