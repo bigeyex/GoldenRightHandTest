@@ -145,6 +145,7 @@
     
     // call Player's method touchAtLocation to deal with the touch event
     BOOL isTouched = [_player touchAtLocation:touchLocation];
+    [_player updateTouchLocation:touchLocation];
     
     if (isTouched){
         int numOfMonsters = (int)[_monsterList.children count];
