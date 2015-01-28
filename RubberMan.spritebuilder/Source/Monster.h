@@ -47,3 +47,7 @@
 @interface MonsterGhost : Monster
 
 @end
+
+@interface MonsterSausage : Monster
+
+@end

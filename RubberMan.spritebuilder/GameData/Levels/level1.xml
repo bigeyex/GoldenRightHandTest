@@ -9,6 +9,16 @@
             <Health>5</Health>
             <IsElite>0</IsElite>
         </Monster>
+        <Monster>
+            <SpriteName>MonsterSausage</SpriteName>
+            <EnterTime>3</EnterTime>
+            <Number>1</Number>
+            <RespawnInterval>5</RespawnInterval>
+            <PositionY>0</PositionY>
+            <PositionX>0.5</PositionX>
+            <Health>5</Health>
+            <IsElite>0</IsElite>
+        </Monster>
     </MonsterData>
     <EventData>
         <Event>BasicTutorial</Event>
