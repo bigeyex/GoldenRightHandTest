@@ -9,7 +9,7 @@
 #import "BombSausageTutorial.h"
 #import "GameEvent.h"
 
-float const secondsBeforeSecondTutorial=1.3;
+float const secondsBeforeSecondTutorial=1;
 
 @implementation BombSausageTutorial
 

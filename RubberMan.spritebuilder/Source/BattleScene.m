@@ -30,6 +30,7 @@
     NSMutableArray *_skillDescriptionArray;
     
     BOOL foundSausage;
+    BOOL _isLose;
     int countOfPlayerAttacks;
     int countOfHit;
     
@@ -94,6 +95,7 @@
     countOfPlayerAttacks = 0;
     countOfHit = 0;
     foundSausage = NO;
+    _isLose = NO;
     [GameEvent subscribe:@"FoundSausage" forObject:self withSelector:@selector(onFoundSausage)];
     
 }
@@ -192,6 +194,7 @@
     BOOL isReleased = [_player releaseTouch];
     if(isReleased){
         countOfPlayerAttacks++;
+        //NSLog(@"%d",countOfPlayerAttacks);
         [self monsterAI];
         int numOfMonsters = (int)[_monsterList.children count];
         for (int i = 0;i<numOfMonsters;i++){
@@ -272,6 +275,9 @@
         _player.isMonsterHit = YES;
         _player.isStopTimeReached = NO;
         
+        countOfHit++;
+        //NSLog(@"%d",countOfHit);
+        
         //        nodeA.physicsBody.velocity = ccp(0,0);
         
         // when a monster is killed
@@ -283,8 +289,6 @@
             [self addChild:element];
             id elementMotion = [CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.5 position:ccpAdd(_skillButton.positionInPoints,ccp(-50,70))],[CCActionCallBlock actionWithBlock:^{[element removeFromParent];}],nil];
             [element runAction:elementMotion];
-            
-            countOfHit++;
             
             // remove the monster from the scene
             //            [nodeA removeFromParent];
@@ -315,8 +319,10 @@
                 _player.playerHP = _player.playerHP - nodeA.atk * _player.damageReduction;
                 [_player receiveAttack];
                 [_playerLifeBar setLength:_player.playerHP];
-                if(_player.playerHP<=0){
-                    [self battleLose];
+                if(_player.playerHP<=0 && !_isLose){
+                    _isLose = YES;
+                    self.userInteractionEnabled = NO;
+                    [self scheduleOnce:@selector(battleLose:) delay:2.0f];
                 }
             }
         }
@@ -332,7 +338,8 @@
     }
 }
 
--(void)battleLose{
+-(void)battleLose:(CCTime)delta{
+    self.userInteractionEnabled = TRUE;
     [[CCDirector sharedDirector] pause];
     gameOverMenu.visible = YES;
     pauseMenu.visible = NO;
@@ -477,6 +484,11 @@
     for (int i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = _monsterList.children[i];
         [_checkNode stopMovingForDuration:duration];
+        CCSprite* iceImage = [CCSprite spriteWithImageNamed:@"UI/ice-block.png"];
+        iceImage.name = @"iceblock";
+        iceImage.position = _checkNode.position;
+        [_checkNode addChild:iceImage];
+
     }
 }
 

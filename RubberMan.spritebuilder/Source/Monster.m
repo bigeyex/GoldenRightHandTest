@@ -184,8 +184,6 @@ CGFloat const outOfRightBoundThreshold = 500;
             }
         }
     }
-    
-    
 }
 
 @end
@@ -316,6 +314,9 @@ CGFloat const outOfRightBoundThreshold = 500;
     }];
 }
 
+- (void)seekProtection:(CCNode *)monsterList{
+}
+
 @end
 
 @implementation MonsterSausage
@@ -338,6 +339,8 @@ CGFloat const outOfRightBoundThreshold = 500;
     [self.physicsBody applyAngularImpulse:300.0];
 }
 
+- (void)seekProtection:(CCNode *)monsterList{
+}
 
 
 @end

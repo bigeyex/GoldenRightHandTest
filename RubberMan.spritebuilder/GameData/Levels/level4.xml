@@ -1,31 +1,125 @@
 <LevelData>
     <MonsterData>
         <Monster>
-            <SpriteName>MonsterGhost</SpriteName>
-            <EnterTime>0</EnterTime>
+            <SpriteName>MonsterWalker</SpriteName>
+            <EnterTime>2.5</EnterTime>
             <Number>3</Number>
-            <RespawnInterval>3</RespawnInterval>
-            <PositionY>0.6</PositionY>
+            <RespawnInterval>1.5</RespawnInterval>
+            <PositionY>0.1</PositionY>
+            <Health>10</Health>
+            <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterBat</SpriteName>
+            <EnterTime>2</EnterTime>
+            <Number>3</Number>
+            <RespawnInterval>1.75</RespawnInterval>
+            <PositionY>0.5</PositionY>
             <Health>5</Health>
+            <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterGhost</SpriteName>
+            <EnterTime>1.5</EnterTime>
+            <Number>3</Number>
+            <RespawnInterval>2</RespawnInterval>
+            <PositionY>0.65</PositionY>
+            <Health>5</Health>
+            <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterWalker</SpriteName>
+            <EnterTime>10</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>2.5</RespawnInterval>
+            <PositionY>0.1</PositionY>
+            <Health>20</Health>
             <IsElite>1</IsElite>
         </Monster>
         <Monster>
             <SpriteName>MonsterBat</SpriteName>
-            <EnterTime>10</EnterTime>
-            <Number>3</Number>
-            <RespawnInterval>3</RespawnInterval>
-            <PositionY>0.6</PositionY>
-            <Health>5</Health>
+            <EnterTime>12.5</EnterTime>
+            <Number>1</Number>
+            <RespawnInterval>5</RespawnInterval>
+            <PositionY>0.5</PositionY>
+            <Health>10</Health>
             <IsElite>1</IsElite>
         </Monster>
         <Monster>
-            <SpriteName>MonsterWalker</SpriteName>
-            <EnterTime>0</EnterTime>
-            <Number>3</Number>
-            <RespawnInterval>3</RespawnInterval>
-            <PositionY>0.1</PositionY>
-            <Health>5</Health>
+            <SpriteName>MonsterGhost</SpriteName>
+            <EnterTime>10</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>5</RespawnInterval>
+            <PositionY>0.6</PositionY>
+            <Health>10</Health>
             <IsElite>1</IsElite>
         </Monster>
-        </MonsterData>
+        <Monster>
+            <SpriteName>MonsterBomb</SpriteName>
+            <EnterTime>11</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>5</RespawnInterval>
+            <PositionY>0.8</PositionY>
+            <PositionX>0.5</PositionX>
+            <Health>50</Health>
+            <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterSausage</SpriteName>
+            <EnterTime>3</EnterTime>
+            <Number>1</Number>
+            <RespawnInterval>5</RespawnInterval>
+            <PositionX>0.5</PositionX>
+            <PositionY>0.1</PositionY>
+            <Health>5</Health>
+            <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterBomb</SpriteName>
+            <EnterTime>22.5</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>1.5</RespawnInterval>
+            <PositionY>0.8</PositionY>
+            <PositionX>0.6</PositionX>
+            <Health>50</Health>
+            <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterBomb</SpriteName>
+            <EnterTime>27.5</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>1.5</RespawnInterval>
+            <PositionY>0.8</PositionY>
+            <PositionX>0.6</PositionX>
+            <Health>50</Health>
+            <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterGhost</SpriteName>
+            <EnterTime>22.5</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>1.5</RespawnInterval>
+            <PositionY>0.6</PositionY>
+            <Health>10</Health>
+            <IsElite>1</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterBat</SpriteName>
+            <EnterTime>22.5</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>1.5</RespawnInterval>
+            <PositionY>0.45</PositionY>
+            <Health>10</Health>
+            <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterWalker</SpriteName>
+            <EnterTime>22.5</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>1.5</RespawnInterval>
+            <PositionY>0.1</PositionY>
+            <Health>10</Health>
+            <IsElite>0</IsElite>
+        </Monster>
+    </MonsterData>
 </LevelData>
