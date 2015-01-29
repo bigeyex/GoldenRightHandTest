@@ -253,56 +253,65 @@
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA hand:(Hand *)nodeB{
     // when the monster is hit or the hand is going back, ignore all the collision
-    return (!_player.isMonsterHit) && (!_player.isGoBack);
+    if( (_player.isGoBack) || (!nodeA.isAlive) ){
+        return NO;
+    }
+        
+    // play sound effect
+    [_player.hand playHitSound];
+    
+    BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk * _player.atkBuff];
+    float recoverHP = [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
+    
+    [_player heal:recoverHP];
+    [_playerLifeBar setLength:_player.playerHP];
+    
+    _player.handPositionAtHit = _player.hand.positionInPoints;
+    if(!isDefeated){
+        _player.isMonsterHit = YES;
+        [_player reduceHandMomentumBy:0.8];
+    }
+    else{
+        [_player reduceHandMomentumBy:0.6];
+    }
+    _player.isStopTimeReached = NO;
+    
+    //        nodeA.physicsBody.velocity = ccp(0,0);
+    
+    // when a monster is killed
+    if(isDefeated){
+        // the skill element motion animation
+        CCSprite *element = [CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"UI/%@.png",nodeA.elementType]];
+        element.position = nodeA.positionInPoints;
+        element.opacity = 0.5;
+        [self addChild:element];
+        id elementMotion = [CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.5 position:ccpAdd(_skillButton.positionInPoints,ccp(-50,70))],[CCActionCallBlock actionWithBlock:^{[element removeFromParent];}],nil];
+        [element runAction:elementMotion];
+        
+        countOfHit++;
+        
+        // remove the monster from the scene
+        //            [nodeA removeFromParent];
+        //            [self checkWinningCondition];
+        
+        // assign the element type to the skill button ui
+        _skillButton.lowerRightElement = _skillButton.lowerLeftElement;
+        _skillButton.lowerLeftElement = _skillButton.upperElement;
+        _skillButton.upperElement = nodeA.elementType;
+        if(![_skillButton.lowerRightElement isEqualToString:@"none"]){
+            [GameEvent dispatch:@"GetSkill"];
+            [_skillButton.children[0] setEnabled:YES];
+            [self showSkillDescription];
+        }
+        
+    }
+    
+    return YES;
 }
 
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA hand:(Hand *)nodeB
 {
-    if((!_player.isGoBack) && (!_player.isMonsterHit)){
-        
-        // play sound effect
-        [_player.hand playHitSound];
-        
-        BOOL isDefeated = [nodeA receiveHitWithDamage:nodeB.atk * _player.atkBuff];
-        float recoverHP = [_player.hand handSkillwithMonster:nodeA MonsterList:_monsterList];
-        
-        [_player heal:recoverHP];
-        [_playerLifeBar setLength:_player.playerHP];
-        
-        _player.handPositionAtHit = _player.hand.positionInPoints;
-        _player.isMonsterHit = YES;
-        _player.isStopTimeReached = NO;
-        
-//        nodeA.physicsBody.velocity = ccp(0,0);
-        
-        // when a monster is killed
-        if(isDefeated){
-            // the skill element motion animation
-            CCSprite *element = [CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"UI/%@.png",nodeA.elementType]];
-            element.position = nodeA.positionInPoints;
-            element.opacity = 0.5;
-            [self addChild:element];
-            id elementMotion = [CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.5 position:ccpAdd(_skillButton.positionInPoints,ccp(-50,70))],[CCActionCallBlock actionWithBlock:^{[element removeFromParent];}],nil];
-            [element runAction:elementMotion];
-            
-            countOfHit++;
-            
-            // remove the monster from the scene
-//            [nodeA removeFromParent];
-//            [self checkWinningCondition];
-            
-            // assign the element type to the skill button ui
-            _skillButton.lowerRightElement = _skillButton.lowerLeftElement;
-            _skillButton.lowerLeftElement = _skillButton.upperElement;
-            _skillButton.upperElement = nodeA.elementType;
-            if(![_skillButton.lowerRightElement isEqualToString:@"none"]){
-                [GameEvent dispatch:@"GetSkill"];
-                [_skillButton.children[0] setEnabled:YES];
-                [self showSkillDescription];
-            }
-            
-        }
-    }
+    
 }
 
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA human:(CCNode *)nodeB

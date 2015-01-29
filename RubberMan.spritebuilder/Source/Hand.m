@@ -17,6 +17,7 @@
     
     // set up the hand type
     _range = 800.0;
+    self.originalRange = 800.0;
     _atk = 5.0;
     _skillTimes = 1;
 }

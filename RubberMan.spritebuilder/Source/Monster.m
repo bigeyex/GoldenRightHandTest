@@ -290,6 +290,7 @@ CGFloat const outOfRightBoundThreshold = 500;
 
 - (BOOL)receiveHitWithDamage:(float)damage{
     [GameEvent dispatch:@"FoundSausage"];
+    [super receiveHitWithDamage:damage];
     return YES;
 }
 
