@@ -25,7 +25,7 @@ float const secondsBetweenStarAppearence = 0.5;
 }
 
 - (int)numberOfStars{
-    return starReasonList.count;
+    return (int)starReasonList.count;
 }
 
 

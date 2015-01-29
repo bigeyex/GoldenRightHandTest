@@ -217,10 +217,10 @@ CGFloat const outOfRightBoundThreshold = 500;
         CGPoint nodeAPosition = nodeA.position;
         self.isEvading = YES;
         self.physicsBody.velocity = ccp(0,0);
-        id evadeSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0.1,0)], [CCActionDelay actionWithDuration:1],[CCActionMoveTo actionWithDuration:0.1 position:nodeAPosition],[CCActionCallBlock actionWithBlock:^{nodeA.isEvading = NO;}],nil];
+        id evadeSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0.1,0)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:nodeAPosition],[CCActionCallBlock actionWithBlock:^{nodeA.isEvading = NO;}],nil];
         [nodeA runAction:evadeSequence];
         
-        id protectSequence = [CCActionSequence actions: [CCActionMoveTo actionWithDuration:0.1 position:nodeAPosition], [CCActionDelay actionWithDuration:1],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{self.isEvading = NO;}],nil];
+        id protectSequence = [CCActionSequence actions: [CCActionMoveTo actionWithDuration:0.1 position:nodeAPosition], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{self.isEvading = NO;}],nil];
         [self runAction:protectSequence];
     }
 }

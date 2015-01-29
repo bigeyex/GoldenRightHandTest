@@ -55,7 +55,7 @@
     
     // set up the hand type
     self.atk = 10.0;
-    _skillRange = 100.0;
+    _skillRange = 150.0;
     self.skillTimes = 1;
     _skillDamage = 1.0*self.atk;
 }

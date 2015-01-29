@@ -48,6 +48,6 @@
         </Monster>
     </MonsterData>
     <EventData>
-        <Event>SpecialSkillTutorial</Event>
+        <Event>BombSausageTutorial</Event>
     </EventData>
 </LevelData>
