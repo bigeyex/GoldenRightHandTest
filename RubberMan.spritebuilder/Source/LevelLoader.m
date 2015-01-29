@@ -134,14 +134,18 @@
             monsterData.isElite = [isEliteNode.stringValue boolValue];
         }
         
-        NSArray *modifierNode = [enemyNode elementsForName:@"Modifier"];
-        for(GDataXMLElement *modifierAttribute in modifierNode){
-            MonsterDataModifier *modifier = [[MonsterDataModifier alloc] init];
-            modifier.name = modifierNode
-            for(GDataXMLDocument *modifierParameter in modifierAttribute){
-                
+        NSArray *modifierNodes = [enemyNode elementsForName:@"Modifier"];
+        if(modifierNodes.count>0){
+            for(GDataXMLElement *modifierNode in [modifierNodes[0] children]){
+                MonsterDataModifier *modifier = [[MonsterDataModifier alloc] init];
+                modifier.name = [self lowercaseFirstLetter:modifierNode.name];
+                for(GDataXMLElement *modifierParameter in [modifierNode children]){
+                    [modifier setValue:[NSNumber numberWithFloat:modifierParameter.stringValue.floatValue] forKey:[self lowercaseFirstLetter:modifierParameter.name]];
+                }
+                [monsterData.modifiers addObject:modifier];
             }
         }
+        
         
         [monsterDataList addObject:monsterData];
     }
@@ -156,5 +160,8 @@
     return totalNumOfEmeny;
 }
 
+- (NSString*)lowercaseFirstLetter:(NSString*)str{
+    return [[[str substringToIndex:1] lowercaseString] stringByAppendingString:[str substringFromIndex:1]];
+}
 
 @end

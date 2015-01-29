@@ -25,6 +25,8 @@
         self.positionX = 1;
         self.positionY = 0.3;
         self.health = 10;
+        self.speed = 0;
+        self.modifiers = [NSMutableArray array];
         nextRespawnTime = 0;
     }
     return self;
@@ -60,7 +62,7 @@
 }
 
 - (BOOL)hasNextUnit{
-    if(self.number > 0){
+    if(self.number > 0 || self.number == -1){
         return YES;
     }
     else{
@@ -69,7 +71,12 @@
 }
 
 - (Monster*)respawn{
-    self.number--;
+    if(self.number != -1){
+        self.number--;
+    }
+    for (MonsterDataModifier *modifier in self.modifiers) {
+        [modifier runModifierForMonsterData:self];
+    }
     nextRespawnTime += self.respawnInterval;
     
     Monster *monster = (Monster*)[CCBReader load: [NSString stringWithFormat:@"Monsters/%@", self.spriteName]];
@@ -82,7 +89,10 @@
 
 @end
 
-@implementation MonsterDataModifier
+@implementation MonsterDataModifier{
+    float baseValue;
+    BOOL hasBaseValue;
+}
 
 float const nullValue = -365.0;
 
@@ -94,24 +104,35 @@ float const nullValue = -365.0;
         self.delta = 0;
         self.minValue = nullValue;
         self.maxValue = nullValue;
+        hasBaseValue = NO;
     }
     return self;
 }
 
 - (CGFloat)newValueFromLast:(CGFloat)lastValue{
-    lastValue += self.delta;
+    if(!hasBaseValue){
+        baseValue = lastValue;
+        hasBaseValue = YES;
+    }
+    baseValue += self.delta;
     if(self.variation != nullValue){
-        lastValue -= self.variation;
-        lastValue += (float)(arc4random() % 200)*self.variation/200.0;
+        baseValue -= self.variation/2;
+        baseValue += (float)(arc4random() % 200)*self.variation/200.0;
     }
     
-    if(self.minValue!=nullValue && lastValue <= self.minValue){
-        lastValue = self.minValue;
+    if(self.minValue!=nullValue && baseValue <= self.minValue){
+        baseValue = self.minValue;
     }
-    else if(self.maxValue!=nullValue &&lastValue >= self.maxValue){
-        lastValue = self.maxValue;
+    else if(self.maxValue!=nullValue &&baseValue >= self.maxValue){
+        baseValue = self.maxValue;
     }
-    return lastValue;
+    return baseValue;
+}
+
+- (void)runModifierForMonsterData:monsterData{
+    [monsterData setValue:[NSNumber numberWithFloat:
+                           [self newValueFromLast:[[monsterData valueForKey:self.name] floatValue]]]
+                 forKey:self.name];
 }
 
 @end
