@@ -1,7 +1,5 @@
-# GoldenRightHandTest
-test of ios game "Golden Hand"
+# Fury of Fist
 
+Team: RubberMan
 
-## Copyright Notice
-
-font: http://www.fontsquirrel.com/fonts/Action-Man?q%5Bterm%5D=comic&q%5Bsearch_check%5D=Y
+Wipe out your enemies using a simple touch and slide of fingers. Survive through a variety of monsters by strategy and marksmanship. Combine mystic elements and enjoy super power. Find the sausage in each level and get three stars.

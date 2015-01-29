@@ -170,8 +170,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>385.33193969726562</real>
-							<real>205.22016906738281</real>
+							<real>337.33193969726562</real>
+							<real>122.22016906738281</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -208,12 +208,7 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>aim:
-touch &amp; slide
-Inside this region
-
-Attack:
-Release finger</string>
+							<string>touch and slide</string>
 							<false/>
 						</array>
 					</dict>
@@ -840,8 +835,6 @@ Release finger</string>
 						<array/>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 				<key>seqExpanded</key>
 				<true/>
 			</dict>
