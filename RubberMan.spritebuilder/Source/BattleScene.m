@@ -83,7 +83,6 @@
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     // play background sound
     [audio playBgWithLoop:true];
-    //    [audio playBg:@"iceloop.mp3" loop:TRUE];
     
     [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(checkWinningCondition)];
     [_skillButton.children[0] setEnabled:NO];
@@ -308,7 +307,8 @@
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA human:(CCNode *)nodeB
 {
     [[_physicsNode space] addPostStepBlock:^{
-        if(!(nodeA.isAttacking)&&(!nodeA.isStopped)){
+        // when monster is protecting others, isEvading is true. In race cases, the protected monster is close to the player, the one protecting others therefore would collide with tbe body. This case should be removed
+        if(!(nodeA.isAttacking)&&(!nodeA.isStopped)&&(!nodeA.isEvading)){
             [nodeA startAttack];
             
             if(_player.damageReduction != 0.0){
