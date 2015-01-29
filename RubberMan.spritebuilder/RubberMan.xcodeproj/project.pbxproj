@@ -64,6 +64,7 @@
 		88F5CBFD1A76150A00CCB1B6 /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F5CBFC1A76150A00CCB1B6 /* Tutorial.m */; };
 		88F5CC001A761AF100CCB1B6 /* TutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F5CBFF1A761AF100CCB1B6 /* TutorialManager.m */; };
 		88F616811A79CE5C000E8F44 /* BombSausageTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F616801A79CE5C000E8F44 /* BombSausageTutorial.m */; };
+		88F616841A7AE9A4000E8F44 /* bossbattle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 88F616831A7AE9A4000E8F44 /* bossbattle.mp3 */; };
 		927F619E196C771E000F43EF /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B7378993180767190076A88C /* MainScene.m */; };
 		927F61A5196C771E000F43EF /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3517B978D7009739AE /* OpenAL.framework */; };
 		927F61A9196C771E000F43EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3D17B978D7009739AE /* Foundation.framework */; };
@@ -261,6 +262,7 @@
 		88F5CBFF1A761AF100CCB1B6 /* TutorialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialManager.m; path = Source/TutorialManager.m; sourceTree = "<group>"; };
 		88F6167F1A79CE5C000E8F44 /* BombSausageTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BombSausageTutorial.h; path = Source/BombSausageTutorial.h; sourceTree = "<group>"; };
 		88F616801A79CE5C000E8F44 /* BombSausageTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BombSausageTutorial.m; path = Source/BombSausageTutorial.m; sourceTree = "<group>"; };
+		88F616831A7AE9A4000E8F44 /* bossbattle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bossbattle.mp3; sourceTree = "<group>"; };
 		927F61BF196C771E000F43EF /* RubberMan Android.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RubberMan Android.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
@@ -622,6 +624,7 @@
 		88A21F861A72172100BC9A9C /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				88F616831A7AE9A4000E8F44 /* bossbattle.mp3 */,
 				88A21F881A72172E00BC9A9C /* iceloop.mp3 */,
 				D2ECF5A61A7818FC00A82160 /* deathFist.mp3 */,
 				D2ECF5A81A7818FF00A82160 /* deathFist2.mp3 */,
@@ -1022,6 +1025,7 @@
 				B71F5918188484E7003F4D28 /* iPhone@2x.png in Resources */,
 				B7378977180762440076A88C /* Default.png in Resources */,
 				B71F5911188484E7003F4D28 /* iPad-old.png in Resources */,
+				88F616841A7AE9A4000E8F44 /* bossbattle.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

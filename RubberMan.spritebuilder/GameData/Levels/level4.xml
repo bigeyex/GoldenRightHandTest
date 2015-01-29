@@ -35,6 +35,12 @@
             <PositionY>0.1</PositionY>
             <Health>20</Health>
             <IsElite>1</IsElite>
+            <Modifier>
+                <respawnInterval>
+                    <delta>-0.5</delta>
+                    <minValue>5</minValue>
+                </respawnInterval>
+            </Modifier>
         </Monster>
         <Monster>
             <SpriteName>MonsterBat</SpriteName>

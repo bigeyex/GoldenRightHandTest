@@ -39,6 +39,9 @@
     CCNode* gameOverMenu;
     CCNode* scoreBoardMenu;
     UIScoreBoard *uiScoreBoard;
+    CCLabelTTF *gameOverMessage;
+    
+    float timeSinceGameStarted;
 }
 
 + (void)loadSceneByLevelIndex:(int)levelIndex{
@@ -59,6 +62,13 @@
         else{
             sceneNode.nextLevelButton.visible = YES;
         }
+        
+        // HACK: Level 4 is endless mode
+        if(levelIndex == 3){
+            sceneNode.endlessMode = YES;
+            OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+            [audio playBg:@"bossbattle.mp3" loop:true];
+        }
     }
 }
 
@@ -73,6 +83,7 @@
     [GameEvent clearEvent:@"FoundSausage"];
     // tell this scene to accept touches
     self.userInteractionEnabled = TRUE;
+    self.endlessMode = NO;
     
     // visualize physics bodies & joints
     //_physicsNode.debugDraw = YES;
@@ -83,7 +94,7 @@
     // play bgm
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     // play background sound
-    [audio playBgWithLoop:true];
+    [audio playBg:@"iceloop.mp3" loop:true];
     
     [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(checkWinningCondition)];
     [_skillButton.children[0] setEnabled:NO];
@@ -144,6 +155,12 @@
     CCScene *battleScene = [CCBReader loadAsScene:@"BattleScene"];
     BattleScene *sceneNode = [[battleScene children] firstObject];
     sceneNode.levelName = self.levelName;
+    sceneNode.endlessMode = self.endlessMode;
+    // Play new bg at endless node. This is so ugly..
+    if(self.endlessMode){
+        OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+        [audio playBg:@"bossbattle.mp3" loop:true];
+    }
     [[CCDirector sharedDirector] resume];
     [[CCDirector sharedDirector] replaceScene:battleScene];
 }
@@ -159,7 +176,7 @@
 }
 
 - (void)update:(CCTime)delta{
-    
+    timeSinceGameStarted += delta;
 }
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -343,6 +360,22 @@
     [[CCDirector sharedDirector] pause];
     gameOverMenu.visible = YES;
     pauseMenu.visible = NO;
+    if(self.endlessMode){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        id defaultObject = [defaults objectForKey:@"EndlessHiScore"];
+        if(defaultObject == nil){
+            gameOverMessage.string = [NSString stringWithFormat:@"Survival: %.2fs Hi: ---", timeSinceGameStarted];
+            [defaults setObject:[NSNumber numberWithFloat:timeSinceGameStarted] forKey:@"EndlessHiScore"];
+        }
+        else{
+            float hiScore = [defaultObject floatValue];
+            gameOverMessage.string = [NSString stringWithFormat:@"Survival: %.2fs Hi: %.2fs", timeSinceGameStarted, hiScore];
+            if(timeSinceGameStarted > hiScore){
+                [defaults setObject:[NSNumber numberWithFloat:timeSinceGameStarted] forKey:@"EndlessHiScore"];
+            }
+        }
+        
+    }
 }
 
 - (void)checkWinningCondition{
