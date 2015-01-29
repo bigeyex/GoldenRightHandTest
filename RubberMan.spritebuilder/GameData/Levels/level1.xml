@@ -13,14 +13,14 @@
             <SpriteName>MonsterWalker</SpriteName>
             <EnterTime>0</EnterTime>
             <Number>2</Number>
-            <RespawnInterval>2.5</RespawnInterval>
+            <RespawnInterval>5</RespawnInterval>
             <PositionY>0.1</PositionY>
             <Health>10</Health>
             <IsElite>0</IsElite>
         </Monster>
         <Monster>
             <SpriteName>MonsterBat</SpriteName>
-            <EnterTime>5</EnterTime>
+            <EnterTime>10</EnterTime>
             <Number>1</Number>
             <RespawnInterval>5</RespawnInterval>
             <PositionY>0.6</PositionY>
@@ -30,26 +30,36 @@
         <Monster>
             <SpriteName>MonsterGhost</SpriteName>
             <EnterTime>7.5</EnterTime>
-            <Number>2</Number>
+            <Number>1</Number>
             <RespawnInterval>2.5</RespawnInterval>
             <PositionY>0.4</PositionY>
-            <Health>10</Health>
+            <Health>15</Health>
             <IsElite>1</IsElite>
         </Monster>
         <Monster>
             <SpriteName>MonsterWalker</SpriteName>
             <EnterTime>7.5</EnterTime>
-            <Number>2</Number>
+            <Number>1</Number>
             <RespawnInterval>2.5</RespawnInterval>
             <PositionY>0.1</PositionY>
-            <Health>15</Health>
+            <Health>20</Health>
             <IsElite>1</IsElite>
         </Monster>
         <Monster>
             <SpriteName>MonsterGhost</SpriteName>
             <EnterTime>12.5</EnterTime>
-            <Number>3</Number>
+            <Number>2</Number>
             <RespawnInterval>2.5</RespawnInterval>
+            <PositionY>0.4</PositionY>
+            <Health>5</Health>
+            <IsElite>0</IsElite>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterSausage</SpriteName>
+            <EnterTime>5</EnterTime>
+            <Number>1</Number>
+            <RespawnInterval>5</RespawnInterval>
+            <PositionX>0.5</PositionX>
             <PositionY>0.1</PositionY>
             <Health>5</Health>
             <IsElite>0</IsElite>

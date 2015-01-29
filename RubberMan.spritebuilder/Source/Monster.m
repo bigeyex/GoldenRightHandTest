@@ -195,7 +195,11 @@ CGFloat const outOfRightBoundThreshold = 500;
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 30;
+    self.atk = 5;
     self.elementType = @"ice";
+    if(self.isElite){
+        self.atk = 5;
+    }
 }
 
 /*
@@ -232,7 +236,11 @@ CGFloat const outOfRightBoundThreshold = 500;
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 40;
+    self.atk = 10;
     self.elementType = @"fire";
+    if(self.isElite){
+        self.atk = 15;
+    }
 }
 
 -(void)monsterEvade{
@@ -253,7 +261,11 @@ CGFloat const outOfRightBoundThreshold = 500;
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 50;
+    self.atk = 10;
     self.elementType = @"dark";
+    if(self.isElite){
+        self.atk = 10;
+    }
 }
 
 -(void)monsterCharge{
