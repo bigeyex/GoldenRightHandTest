@@ -25,7 +25,6 @@
 @property float damageReduction;
 @property BOOL isShooting;
 
-- (void)reduceHandMomentumBy:(float)factor;
 - (BOOL)touchAtLocation:(CGPoint) touchLocation;
 - (void)updateTouchLocation:(CGPoint) touchLocation;
 - (BOOL)releaseTouch;

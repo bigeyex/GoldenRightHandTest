@@ -84,12 +84,6 @@ static float controlRange = 300;
     _isReleased = 0;
 }
 
-- (void)reduceHandMomentumBy:(float)factor{
-    CGPoint handRelativeVector = ccpSub(_hand.positionInPoints, _centerJointNode.positionInPoints);
-    double handDist = ccpDot(handRelativeVector,_shootDirection);
-    _hand.range-= (_hand.range-handDist)*factor;
-}
-
 -(void)update:(CCTime)delta{
     
     if(_isReleased){
@@ -110,9 +104,7 @@ static float controlRange = 300;
             if(!_isStopTimeReached){
                 
                 // set the velocity to zero for stopDuration
-                if(isRangeReached){
-                    _hand.physicsBody.velocity=ccp(0,0);
-                }
+                _hand.physicsBody.velocity=ccp(0,0);
                 if(isRangeReached){
                     _hand.position = ccpAdd(ccp(_hand.range*_shootDirection.x,_hand.range*_shootDirection.y),_centerJointNode.position);
                 }
@@ -235,8 +227,6 @@ static float controlRange = 300;
         
         // remove the arrow
         [_arrow removeFromParent];
-        
-        _hand.range = _hand.originalRange;
     }
     
     if(!_isMoved){

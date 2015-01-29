@@ -40,11 +40,10 @@
         if(childToBeRemoved != nil){
             [self removeChild:childToBeRemoved];
         }
-        CCNode *newElement = [self addElementToUI:_upperElement Position:ccp(-50,70)];
-        newElement.visible = NO;
-        [self addChild:newElement z:1 name:@"upper"];
         id sequence = [CCActionSequence actions:[CCActionDelay actionWithDuration:0.5],[CCActionCallBlock actionWithBlock:^{
-            newElement.visible = YES;
+                if(![_upperElement isEqualToString:@"none"]){
+                    [self addChild:[self addElementToUI:_upperElement Position:ccp(-50,70)] z:1 name:@"upper"];
+                }
             }],nil];
         [self runAction:sequence];
     }

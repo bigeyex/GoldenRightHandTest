@@ -12,7 +12,6 @@
 @interface Hand : CCSprite
 
 @property float range;
-@property float originalRange;
 @property float atk;
 @property int skillTimes;
 
