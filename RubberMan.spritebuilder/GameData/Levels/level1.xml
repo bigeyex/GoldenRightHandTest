@@ -22,5 +22,6 @@
     </MonsterData>
     <EventData>
         <Event>BasicTutorial</Event>
+        <Event>BombSausageTutorial</Event>
     </EventData>
 </LevelData>
