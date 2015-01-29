@@ -24,6 +24,7 @@ float const secondsBeforeFirstTutorial=1;
     if (self)
     {
         [self showTutorialScreen:@"Tutorial/tutorial1" afterDelay:secondsBeforeFirstTutorial];
+
         
     }
     return self;

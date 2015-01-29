@@ -28,3 +28,14 @@
 
 
 @end
+
+
+@interface MonsterDataModifier : NSObject
+
+@property CGFloat maxValue;
+@property CGFloat minValue;
+@property CGFloat delta;
+@property CGFloat variation;
+@property CGFloat name;
+
+@end

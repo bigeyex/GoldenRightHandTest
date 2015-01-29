@@ -8,6 +8,7 @@
 
 #import "MonsterData.h"
 #import "Monster.h"
+#include <stdlib.h>
 
 @implementation MonsterData{
     CGFloat nextRespawnTime;
@@ -77,6 +78,24 @@
     monster.isElite = self.isElite;
     monster.hp = self.health;
     return monster;
+}
+
+@end
+
+@implementation MonsterDataModifier
+
+- (CGFloat)newValueFromLast:(CGFloat)lastValue{
+    lastValue += self.delta;
+    lastValue -= self.variation;
+    lastValue += (float)(arc4random() % 200)*self.variation/200.0;
+    
+    if(lastValue <= self.minValue){
+        lastValue = self.minValue;
+    }
+    else if(lastValue >= self.maxValue){
+        lastValue = self.maxValue;
+    }
+    return lastValue;
 }
 
 @end
