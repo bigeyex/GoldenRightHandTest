@@ -139,6 +139,10 @@
         double distance = ccpDistance(_checkNode.positionInPoints,nodeA.positionInPoints);
         if (distance<self.skillRange){
             [_checkNode stopMovingForDuration:_skillDuration];
+            CCSprite* iceImage = [CCSprite spriteWithImageNamed:@"UI/ice-block.png"];
+            iceImage.name = @"iceblock";
+            iceImage.position = _checkNode.position;
+            [_checkNode addChild:iceImage];
         }
     }
     return 0.0;

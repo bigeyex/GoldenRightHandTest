@@ -114,6 +114,10 @@ CGFloat const outOfRightBoundThreshold = 500;
         _stopDuration = _stopDuration - delta;
         if(_stopDuration<=0){
             _isStopped = NO;
+            CCNode* childToBeRemoved = [self getChildByName:@"iceblock" recursively:NO];
+            if(childToBeRemoved != nil){
+                [self removeChild:childToBeRemoved];
+            }
             [self.animationManager runAnimationsForSequenceNamed:@"moving"];
         }
     }
