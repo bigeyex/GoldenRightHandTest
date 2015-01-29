@@ -13,6 +13,7 @@
 @property NSString *levelName;
 @property int levelIndex;
 @property CCNode* nextLevelButton;
+@property BOOL endlessMode;
 
 
 + (void)loadSceneByLevelIndex:(int)levelIndex;

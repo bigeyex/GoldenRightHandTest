@@ -8,6 +8,17 @@
             <PositionY>0.6</PositionY>
             <Health>5</Health>
             <IsElite>0</IsElite>
+            <Modifier>
+                <respawnInterval>
+                    <variation>2</variation>
+                    <maxValue>20</maxValue>
+                    <minValue>1</minValue>
+                    <delta>-0.2</delta>
+                </respawnInterval>
+                <positionY>
+                    <variation>0.2</variation>
+                </positionY>
+            </Modifier>
         </Monster>
         <Monster>
             <SpriteName>MonsterWalker</SpriteName>
