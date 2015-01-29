@@ -72,6 +72,7 @@
     [GameEvent clearEvent:@"FoundSausage"];
     // tell this scene to accept touches
     self.userInteractionEnabled = TRUE;
+    self.endlessMode = NO;
     
     // visualize physics bodies & joints
     //_physicsNode.debugDraw = YES;

@@ -3,22 +3,133 @@
         <Monster>
             <SpriteName>MonsterWalker</SpriteName>
             <EnterTime>0</EnterTime>
-            <Number>30</Number>
+            <Number>-1</Number>
+            <RespawnInterval>3</RespawnInterval>
+            <PositionY>0.2</PositionY>
+            <Health>5</Health>
+            <IsElite>0</IsElite>
+            <Modifier>
+                <respawnInterval>
+                    <delta>1</delta>
+                    <maxValue>9</maxValue>
+                </respawnInterval>
+            </Modifier>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterWalker</SpriteName>
+            <EnterTime>10</EnterTime>
+            <Number>-1</Number>
+            <RespawnInterval>7</RespawnInterval>
+            <PositionY>0.2</PositionY>
+            <Health>15</Health>
+            <IsElite>1</IsElite>
+            <Modifier>
+                <respawnInterval>
+                    <delta>-0.5</delta>
+                    <minValue>5</minValue>
+                </respawnInterval>
+            </Modifier>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterBat</SpriteName>
+            <EnterTime>3</EnterTime>
+            <Number>-1</Number>
             <RespawnInterval>3</RespawnInterval>
             <PositionY>0.6</PositionY>
             <Health>5</Health>
             <IsElite>0</IsElite>
             <Modifier>
                 <respawnInterval>
-                    <delta>-0.2</delta>
-                    <minValue>1</minValue>
+                    <delta>1</delta>
+                    <maxValue>10</maxValue>
                 </respawnInterval>
-                <positionY>
-                    <variation>0.3</variation>
-                    <maxValue>1</maxValue>
-                    <minValue>0</minValue>
-                    <delta>0</delta>
-                </positionY>
+                <PositionY>
+                    <variation>0.2</variation>
+                    <minValue>0.4</minValue>
+                    <maxValue>0.7</maxValue>
+                </PositionY>
+            </Modifier>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterBat</SpriteName>
+            <EnterTime>12</EnterTime>
+            <Number>-1</Number>
+            <RespawnInterval>10</RespawnInterval>
+            <PositionY>0.6</PositionY>
+            <Health>10</Health>
+            <IsElite>0</IsElite>
+            <Modifier>
+                <respawnInterval>
+                    <delta>-0.4</delta>
+                    <minValue>5</minValue>
+                </respawnInterval>
+                <PositionY>
+                    <variation>0.2</variation>
+                    <minValue>0.4</minValue>
+                    <maxValue>0.7</maxValue>
+                </PositionY>
+            </Modifier>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterGhost</SpriteName>
+            <EnterTime>9</EnterTime>
+            <Number>-1</Number>
+            <RespawnInterval>3</RespawnInterval>
+            <PositionY>0.5</PositionY>
+            <Health>5</Health>
+            <IsElite>0</IsElite>
+            <Modifier>
+                <respawnInterval>
+                    <delta>0.3</delta>
+                    <maxValue>7</maxValue>
+                </respawnInterval>
+                <PositionY>
+                    <variation>0.2</variation>
+                    <minValue>0.4</minValue>
+                    <maxValue>0.7</maxValue>
+                </PositionY>
+            </Modifier>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterGhost</SpriteName>
+            <EnterTime>17</EnterTime>
+            <Number>-1</Number>
+            <RespawnInterval>15</RespawnInterval>
+            <PositionY>0.5</PositionY>
+            <Health>10</Health>
+            <IsElite>0</IsElite>
+            <Modifier>
+                <respawnInterval>
+                    <delta>-0.4</delta>
+                    <minValue>5</minValue>
+                </respawnInterval>
+                <PositionY>
+                    <variation>0.2</variation>
+                    <minValue>0.4</minValue>
+                    <maxValue>0.7</maxValue>
+                </PositionY>
+            </Modifier>
+        </Monster>
+        <Monster>
+            <SpriteName>MonsterBomb</SpriteName>
+            <EnterTime>15</EnterTime>
+            <Number>-1</Number>
+            <RespawnInterval>12</RespawnInterval>
+            <PositionX>0.5</PositionX>
+            <PositionY>1</PositionY>
+            <Health>10</Health>
+            <IsElite>0</IsElite>
+            <Modifier>
+                <respawnInterval>
+                    <delta>-0.5</delta>
+                    <minValue>3</minValue>
+                    <variation>5</variation>
+                </respawnInterval>
+                <PositionX>
+                    <variation>0.2</variation>
+                    <minValue>0.4</minValue>
+                    <maxValue>0.7</maxValue>
+                </PositionX>
             </Modifier>
         </Monster>
     </MonsterData>

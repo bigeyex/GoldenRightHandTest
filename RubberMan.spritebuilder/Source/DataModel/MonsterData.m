@@ -50,7 +50,7 @@
     if(nextRespawnTime == 0){
         nextRespawnTime = self.enterTime;
     }
-    if(self.number <= 0){
+    if(self.number <= 0 && self.number != -1){
         return NO;
     }
     if(timeSinceGameStarted > nextRespawnTime){
@@ -114,19 +114,20 @@ float const nullValue = -365.0;
         baseValue = lastValue;
         hasBaseValue = YES;
     }
-    baseValue += self.delta;
+    float thisValue = baseValue;
+    thisValue += self.delta;
     if(self.variation != nullValue){
-        baseValue -= self.variation/2;
-        baseValue += (float)(arc4random() % 200)*self.variation/200.0;
+        thisValue -= self.variation/2;
+        thisValue += (float)(arc4random() % 200)*self.variation/200.0;
     }
     
-    if(self.minValue!=nullValue && baseValue <= self.minValue){
-        baseValue = self.minValue;
+    if(self.minValue!=nullValue && thisValue <= self.minValue){
+        thisValue = self.minValue;
     }
-    else if(self.maxValue!=nullValue &&baseValue >= self.maxValue){
-        baseValue = self.maxValue;
+    else if(self.maxValue!=nullValue &&thisValue >= self.maxValue){
+        thisValue = self.maxValue;
     }
-    return baseValue;
+    return thisValue;
 }
 
 - (void)runModifierForMonsterData:monsterData{
