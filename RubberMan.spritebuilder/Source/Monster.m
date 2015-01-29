@@ -309,6 +309,13 @@ CGFloat const outOfRightBoundThreshold = 500;
     [self.physicsBody applyImpulse:ccp(0,-6000)];
 }
 
+- (void)startAttack{
+    [super startAttack];
+    [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
+        [self removeFromParent];
+    }];
+}
+
 @end
 
 @implementation MonsterSausage
