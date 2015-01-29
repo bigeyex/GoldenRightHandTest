@@ -134,6 +134,15 @@
             monsterData.isElite = [isEliteNode.stringValue boolValue];
         }
         
+        NSArray *modifierNode = [enemyNode elementsForName:@"Modifier"];
+        for(GDataXMLElement *modifierAttribute in modifierNode){
+            MonsterDataModifier *modifier = [[MonsterDataModifier alloc] init];
+            modifier.name = modifierNode
+            for(GDataXMLDocument *modifierParameter in modifierAttribute){
+                
+            }
+        }
+        
         [monsterDataList addObject:monsterData];
     }
     

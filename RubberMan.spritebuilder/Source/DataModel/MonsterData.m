@@ -84,15 +84,31 @@
 
 @implementation MonsterDataModifier
 
+float const nullValue = -365.0;
+
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.delta = 0;
+        self.minValue = nullValue;
+        self.maxValue = nullValue;
+    }
+    return self;
+}
+
 - (CGFloat)newValueFromLast:(CGFloat)lastValue{
     lastValue += self.delta;
-    lastValue -= self.variation;
-    lastValue += (float)(arc4random() % 200)*self.variation/200.0;
+    if(self.variation != nullValue){
+        lastValue -= self.variation;
+        lastValue += (float)(arc4random() % 200)*self.variation/200.0;
+    }
     
-    if(lastValue <= self.minValue){
+    if(self.minValue!=nullValue && lastValue <= self.minValue){
         lastValue = self.minValue;
     }
-    else if(lastValue >= self.maxValue){
+    else if(self.maxValue!=nullValue &&lastValue >= self.maxValue){
         lastValue = self.maxValue;
     }
     return lastValue;
