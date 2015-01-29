@@ -65,6 +65,8 @@
         // HACK: Level 4 is endless mode
         if(levelIndex == 3){
             sceneNode.endlessMode = YES;
+            OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+            [audio playBg:@"bossbattle.mp3" loop:true];
         }
     }
 }
@@ -91,7 +93,7 @@
     // play bgm
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     // play background sound
-    [audio playBgWithLoop:true];
+    [audio playBg:@"iceloop.mp3" loop:true];
     
     [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(checkWinningCondition)];
     [_skillButton.children[0] setEnabled:NO];
@@ -152,6 +154,11 @@
     BattleScene *sceneNode = [[battleScene children] firstObject];
     sceneNode.levelName = self.levelName;
     sceneNode.endlessMode = self.endlessMode;
+    // Play new bg at endless node. This is so ugly..
+    if(self.endlessMode){
+        OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+        [audio playBg:@"bossbattle.mp3" loop:true];
+    }
     [[CCDirector sharedDirector] resume];
     [[CCDirector sharedDirector] replaceScene:battleScene];
 }
