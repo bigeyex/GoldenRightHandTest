@@ -66,10 +66,14 @@ CGFloat const outOfRightBoundThreshold = 500;
         self.physicsBody.sensor = YES;
         self.isAlive = NO;
         [self.physicsBody applyImpulse:ccp(50000,50000)];
-        [self.physicsBody applyAngularImpulse:50000.0]; // this doesn't work now
+        //[self.physicsBody applyAngularImpulse:50000.0]; // this doesn't work now
         _hpBar.scaleX = 0;
         [self stopAllActions];  // stop pending actions such as evading
         self.physicsBody.affectedByGravity = YES;
+        id monsterRotate = [CCActionTween actionWithDuration:0.5 key:@"Rotation" from:0.0 to:360.0];
+        id monsterScale = [CCActionTween actionWithDuration:1.0 key:@"Scale" from:1 to:1.5];
+        [self runAction:monsterScale];
+        [self runAction:[CCActionRepeatForever actionWithAction:monsterRotate]];
         return YES;
     }
     _hpBar.scaleX = _hp/_initialHp;
