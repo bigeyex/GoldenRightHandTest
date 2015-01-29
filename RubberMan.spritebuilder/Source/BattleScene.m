@@ -363,7 +363,7 @@
     [uiScoreBoard displayStars];
     
     // save the star of current level
-    int stars = 3;
+    int stars = [uiScoreBoard numberOfStars];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSNumber numberWithInt:stars] forKey:_levelName];
     [defaults synchronize];
