@@ -36,7 +36,21 @@
             if(i<numOfLevels-1){
                 [_level[i+1] setEnabled:NO];
             }
+        } else{
+            [self fillStars:_level[i] NumOfStars:stars];
         }
+    }
+    
+
+    
+}
+
+-(void) fillStars:(CCNode *)level NumOfStars:(int)stars{
+    float positionX[3] = {16.7,28.3,39};
+    for(int i=0;i<stars;i++){
+        CCSprite *starSprite = [CCSprite spriteWithImageNamed:@"UI/level-select-star.png"];
+        starSprite.position = ccp(positionX[i],19);
+        [level addChild:starSprite];
     }
 }
 

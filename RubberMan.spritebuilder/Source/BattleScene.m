@@ -83,7 +83,7 @@
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     // play background sound
     [audio playBgWithLoop:true];
-//    [audio playBg:@"iceloop.mp3" loop:TRUE];
+    //    [audio playBg:@"iceloop.mp3" loop:TRUE];
     
     [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(checkWinningCondition)];
     [_skillButton.children[0] setEnabled:NO];
@@ -225,7 +225,7 @@
             Monster *_checkNode = _monsterList.children[i];
             CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
             CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
- 
+            
             float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
             // if the monster is targeted
             if (distance<=20*2){
@@ -238,8 +238,8 @@
                 // calculate which monster is being attacked
                 float projectDistance = ccpDot(_player.shootDirection,ccpSub(monsterPosition,handPosition));
                 if(minProjectDistance>projectDistance){
-                        monsterBeAttacked = _checkNode;
-                        minProjectDistance = projectDistance;
+                    monsterBeAttacked = _checkNode;
+                    minProjectDistance = projectDistance;
                 }
             }
         }
@@ -273,7 +273,7 @@
         _player.isMonsterHit = YES;
         _player.isStopTimeReached = NO;
         
-//        nodeA.physicsBody.velocity = ccp(0,0);
+        //        nodeA.physicsBody.velocity = ccp(0,0);
         
         // when a monster is killed
         if(isDefeated){
@@ -288,8 +288,8 @@
             countOfHit++;
             
             // remove the monster from the scene
-//            [nodeA removeFromParent];
-//            [self checkWinningCondition];
+            //            [nodeA removeFromParent];
+            //            [self checkWinningCondition];
             
             // assign the element type to the skill button ui
             _skillButton.lowerRightElement = _skillButton.lowerLeftElement;
@@ -365,8 +365,10 @@
     // save the star of current level
     int stars = [uiScoreBoard numberOfStars];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithInt:stars] forKey:_levelName];
-    [defaults synchronize];
+    if(stars>[[defaults objectForKey:_levelName] intValue]){
+        [defaults setObject:[NSNumber numberWithInt:stars] forKey:_levelName];
+        [defaults synchronize];
+    }
 }
 
 -(void)activateSkill{
