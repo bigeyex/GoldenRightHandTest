@@ -21,6 +21,7 @@
 @property BOOL isStopped;
 @property (nonatomic) BOOL isElite;
 @property float spdBuff;
+@property BOOL isAlive;
 
 @property CCNode* rankIcon;
 

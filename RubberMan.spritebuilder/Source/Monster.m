@@ -10,6 +10,7 @@
 #import "GameEvent.h"
 
 CGFloat const outOfBoundThreshold=10;
+CGFloat const outOfRightBoundThreshold = 500;
 
 @implementation Monster{
     CGPoint _moveDirection;
@@ -29,6 +30,7 @@ CGFloat const outOfBoundThreshold=10;
     _atkPeriod = 2.0;
     _isEvading = NO;
     _spdBuff = 1.0;
+    self.isAlive = YES;
     self.physicsBody.collisionType = @"monster";
     self.physicsBody.collisionMask = @[@"human",@"hand"];
     self.physicsBody.collisionCategories = @[@"monster"];
@@ -61,6 +63,13 @@ CGFloat const outOfBoundThreshold=10;
 - (BOOL)receiveHitWithDamage:(float)damage{
     _hp = _hp - damage;
     if(_hp<=0){
+        self.physicsBody.sensor = YES;
+        self.isAlive = NO;
+        [self.physicsBody applyImpulse:ccp(50000,50000)];
+        [self.physicsBody applyAngularImpulse:50000.0]; // this doesn't work now
+        _hpBar.scaleX = 0;
+        [self stopAllActions];  // stop pending actions such as evading
+        self.physicsBody.affectedByGravity = YES;
         return YES;
     }
     _hpBar.scaleX = _hp/_initialHp;
@@ -80,7 +89,7 @@ CGFloat const outOfBoundThreshold=10;
 
 -(void)update:(CCTime)delta{
     
-    if(!_isEvading){
+    if(!_isEvading && self.isAlive){
         //_moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
         _moveDirection = ccp(-1,0);
         self.physicsBody.velocity = CGPointMake((_isStopped?0:1)*self.speed*_spdBuff * _moveDirection.x,(_isStopped?0:1)*self.speed*_spdBuff * _moveDirection.y);
@@ -109,7 +118,7 @@ CGFloat const outOfBoundThreshold=10;
     CGRect pb = self.parent.boundingBox;
     if(ub.origin.x+ub.size.width+outOfBoundThreshold < pb.origin.x ||
        ub.origin.y+ub.size.height+outOfBoundThreshold < pb.origin.y ||
-       //ub.origin.x > pb.origin.x+pb.size.width+outOfBoundThreshold ||
+       ub.origin.x > pb.origin.x+pb.size.width+outOfRightBoundThreshold ||
        ub.origin.y > pb.origin.y+pb.size.height+outOfBoundThreshold){
         [self removeFromParent];
         [GameEvent dispatch:@"MonsterRemoved" withArgument:nil];
@@ -219,7 +228,7 @@ CGFloat const outOfBoundThreshold=10;
 }
 
 -(void)monsterEvade{
-    if(!self.isStopped && !self.isEvading){
+    if(!self.isStopped && !self.isEvading && self.isAlive){
         self.isEvading = YES;
         self.physicsBody.velocity = ccp(0,0);
         CGPoint previousPosition = self.position;
