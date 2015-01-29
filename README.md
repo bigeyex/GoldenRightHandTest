@@ -2,4 +2,4 @@
 
 Team: RubberMan
 
-Wipe out enemies with simple touch and slide of fingers. Survive through waves of intelligent monsters having different abilities. Collect mystic elements from monsters and combine them to use various super powers.
+Wipe out enemies with simple touch and slide of fingers. Survive through waves of intelligent monsters. Combine mystic elements for super powers.
