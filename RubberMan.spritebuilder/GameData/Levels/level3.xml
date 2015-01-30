@@ -106,5 +106,6 @@
     </MonsterData>
     <EventData>
         <Event>EliteTutorial</Event>
+        <Event>SkillButtonTutorial</Event>
     </EventData>
 </LevelData>

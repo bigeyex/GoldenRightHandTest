@@ -8,23 +8,37 @@
 
 #import "SkillButtonTutorial.h"
 #import "GameEvent.h"
+#import "BattleScene.h"
 
-@implementation SkillButtonTutorial
+@implementation SkillButtonTutorial{
+    CCNode* tutorialArrow;
+}
 
 - (id)init{
     self = [super init];
     if (self)
     {
         [GameEvent subscribe:@"GetSkill" forObject:self withSelector:@selector(showTutorialAfterGettingSkill)];
-        
+        [GameEvent subscribe:@"UseSkill" forObject:self withSelector:@selector(hideTutorialAfterUsingSkill)];
+        tutorialArrow = nil;
     }
     return self;
 }
 
 - (void)showTutorialAfterGettingSkill{
-    CCScene *mainScene = [[CCDirector sharedDirector] runningScene];
-    CCNode *tutorialArrow = [CCBReader load:@"TutorialArrow"];
-//    tutorialArrow.position = ccp(
+    if(tutorialArrow==nil){
+        BattleScene *mainScene = (BattleScene*)[[CCDirector sharedDirector] runningScene];
+        tutorialArrow = [CCBReader load:@"TutorialArrow"];
+        tutorialArrow.position = ccp(516, 106);
+        [mainScene addChild:tutorialArrow];
+    }
+}
+
+- (void)hideTutorialAfterUsingSkill{
+    if(tutorialArrow != nil){
+        [tutorialArrow removeFromParent];
+        tutorialArrow = nil;
+    }
 }
 
 @end

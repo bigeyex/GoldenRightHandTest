@@ -142,5 +142,6 @@
     </MonsterData>
     <EventData>
         <Event>BombSausageTutorial</Event>
+        <Event>SkillButtonTutorial</Event>
     </EventData>
 </LevelData>

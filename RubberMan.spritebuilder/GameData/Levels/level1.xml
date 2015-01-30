@@ -97,5 +97,6 @@
     <EventData>
         <Event>BasicTutorial</Event>
         <Event>SpecialSkillTutorial</Event>
+        <Event>SkillButtonTutorial</Event>
     </EventData>
 </LevelData>

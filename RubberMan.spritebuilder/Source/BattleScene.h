@@ -7,6 +7,7 @@
 //
 
 #import "CCNode.h"
+#import "SkillButtonUI.h"
 
 @interface BattleScene : CCNode <CCPhysicsCollisionDelegate>
 
@@ -17,5 +18,6 @@
 
 
 + (void)loadSceneByLevelIndex:(int)levelIndex;
+- (SkillButtonUI*)skillButton;
 
 @end
