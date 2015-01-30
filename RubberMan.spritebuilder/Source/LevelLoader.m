@@ -153,7 +153,7 @@
     // load (tutorial) events
     NSArray *eventNodes = [doc nodesForXPath:@"//LevelData/EventData/Event" error:nil];
     for (GDataXMLElement *eventNode in eventNodes) {
-        [TutorialManager createTutorial:eventNode.stringValue withMonsterList:self];
+        [TutorialManager createTutorial:eventNode.stringValue];
     }
     
     

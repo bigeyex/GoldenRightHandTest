@@ -13,6 +13,11 @@ float const secondsBeforeTutorialScreen=0.5f;
 
 @implementation SpecialSkillTutorial
 
++ (void)setUp{
+    if(![[self alloc] init]){
+        NSLog(@"Failed to init event");
+    }
+}
 
 - (id)init{
     self = [super init];

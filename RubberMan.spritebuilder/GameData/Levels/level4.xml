@@ -130,9 +130,6 @@
                     <minValue>0.4</minValue>
                     <maxValue>0.7</maxValue>
                 </PositionX>
-                <health>
-                    <delta>5</delta>
-                </health>
             </Modifier>
         </Monster>
     </MonsterData>

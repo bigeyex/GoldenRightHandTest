@@ -11,23 +11,22 @@
 #import "SpecialSkillTutorial.h"
 #import "BombSausageTutorial.h"
 #import "EliteTutorial.h"
-#import "LevelLoader.h"
 
 @implementation TutorialManager
 
-+ (void)createTutorial:(NSString*)tutorialName withMonsterList:(LevelLoader*)monsterList{
++ (void)createTutorial:(NSString*)tutorialName{
     
     if([tutorialName isEqualToString:@"BasicTutorial"]){
-        [BasicTutorial setUpWithLevelLoader:monsterList];
+        [BasicTutorial setUp];
     }
     else if([tutorialName isEqualToString:@"SpecialSkillTutorial"]){
-        [SpecialSkillTutorial setUpWithLevelLoader:monsterList];
+        [SpecialSkillTutorial setUp];
     }
     else if([tutorialName isEqualToString:@"BombSausageTutorial"]){
-        [BombSausageTutorial setUpWithLevelLoader:monsterList];
+        [BombSausageTutorial setUp];
     }
     else if([tutorialName isEqualToString:@"EliteTutorial"]){
-        [EliteTutorial setUpWithLevelLoader:monsterList];
+        [EliteTutorial setUp];
     }
 }
 

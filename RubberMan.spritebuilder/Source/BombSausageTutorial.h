@@ -11,5 +11,6 @@
 
 @interface BombSausageTutorial : Tutorial
 
++ (void)setUp;
 
 @end

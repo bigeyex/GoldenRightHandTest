@@ -11,6 +11,6 @@
 
 @interface SpecialSkillTutorial : Tutorial
 
-
++ (void)setUp;
 
 @end

@@ -13,6 +13,11 @@ float const secondsBeforeFirstTutorial=1;
 
 @implementation BasicTutorial
 
++ (void)setUp{
+    if(![[self alloc] init]){
+        NSLog(@"Failed to init event");
+    }
+}
 
 - (id)init{
     self = [super init];

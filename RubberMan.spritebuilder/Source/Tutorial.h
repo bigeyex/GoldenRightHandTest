@@ -7,13 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LevelLoader.h"
 
 @interface Tutorial : NSObject
 
-@property LevelLoader* monsterList;
-
-+ (void)setUpWithLevelLoader:(LevelLoader*)levelLoader;
++ (void)setUp;
 - (void)showTutorialScreen:(NSString*)screenName afterDelay:(float)delay;
 
 @end
