@@ -28,7 +28,7 @@ float const secondsBeforeFirstTutorial=1;
     [GameEvent subscribe:@"MonsterDefeated" forObject:self withSelector:@selector(continueFirstLevel:)];
     [GameEvent subscribe:@"AimingHand" forObject:self withSelector:@selector(blackoutTutorialLayer)];
     [GameEvent subscribe:@"ReleaseHand" forObject:self withSelector:@selector(unBlackoutTutorialLayer)];
-    Monster *tutorialMonster = (Monster *)[CCBReader load:@"Monsters/MonsterBat"];
+    Monster *tutorialMonster = (Monster *)[CCBReader load:@"Monsters/MonsterGhost"];
     tutorialMonster.position = ccp(350,200);
     tutorialMonster.name = @"firstTutorialMonster";
     [self.monsterList addChild:tutorialMonster];
