@@ -137,8 +137,6 @@
 						<real>0.5</real>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -172,8 +170,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>332.33193969726562</real>
-							<real>212.22016906738281</real>
+							<real>295.33193969726562</real>
+							<real>210.22016906738281</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -210,8 +208,7 @@
 						<string>Text</string>
 						<key>value</key>
 						<array>
-							<string>tap this button
-to use special skills*
+							<string>tap to use special skills
 </string>
 							<false/>
 						</array>

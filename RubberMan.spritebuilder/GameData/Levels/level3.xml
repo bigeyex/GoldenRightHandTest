@@ -104,4 +104,7 @@
             <IsElite>1</IsElite>
         </Monster>
     </MonsterData>
+    <EventData>
+        <Event>EliteTutorial</Event>
+    </EventData>
 </LevelData>
