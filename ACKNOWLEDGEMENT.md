@@ -1,5 +1,9 @@
 # copyright acknowledgement
 
+## libraries
+
+gdata-objectivec-client (Apache 2.0): https://code.google.com/p/gdata-objectivec-client/
+
 ## graphic resources
 
 flake (cc-by): http://www.flaticon.com/packs/snowflakes
