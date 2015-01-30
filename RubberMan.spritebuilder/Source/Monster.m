@@ -127,7 +127,7 @@ CGFloat const outOfRightBoundThreshold = 500;
        ub.origin.x > pb.origin.x+pb.size.width+outOfRightBoundThreshold ||
        ub.origin.y > pb.origin.y+pb.size.height+outOfBoundThreshold){
         [self removeFromParent];
-        [GameEvent dispatch:@"MonsterRemoved" withArgument:nil];
+        [GameEvent dispatch:@"MonsterRemoved" withArgument:self];
     }
     
 }
