@@ -19,6 +19,7 @@
         NSLog(@"Failed to init event");
     }
     instance.monsterList = levelLoader;
+    [instance setup];
 }
 
 - (id)init{
@@ -29,6 +30,10 @@
         
     }
     return self;
+}
+
+- (void)setup{
+    
 }
 
 - (void)showTutorialScreen:(NSString*)screenName afterDelay:(float)delay{

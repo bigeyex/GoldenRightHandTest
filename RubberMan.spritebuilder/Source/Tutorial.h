@@ -15,5 +15,6 @@
 
 + (void)setUpWithLevelLoader:(LevelLoader*)levelLoader;
 - (void)showTutorialScreen:(NSString*)screenName afterDelay:(float)delay;
+- (void)setup;
 
 @end
