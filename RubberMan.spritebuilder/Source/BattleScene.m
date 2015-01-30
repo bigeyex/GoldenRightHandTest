@@ -156,6 +156,7 @@
     BattleScene *sceneNode = [[battleScene children] firstObject];
     sceneNode.levelName = self.levelName;
     sceneNode.endlessMode = self.endlessMode;
+    sceneNode.levelIndex = self.levelIndex;
     // Play new bg at endless node. This is so ugly..
     if(self.endlessMode){
         OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
@@ -478,6 +479,7 @@
     [_skillButton.children[0] setEnabled:NO];
     _skillDescription.string = @"Collect 3 element to use skills";
     _skillDescription.opacity = 0.5;
+    [GameEvent dispatch:@"UseSkill"];
 }
 
 -(void) dealDamageToAllMonsters:(float)damage{
@@ -533,6 +535,10 @@
     int skillOptions = [map[_skillButton.upperElement] intValue] * [map[_skillButton.lowerLeftElement] intValue] * [map[_skillButton.lowerRightElement] intValue];
     _skillDescription.string = _skillDescriptionArray[skillOptions-1];
     _skillDescription.opacity = 1.0;
+}
+
+- (SkillButtonUI*)skillButton{
+    return _skillButton;
 }
 
 @end

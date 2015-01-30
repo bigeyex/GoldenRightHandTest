@@ -13,6 +13,7 @@
 #import "EliteTutorial.h"
 #import "LevelLoader.h"
 #import "GetManaTutorial.h"
+#import "SkillButtonTutorial.h"
 
 @implementation TutorialManager
 
@@ -32,6 +33,9 @@
     }
     else if([tutorialName isEqualToString:@"GetManaTutorial"]){
         [GetManaTutorial setUpWithLevelLoader:monsterList];
+    }
+    else if([tutorialName isEqualToString:@"SkillButtonTutorial"]){
+        [SkillButtonTutorial setUpWithLevelLoader:monsterList];
     }
 }
 

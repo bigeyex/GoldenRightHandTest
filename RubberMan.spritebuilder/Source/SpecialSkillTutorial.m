@@ -25,8 +25,12 @@ float const secondsBeforeTutorialScreen=0.5f;
 }
 
 - (void)showTutorialAfterGettingSkill{
-    [GameEvent unsubscribe:@"GetSkill" forObject:self withSelector:@selector(showTutorialAfterGettingSkill)];
+    [self performSelector:@selector(unsubscribeEvent) withObject:nil afterDelay:0.2f];
     [self showTutorialScreen:@"Tutorial/tutorial2" afterDelay:secondsBeforeTutorialScreen];
+}
+
+- (void)unsubscribeEvent{
+    [GameEvent unsubscribe:@"GetSkill" forObject:self withSelector:@selector(showTutorialAfterGettingSkill)];
 }
 
 
