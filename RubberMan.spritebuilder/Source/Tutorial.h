@@ -12,8 +12,10 @@
 @interface Tutorial : NSObject
 
 @property LevelLoader* monsterList;
+@property CCNode* lastTutorialNode;
 
 + (void)setUpWithLevelLoader:(LevelLoader*)levelLoader;
 - (void)showTutorialScreen:(NSString*)screenName afterDelay:(float)delay;
+- (void)setup;
 
 @end

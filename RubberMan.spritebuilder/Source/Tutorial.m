@@ -19,6 +19,7 @@
         NSLog(@"Failed to init event");
     }
     instance.monsterList = levelLoader;
+    [instance setup];
 }
 
 - (id)init{
@@ -31,6 +32,10 @@
     return self;
 }
 
+- (void)setup{
+    
+}
+
 - (void)showTutorialScreen:(NSString*)screenName afterDelay:(float)delay{
     [self performSelector:@selector(showTutorialScreen:) withObject:screenName afterDelay:delay];
 }
@@ -39,6 +44,7 @@
     if(![[CCDirector sharedDirector] isPaused]){
         CCScene* mainScene = [[CCDirector sharedDirector] runningScene];
         CCNode* tutorialLayer = (CCNode*)[CCBReader load:screenName];
+        self.lastTutorialNode = tutorialLayer;
         [GameEvent dispatch:@"PauseMonsters" withArgument:nil];
         [mainScene addChild:tutorialLayer];
     }

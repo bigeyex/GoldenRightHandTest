@@ -65,6 +65,7 @@
 		88F5CC001A761AF100CCB1B6 /* TutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F5CBFF1A761AF100CCB1B6 /* TutorialManager.m */; };
 		88F616811A79CE5C000E8F44 /* BombSausageTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F616801A79CE5C000E8F44 /* BombSausageTutorial.m */; };
 		88F616841A7AE9A4000E8F44 /* bossbattle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 88F616831A7AE9A4000E8F44 /* bossbattle.mp3 */; };
+		88F616991A7B1AC7000E8F44 /* SkillButtonTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F616981A7B1AC7000E8F44 /* SkillButtonTutorial.m */; };
 		927F619E196C771E000F43EF /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B7378993180767190076A88C /* MainScene.m */; };
 		927F61A5196C771E000F43EF /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3517B978D7009739AE /* OpenAL.framework */; };
 		927F61A9196C771E000F43EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3D17B978D7009739AE /* Foundation.framework */; };
@@ -120,6 +121,7 @@
 		D288E0221A78507700F3AC37 /* fireFist.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D288E0211A78507700F3AC37 /* fireFist.mp3 */; };
 		D29481F51A7408AD002B597D /* SkillButtonUI.m in Sources */ = {isa = PBXBuildFile; fileRef = D29481F41A7408AD002B597D /* SkillButtonUI.m */; };
 		D29555911A7B0A340079F5BA /* EliteTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = D29555901A7B0A340079F5BA /* EliteTutorial.m */; };
+		D29555A11A7B26940079F5BA /* GetManaTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = D29555A01A7B26940079F5BA /* GetManaTutorial.m */; };
 		D2E8845E1A64D999004423FC /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E8845D1A64D999004423FC /* Player.m */; };
 		D2E884791A64F2F6004423FC /* Monster.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E884781A64F2F6004423FC /* Monster.m */; };
 		D2ECF59C1A78189500A82160 /* normalFist2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D2ECF59B1A78189500A82160 /* normalFist2.mp3 */; };
@@ -264,6 +266,8 @@
 		88F6167F1A79CE5C000E8F44 /* BombSausageTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BombSausageTutorial.h; path = Source/BombSausageTutorial.h; sourceTree = "<group>"; };
 		88F616801A79CE5C000E8F44 /* BombSausageTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BombSausageTutorial.m; path = Source/BombSausageTutorial.m; sourceTree = "<group>"; };
 		88F616831A7AE9A4000E8F44 /* bossbattle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bossbattle.mp3; sourceTree = "<group>"; };
+		88F616971A7B1AC7000E8F44 /* SkillButtonTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkillButtonTutorial.h; path = Source/Tutorials/SkillButtonTutorial.h; sourceTree = "<group>"; };
+		88F616981A7B1AC7000E8F44 /* SkillButtonTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkillButtonTutorial.m; path = Source/Tutorials/SkillButtonTutorial.m; sourceTree = "<group>"; };
 		927F61BF196C771E000F43EF /* RubberMan Android.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RubberMan Android.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
@@ -287,7 +291,7 @@
 		B73789861807631A0076A88C /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Prefix.pch; path = Source/Prefix.pch; sourceTree = SOURCE_ROOT; };
 		B7378992180767190076A88C /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainScene.h; path = Source/MainScene.h; sourceTree = "<group>"; };
 		B7378993180767190076A88C /* MainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainScene.m; path = Source/MainScene.m; sourceTree = "<group>"; };
-		B77F1B2E17B978D7009739AE /* RubberMan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RubberMan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B77F1B2E17B978D7009739AE /* Fury of Fist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fury of Fist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B77F1B3117B978D7009739AE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B77F1B3317B978D7009739AE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		B77F1B3517B978D7009739AE /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -314,6 +318,8 @@
 		D29481F41A7408AD002B597D /* SkillButtonUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkillButtonUI.m; path = Source/SkillButtonUI.m; sourceTree = "<group>"; };
 		D295558F1A7B0A340079F5BA /* EliteTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EliteTutorial.h; path = Source/EliteTutorial.h; sourceTree = "<group>"; };
 		D29555901A7B0A340079F5BA /* EliteTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EliteTutorial.m; path = Source/EliteTutorial.m; sourceTree = "<group>"; };
+		D295559F1A7B26940079F5BA /* GetManaTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetManaTutorial.h; path = Source/GetManaTutorial.h; sourceTree = "<group>"; };
+		D29555A01A7B26940079F5BA /* GetManaTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetManaTutorial.m; path = Source/GetManaTutorial.m; sourceTree = "<group>"; };
 		D2E8845C1A64D999004423FC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Source/Player.h; sourceTree = "<group>"; };
 		D2E8845D1A64D999004423FC /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = Source/Player.m; sourceTree = "<group>"; };
 		D2E884771A64F2F6004423FC /* Monster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Monster.h; path = Source/Monster.h; sourceTree = "<group>"; };
@@ -612,6 +618,8 @@
 				889892611A6F4F4A00011AE8 /* BasicTutorial.m */,
 				8898927B1A6F6CD900011AE8 /* TutorialNode.h */,
 				8898927C1A6F6CD900011AE8 /* TutorialNode.m */,
+				D295559F1A7B26940079F5BA /* GetManaTutorial.h */,
+				D29555A01A7B26940079F5BA /* GetManaTutorial.m */,
 				88F5CBF71A76146100CCB1B6 /* SpecialSkillTutorial.h */,
 				88F5CBF81A76146100CCB1B6 /* SpecialSkillTutorial.m */,
 				88F5CBFB1A76150A00CCB1B6 /* Tutorial.h */,
@@ -622,6 +630,8 @@
 				88F616801A79CE5C000E8F44 /* BombSausageTutorial.m */,
 				D295558F1A7B0A340079F5BA /* EliteTutorial.h */,
 				D29555901A7B0A340079F5BA /* EliteTutorial.m */,
+				88F616971A7B1AC7000E8F44 /* SkillButtonTutorial.h */,
+				88F616981A7B1AC7000E8F44 /* SkillButtonTutorial.m */,
 			);
 			name = Tutorials;
 			sourceTree = "<group>";
@@ -733,7 +743,7 @@
 		B77F1B2F17B978D7009739AE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B77F1B2E17B978D7009739AE /* RubberMan.app */,
+				B77F1B2E17B978D7009739AE /* Fury of Fist.app */,
 				927F61BF196C771E000F43EF /* RubberMan Android.app */,
 				5B121021197484A3004C1E1D /* RubberMan Java.jar */,
 				7A4035FF19DDEE84007B6E8F /* RubberMan Mac.app */,
@@ -866,7 +876,7 @@
 			);
 			name = "RubberMan iOS";
 			productName = Example;
-			productReference = B77F1B2E17B978D7009739AE /* RubberMan.app */;
+			productReference = B77F1B2E17B978D7009739AE /* Fury of Fist.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1132,8 +1142,10 @@
 				88F616811A79CE5C000E8F44 /* BombSausageTutorial.m in Sources */,
 				88F5CC001A761AF100CCB1B6 /* TutorialManager.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
+				D29555A11A7B26940079F5BA /* GetManaTutorial.m in Sources */,
 				8808EA1B1A6893AC0020AB90 /* MonsterData.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
+				88F616991A7B1AC7000E8F44 /* SkillButtonTutorial.m in Sources */,
 				D24D0E8C1A6B88B000DA162E /* LevelSelectScene.m in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
 				8898927D1A6F6CD900011AE8 /* TutorialNode.m in Sources */,
@@ -1523,7 +1535,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PRODUCT_NAME = RubberMan;
+				PRODUCT_NAME = "Fury of Fist";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1558,7 +1570,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PRODUCT_NAME = RubberMan;
+				PRODUCT_NAME = "Fury of Fist";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Bridging-Header.h";
 				VALIDATE_PRODUCT = YES;

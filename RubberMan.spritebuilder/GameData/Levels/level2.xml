@@ -38,6 +38,21 @@
             <IsElite>0</IsElite>
         </Monster>
         <Monster>
+            <SpriteName>MonsterBomb</SpriteName>
+            <EnterTime>9</EnterTime>
+            <Number>2</Number>
+            <RespawnInterval>4</RespawnInterval>
+            <PositionY>1</PositionY>
+            <PositionX>0.6</PositionX>
+            <Health>50</Health>
+            <IsElite>0</IsElite>
+            <Modifier>
+                <PositionX>
+                    <variation>0.2</variation>
+                </PositionX>
+            </Modifier>
+        </Monster>
+        <Monster>
             <SpriteName>MonsterBat</SpriteName>
             <EnterTime>15</EnterTime>
             <Number>1</Number>
@@ -142,5 +157,6 @@
     </MonsterData>
     <EventData>
         <Event>BombSausageTutorial</Event>
+        <Event>SkillButtonTutorial</Event>
     </EventData>
 </LevelData>
