@@ -8,14 +8,17 @@
 
 #import "Tutorial.h"
 #import "GameEvent.h"
+#import "LevelLoader.h"
 
 
 @implementation Tutorial
 
-+ (void)setUp{
-    if(![[self alloc] init]){
++ (void)setUpWithLevelLoader:(LevelLoader*)levelLoader{
+    Tutorial *instance =[[self alloc] init];
+    if(!instance){
         NSLog(@"Failed to init event");
     }
+    instance.monsterList = levelLoader;
 }
 
 - (id)init{

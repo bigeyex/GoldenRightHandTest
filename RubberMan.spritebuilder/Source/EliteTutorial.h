@@ -10,6 +10,5 @@
 
 @interface EliteTutorial : Tutorial
 
-+ (void)setUp;
 
 @end
