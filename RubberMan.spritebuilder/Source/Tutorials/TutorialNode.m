@@ -26,5 +26,9 @@
     [self removeFromParent];
 }
 
+- (void)dismissFirstTutorial
+{
+    [self removeFromParent];
+}
 
 @end

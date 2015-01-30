@@ -415,7 +415,7 @@
 						<string>Block</string>
 						<key>value</key>
 						<array>
-							<string>dismissTutorial</string>
+							<string>dismissFirstTutorial</string>
 							<integer>1</integer>
 						</array>
 					</dict>
@@ -1017,6 +1017,8 @@
 				</array>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

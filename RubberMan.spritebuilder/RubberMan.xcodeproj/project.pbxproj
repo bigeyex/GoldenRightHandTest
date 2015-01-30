@@ -121,6 +121,7 @@
 		D288E0221A78507700F3AC37 /* fireFist.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D288E0211A78507700F3AC37 /* fireFist.mp3 */; };
 		D29481F51A7408AD002B597D /* SkillButtonUI.m in Sources */ = {isa = PBXBuildFile; fileRef = D29481F41A7408AD002B597D /* SkillButtonUI.m */; };
 		D29555911A7B0A340079F5BA /* EliteTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = D29555901A7B0A340079F5BA /* EliteTutorial.m */; };
+		D29555A11A7B26940079F5BA /* GetManaTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = D29555A01A7B26940079F5BA /* GetManaTutorial.m */; };
 		D2E8845E1A64D999004423FC /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E8845D1A64D999004423FC /* Player.m */; };
 		D2E884791A64F2F6004423FC /* Monster.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E884781A64F2F6004423FC /* Monster.m */; };
 		D2ECF59C1A78189500A82160 /* normalFist2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D2ECF59B1A78189500A82160 /* normalFist2.mp3 */; };
@@ -317,6 +318,8 @@
 		D29481F41A7408AD002B597D /* SkillButtonUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkillButtonUI.m; path = Source/SkillButtonUI.m; sourceTree = "<group>"; };
 		D295558F1A7B0A340079F5BA /* EliteTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EliteTutorial.h; path = Source/EliteTutorial.h; sourceTree = "<group>"; };
 		D29555901A7B0A340079F5BA /* EliteTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EliteTutorial.m; path = Source/EliteTutorial.m; sourceTree = "<group>"; };
+		D295559F1A7B26940079F5BA /* GetManaTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetManaTutorial.h; path = Source/GetManaTutorial.h; sourceTree = "<group>"; };
+		D29555A01A7B26940079F5BA /* GetManaTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetManaTutorial.m; path = Source/GetManaTutorial.m; sourceTree = "<group>"; };
 		D2E8845C1A64D999004423FC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Source/Player.h; sourceTree = "<group>"; };
 		D2E8845D1A64D999004423FC /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = Source/Player.m; sourceTree = "<group>"; };
 		D2E884771A64F2F6004423FC /* Monster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Monster.h; path = Source/Monster.h; sourceTree = "<group>"; };
@@ -615,6 +618,8 @@
 				889892611A6F4F4A00011AE8 /* BasicTutorial.m */,
 				8898927B1A6F6CD900011AE8 /* TutorialNode.h */,
 				8898927C1A6F6CD900011AE8 /* TutorialNode.m */,
+				D295559F1A7B26940079F5BA /* GetManaTutorial.h */,
+				D29555A01A7B26940079F5BA /* GetManaTutorial.m */,
 				88F5CBF71A76146100CCB1B6 /* SpecialSkillTutorial.h */,
 				88F5CBF81A76146100CCB1B6 /* SpecialSkillTutorial.m */,
 				88F5CBFB1A76150A00CCB1B6 /* Tutorial.h */,
@@ -1137,6 +1142,7 @@
 				88F616811A79CE5C000E8F44 /* BombSausageTutorial.m in Sources */,
 				88F5CC001A761AF100CCB1B6 /* TutorialManager.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
+				D29555A11A7B26940079F5BA /* GetManaTutorial.m in Sources */,
 				8808EA1B1A6893AC0020AB90 /* MonsterData.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
 				88F616991A7B1AC7000E8F44 /* SkillButtonTutorial.m in Sources */,

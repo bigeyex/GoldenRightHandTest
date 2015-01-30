@@ -299,6 +299,8 @@
         
         // when a monster is killed
         if(isDefeated){
+            [GameEvent dispatch:@"MonsterDefeated" withArgument:nodeA];
+            
             // the skill element motion animation
             CCSprite *element = [CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"UI/%@.png",nodeA.elementType]];
             element.position = nodeA.positionInPoints;
