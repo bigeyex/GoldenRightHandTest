@@ -291,7 +291,7 @@
 		B73789861807631A0076A88C /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Prefix.pch; path = Source/Prefix.pch; sourceTree = SOURCE_ROOT; };
 		B7378992180767190076A88C /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainScene.h; path = Source/MainScene.h; sourceTree = "<group>"; };
 		B7378993180767190076A88C /* MainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainScene.m; path = Source/MainScene.m; sourceTree = "<group>"; };
-		B77F1B2E17B978D7009739AE /* RubberMan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RubberMan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B77F1B2E17B978D7009739AE /* Fury of Fist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fury of Fist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B77F1B3117B978D7009739AE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B77F1B3317B978D7009739AE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		B77F1B3517B978D7009739AE /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -743,7 +743,7 @@
 		B77F1B2F17B978D7009739AE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B77F1B2E17B978D7009739AE /* RubberMan.app */,
+				B77F1B2E17B978D7009739AE /* Fury of Fist.app */,
 				927F61BF196C771E000F43EF /* RubberMan Android.app */,
 				5B121021197484A3004C1E1D /* RubberMan Java.jar */,
 				7A4035FF19DDEE84007B6E8F /* RubberMan Mac.app */,
@@ -876,7 +876,7 @@
 			);
 			name = "RubberMan iOS";
 			productName = Example;
-			productReference = B77F1B2E17B978D7009739AE /* RubberMan.app */;
+			productReference = B77F1B2E17B978D7009739AE /* Fury of Fist.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1535,7 +1535,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PRODUCT_NAME = RubberMan;
+				PRODUCT_NAME = "Fury of Fist";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1570,7 +1570,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PRODUCT_NAME = RubberMan;
+				PRODUCT_NAME = "Fury of Fist";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Bridging-Header.h";
 				VALIDATE_PRODUCT = YES;
