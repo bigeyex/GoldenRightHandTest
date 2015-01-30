@@ -1,7 +1,5 @@
-# GoldenRightHandTest
-test of ios game "Golden Hand"
+# Fury of Fist
 
+Team: RubberMan
 
-## Copyright Notice
-
-font: http://www.fontsquirrel.com/fonts/Action-Man?q%5Bterm%5D=comic&q%5Bsearch_check%5D=Y
+Wipe out enemies with simple touch and slide of fingers. Survive through waves of intelligent monsters. Combine mystic elements for super powers.

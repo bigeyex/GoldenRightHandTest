@@ -9,6 +9,8 @@
 #import "TutorialManager.h"
 #import "BasicTutorial.h"
 #import "SpecialSkillTutorial.h"
+#import "BombSausageTutorial.h"
+#import "EliteTutorial.h"
 
 @implementation TutorialManager
 
@@ -19,6 +21,12 @@
     }
     else if([tutorialName isEqualToString:@"SpecialSkillTutorial"]){
         [SpecialSkillTutorial setUp];
+    }
+    else if([tutorialName isEqualToString:@"BombSausageTutorial"]){
+        [BombSausageTutorial setUp];
+    }
+    else if([tutorialName isEqualToString:@"EliteTutorial"]){
+        [EliteTutorial setUp];
     }
 }
 

@@ -55,7 +55,7 @@
     
     // set up the hand type
     self.atk = 10.0;
-    _skillRange = 100.0;
+    _skillRange = 150.0;
     self.skillTimes = 1;
     _skillDamage = 1.0*self.atk;
 }
@@ -139,6 +139,10 @@
         double distance = ccpDistance(_checkNode.positionInPoints,nodeA.positionInPoints);
         if (distance<self.skillRange){
             [_checkNode stopMovingForDuration:_skillDuration];
+            CCSprite* iceImage = [CCSprite spriteWithImageNamed:@"UI/ice-block.png"];
+            iceImage.name = @"iceblock";
+            iceImage.position = _checkNode.position;
+            [_checkNode addChild:iceImage];
         }
     }
     return 0.0;

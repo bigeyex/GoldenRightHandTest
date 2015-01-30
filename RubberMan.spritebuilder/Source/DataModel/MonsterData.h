@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class Monster;
+@class MonsterDataModifier;
 
 @interface MonsterData : NSObject
 
@@ -18,7 +19,9 @@
 @property CGFloat positionY;
 @property CGFloat positionX;
 @property float health;
+@property float speed;
 @property BOOL isElite;
+@property NSMutableArray *modifiers;
 
 + (id)fromSpriteName: (NSString*) spriteName;
 - (id)initWithSpriteName: (NSString*) spriteName;
@@ -26,5 +29,19 @@
 - (BOOL)hasNextUnit;
 - (Monster*)respawn;
 
+
+@end
+
+
+@interface MonsterDataModifier : NSObject
+
+@property CGFloat maxValue;
+@property CGFloat minValue;
+@property CGFloat delta;
+@property CGFloat variation;
+@property NSString* name;
+
+
+- (void)runModifierForMonsterData:monsterData;
 
 @end

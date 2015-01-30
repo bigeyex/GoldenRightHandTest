@@ -24,6 +24,10 @@ float const secondsBetweenStarAppearence = 0.5;
     starIndex = 0;
 }
 
+- (int)numberOfStars{
+    return (int)starReasonList.count;
+}
+
 
 - (void)reset{
     starIndex = 0;

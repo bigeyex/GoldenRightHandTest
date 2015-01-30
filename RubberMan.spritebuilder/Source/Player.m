@@ -236,7 +236,9 @@ static float controlRange = 300;
 }
 
 -(void)receiveAttack{
-    [self.animationManager runAnimationsForSequenceNamed:@"beAttacked"];
+    if(self.playerHP>0){
+        [self.animationManager runAnimationsForSequenceNamed:@"beAttacked"];
+    }
 }
 
 -(void)doubleAttackForDuration:(float)duration{

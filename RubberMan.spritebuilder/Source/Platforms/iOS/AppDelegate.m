@@ -57,8 +57,8 @@
     
     // initialize defaults
     // the next two lines are used to clean up the user defaults; only for debug
-    //NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-    //[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     
     NSNumber *stars    = (NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"level1"];
     if (stars == nil)     // App first run: set up user defaults.
@@ -66,7 +66,7 @@
         NSArray *levelNames = @[@"level1",@"level2",@"level3",@"level4"];
         int numOfLevels = 4;
         for(int i = 0;i<=numOfLevels-1;i++){
-            NSDictionary *levelStarDefaults  = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:0], levelNames[i], nil];
+            NSDictionary *levelStarDefaults  = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:-1], levelNames[i], nil];
             [[NSUserDefaults standardUserDefaults] registerDefaults:levelStarDefaults];
         }
         [[NSUserDefaults standardUserDefaults] synchronize];

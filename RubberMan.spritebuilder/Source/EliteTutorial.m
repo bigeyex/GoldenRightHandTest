@@ -1,17 +1,17 @@
 //
-//  BasicTutorial.m
+//  EliteTutorial.m
 //  RubberMan
 //
-//  Created by Wang Yu on 1/20/15.
+//  Created by Guoqiang XU on 1/29/15.
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import "BasicTutorial.h"
+#import "EliteTutorial.h"
 #import "GameEvent.h"
 
-float const secondsBeforeFirstTutorial=1;
+float const secondsBeforeFourthTutorial=1;
 
-@implementation BasicTutorial
+@implementation EliteTutorial
 
 + (void)setUp{
     if(![[self alloc] init]){
@@ -23,12 +23,10 @@ float const secondsBeforeFirstTutorial=1;
     self = [super init];
     if (self)
     {
-        [self showTutorialScreen:@"Tutorial/tutorial1" afterDelay:secondsBeforeFirstTutorial];
-
+        [self showTutorialScreen:@"Tutorial/tutorial4" afterDelay:secondsBeforeFourthTutorial];
         
     }
     return self;
 }
-
 
 @end

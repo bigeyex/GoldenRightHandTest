@@ -33,7 +33,7 @@
 - (void)monsterCharge;
 - (void)monsterChargeCancel;
 - (void)seekProtection:(CCNode *)monsterList;
-- (void)protectMonsters:(Monster *)nodeA;
+- (BOOL)protectMonsters:(Monster *)nodeA;
 
 @end
 

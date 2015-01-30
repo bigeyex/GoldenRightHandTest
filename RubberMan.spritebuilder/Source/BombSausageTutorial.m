@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import "BasicTutorial.h"
+#import "BombSausageTutorial.h"
 #import "GameEvent.h"
 
-float const secondsBeforeFirstTutorial=1;
+float const secondsBeforeSecondTutorial=1;
 
-@implementation BasicTutorial
+@implementation BombSausageTutorial
 
 + (void)setUp{
     if(![[self alloc] init]){
@@ -23,8 +23,7 @@ float const secondsBeforeFirstTutorial=1;
     self = [super init];
     if (self)
     {
-        [self showTutorialScreen:@"Tutorial/tutorial1" afterDelay:secondsBeforeFirstTutorial];
-
+        [self showTutorialScreen:@"Tutorial/tutorial3" afterDelay:secondsBeforeSecondTutorial];
         
     }
     return self;

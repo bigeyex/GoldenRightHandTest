@@ -30,6 +30,7 @@
     NSMutableArray *_skillDescriptionArray;
     
     BOOL foundSausage;
+    BOOL _isLose;
     int countOfPlayerAttacks;
     int countOfHit;
     
@@ -38,6 +39,9 @@
     CCNode* gameOverMenu;
     CCNode* scoreBoardMenu;
     UIScoreBoard *uiScoreBoard;
+    CCLabelTTF *gameOverMessage;
+    
+    float timeSinceGameStarted;
 }
 
 + (void)loadSceneByLevelIndex:(int)levelIndex{
@@ -58,6 +62,13 @@
         else{
             sceneNode.nextLevelButton.visible = YES;
         }
+        
+        // HACK: Level 4 is endless mode
+        if(levelIndex == 3){
+            sceneNode.endlessMode = YES;
+            OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+            [audio playBg:@"bossbattle.mp3" loop:true];
+        }
     }
 }
 
@@ -72,6 +83,7 @@
     [GameEvent clearEvent:@"FoundSausage"];
     // tell this scene to accept touches
     self.userInteractionEnabled = TRUE;
+    self.endlessMode = NO;
     
     // visualize physics bodies & joints
     //_physicsNode.debugDraw = YES;
@@ -82,8 +94,7 @@
     // play bgm
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     // play background sound
-    [audio playBgWithLoop:true];
-//    [audio playBg:@"iceloop.mp3" loop:TRUE];
+    [audio playBg:@"iceloop.mp3" loop:true];
     
     [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(checkWinningCondition)];
     [_skillButton.children[0] setEnabled:NO];
@@ -95,6 +106,7 @@
     countOfPlayerAttacks = 0;
     countOfHit = 0;
     foundSausage = NO;
+    _isLose = NO;
     [GameEvent subscribe:@"FoundSausage" forObject:self withSelector:@selector(onFoundSausage)];
     
 }
@@ -143,6 +155,12 @@
     CCScene *battleScene = [CCBReader loadAsScene:@"BattleScene"];
     BattleScene *sceneNode = [[battleScene children] firstObject];
     sceneNode.levelName = self.levelName;
+    sceneNode.endlessMode = self.endlessMode;
+    // Play new bg at endless node. This is so ugly..
+    if(self.endlessMode){
+        OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+        [audio playBg:@"bossbattle.mp3" loop:true];
+    }
     [[CCDirector sharedDirector] resume];
     [[CCDirector sharedDirector] replaceScene:battleScene];
 }
@@ -158,7 +176,7 @@
 }
 
 - (void)update:(CCTime)delta{
-    
+    timeSinceGameStarted += delta;
 }
 
 -(void) touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event
@@ -193,6 +211,7 @@
     BOOL isReleased = [_player releaseTouch];
     if(isReleased){
         countOfPlayerAttacks++;
+        //NSLog(@"%d",countOfPlayerAttacks);
         [self monsterAI];
         int numOfMonsters = (int)[_monsterList.children count];
         for (int i = 0;i<numOfMonsters;i++){
@@ -225,7 +244,7 @@
             Monster *_checkNode = _monsterList.children[i];
             CGPoint handPosition = [_player convertToWorldSpace:_player.hand.positionInPoints];
             CGPoint monsterPosition = [_checkNode convertToWorldSpace:_checkNode.physicsBody.body.centerOfGravity];
- 
+            
             float distance = fabsf(_player.shootDirection.y*(monsterPosition.x-handPosition.x)-_player.shootDirection.x*(monsterPosition.y-handPosition.y));
             // if the monster is targeted
             if (distance<=20*2){
@@ -238,8 +257,8 @@
                 // calculate which monster is being attacked
                 float projectDistance = ccpDot(_player.shootDirection,ccpSub(monsterPosition,handPosition));
                 if(minProjectDistance>projectDistance){
-                        monsterBeAttacked = _checkNode;
-                        minProjectDistance = projectDistance;
+                    monsterBeAttacked = _checkNode;
+                    minProjectDistance = projectDistance;
                 }
             }
         }
@@ -273,7 +292,10 @@
         _player.isMonsterHit = YES;
         _player.isStopTimeReached = NO;
         
-//        nodeA.physicsBody.velocity = ccp(0,0);
+        countOfHit++;
+        //NSLog(@"%d",countOfHit);
+        
+        //        nodeA.physicsBody.velocity = ccp(0,0);
         
         // when a monster is killed
         if(isDefeated){
@@ -285,11 +307,9 @@
             id elementMotion = [CCActionSequence actions:[CCActionMoveTo actionWithDuration:0.5 position:ccpAdd(_skillButton.positionInPoints,ccp(-50,70))],[CCActionCallBlock actionWithBlock:^{[element removeFromParent];}],nil];
             [element runAction:elementMotion];
             
-            countOfHit++;
-            
             // remove the monster from the scene
-//            [nodeA removeFromParent];
-//            [self checkWinningCondition];
+            //            [nodeA removeFromParent];
+            //            [self checkWinningCondition];
             
             // assign the element type to the skill button ui
             _skillButton.lowerRightElement = _skillButton.lowerLeftElement;
@@ -308,15 +328,19 @@
 -(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair monster:(Monster *)nodeA human:(CCNode *)nodeB
 {
     [[_physicsNode space] addPostStepBlock:^{
-        if(!(nodeA.isAttacking)&&(!nodeA.isStopped)){
+        // when monster is protecting others, isEvading is true. In race cases, the protected monster is close to the player, the one protecting others therefore would collide with tbe body. This case should be removed
+        if(!(nodeA.isAttacking)&&(!nodeA.isStopped)&&(!nodeA.isEvading)){
             [nodeA startAttack];
             
             if(_player.damageReduction != 0.0){
                 _player.playerHP = _player.playerHP - nodeA.atk * _player.damageReduction;
                 [_player receiveAttack];
                 [_playerLifeBar setLength:_player.playerHP];
-                if(_player.playerHP<=0){
-                    [self battleLose];
+                if(_player.playerHP<=0 && !_isLose){
+                    _isLose = YES;
+                    self.userInteractionEnabled = NO;
+                    [_player.animationManager runAnimationsForSequenceNamed:@"dead"];
+                    [self scheduleOnce:@selector(battleLose:) delay:2.0f];
                 }
             }
         }
@@ -332,10 +356,27 @@
     }
 }
 
--(void)battleLose{
+-(void)battleLose:(CCTime)delta{
+    self.userInteractionEnabled = TRUE;
     [[CCDirector sharedDirector] pause];
     gameOverMenu.visible = YES;
     pauseMenu.visible = NO;
+    if(self.endlessMode){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        id defaultObject = [defaults objectForKey:@"EndlessHiScore"];
+        if(defaultObject == nil){
+            gameOverMessage.string = [NSString stringWithFormat:@"Survival: %.2fs Hi: ---", timeSinceGameStarted];
+            [defaults setObject:[NSNumber numberWithFloat:timeSinceGameStarted] forKey:@"EndlessHiScore"];
+        }
+        else{
+            float hiScore = [defaultObject floatValue];
+            gameOverMessage.string = [NSString stringWithFormat:@"Survival: %.2fs Hi: %.2fs", timeSinceGameStarted, hiScore];
+            if(timeSinceGameStarted > hiScore){
+                [defaults setObject:[NSNumber numberWithFloat:timeSinceGameStarted] forKey:@"EndlessHiScore"];
+            }
+        }
+        
+    }
 }
 
 - (void)checkWinningCondition{
@@ -363,10 +404,12 @@
     [uiScoreBoard displayStars];
     
     // save the star of current level
-    int stars = 3;
+    int stars = [uiScoreBoard numberOfStars];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithInt:stars] forKey:_levelName];
-    [defaults synchronize];
+    if(stars>[[defaults objectForKey:_levelName] intValue]){
+        [defaults setObject:[NSNumber numberWithInt:stars] forKey:_levelName];
+        [defaults synchronize];
+    }
 }
 
 -(void)activateSkill{
@@ -475,6 +518,11 @@
     for (int i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = _monsterList.children[i];
         [_checkNode stopMovingForDuration:duration];
+        CCSprite* iceImage = [CCSprite spriteWithImageNamed:@"UI/ice-block.png"];
+        iceImage.name = @"iceblock";
+        iceImage.position = _checkNode.position;
+        [_checkNode addChild:iceImage];
+
     }
 }
 

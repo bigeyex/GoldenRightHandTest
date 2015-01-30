@@ -32,11 +32,25 @@
         // star = 1,2,3 for one, two and three stars and 0 for not complted levels
          int stars = [[defaults objectForKey:_levelNames[i]] intValue];
         // if the level is not completed, disable the select button
-        if(stars == 0){
+        if(stars == -1){
             if(i<numOfLevels-1){
-                [_level[i+1] setEnabled:NO];
+//                [_level[i+1] setEnabled:NO];
             }
+        } else if(stars>=1){
+            [self fillStars:_level[i] NumOfStars:stars];
         }
+    }
+    
+
+    
+}
+
+-(void) fillStars:(CCNode *)level NumOfStars:(int)stars{
+    float positionX[3] = {16.7,28.3,39};
+    for(int i=0;i<stars;i++){
+        CCSprite *starSprite = [CCSprite spriteWithImageNamed:@"UI/level-select-star.png"];
+        starSprite.position = ccp(positionX[i],19);
+        [level addChild:starSprite];
     }
 }
 
@@ -53,6 +67,11 @@
     }
     
     [BattleScene loadSceneByLevelIndex:levelNum];
+}
+
+- (void)backToTitle{
+    CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
+    [[CCDirector sharedDirector] replaceScene:mainScene];
 }
 
 @end

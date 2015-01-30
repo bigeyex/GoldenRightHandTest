@@ -66,10 +66,13 @@ CGFloat const outOfRightBoundThreshold = 500;
         self.physicsBody.sensor = YES;
         self.isAlive = NO;
         [self.physicsBody applyImpulse:ccp(50000,50000)];
-        [self.physicsBody applyAngularImpulse:50000.0]; // this doesn't work now
         _hpBar.scaleX = 0;
         [self stopAllActions];  // stop pending actions such as evading
         self.physicsBody.affectedByGravity = YES;
+        id monsterRotate = [CCActionTween actionWithDuration:0.5 key:@"Rotation" from:0.0 to:360.0];
+        id monsterScale = [CCActionTween actionWithDuration:1.0 key:@"Scale" from:1 to:1.5];
+        [self runAction:monsterScale];
+        [self runAction:[CCActionRepeatForever actionWithAction:monsterRotate]];
         return YES;
     }
     _hpBar.scaleX = _hp/_initialHp;
@@ -90,7 +93,6 @@ CGFloat const outOfRightBoundThreshold = 500;
 -(void)update:(CCTime)delta{
     
     if(!_isEvading && self.isAlive){
-        //_moveDirection = ccpNormalize(ccpSub(ccp(145,130),self.positionInPoints));
         _moveDirection = ccp(-1,0);
         self.physicsBody.velocity = CGPointMake((_isStopped?0:1)*self.speed*_spdBuff * _moveDirection.x,(_isStopped?0:1)*self.speed*_spdBuff * _moveDirection.y);
     }
@@ -110,6 +112,10 @@ CGFloat const outOfRightBoundThreshold = 500;
         _stopDuration = _stopDuration - delta;
         if(_stopDuration<=0){
             _isStopped = NO;
+            CCNode* childToBeRemoved = [self getChildByName:@"iceblock" recursively:NO];
+            if(childToBeRemoved != nil){
+                [self removeChild:childToBeRemoved];
+            }
             [self.animationManager runAnimationsForSequenceNamed:@"moving"];
         }
     }
@@ -160,8 +166,8 @@ CGFloat const outOfRightBoundThreshold = 500;
     
 }
 
-- (void)protectMonsters:(Monster *)nodeA{
-    
+- (BOOL)protectMonsters:(Monster *)nodeA{
+    return NO;
 }
 
 - (void)seekProtection:(CCNode *)monsterList{
@@ -170,14 +176,14 @@ CGFloat const outOfRightBoundThreshold = 500;
         Monster *_checkNode = monsterList.children[i];
         if(_checkNode.isElite){
             if(self!=_checkNode && !_checkNode.isEvading){
-                [_checkNode protectMonsters:self];
+                BOOL isProtected = [_checkNode protectMonsters:self];
                 self.physicsBody.velocity = ccp(0,0);
-                break;
+                if(isProtected){
+                    break;
+                }
             }
         }
     }
-    
-    
 }
 
 @end
@@ -187,7 +193,11 @@ CGFloat const outOfRightBoundThreshold = 500;
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 30;
+    self.atk = 5;
     self.elementType = @"ice";
+    if(self.isElite){
+        self.atk = 5;
+    }
 }
 
 /*
@@ -203,17 +213,21 @@ CGFloat const outOfRightBoundThreshold = 500;
  }
  */
 
-- (void)protectMonsters:(Monster *)nodeA{
+- (BOOL)protectMonsters:(Monster *)nodeA{
     if(!self.isStopped){
         CGPoint previousPosition = self.position;
         CGPoint nodeAPosition = nodeA.position;
         self.isEvading = YES;
         self.physicsBody.velocity = ccp(0,0);
-        id evadeSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0.1,0)], [CCActionDelay actionWithDuration:1],[CCActionMoveTo actionWithDuration:0.1 position:nodeAPosition],[CCActionCallBlock actionWithBlock:^{nodeA.isEvading = NO;}],nil];
+        id evadeSequence = [CCActionSequence actions: [CCActionMoveBy actionWithDuration:0.1 position:ccp(0.1,0)], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:nodeAPosition],[CCActionCallBlock actionWithBlock:^{nodeA.isEvading = NO;}],nil];
         [nodeA runAction:evadeSequence];
         
-        id protectSequence = [CCActionSequence actions: [CCActionMoveTo actionWithDuration:0.1 position:nodeAPosition], [CCActionDelay actionWithDuration:1],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{self.isEvading = NO;}],nil];
+        id protectSequence = [CCActionSequence actions: [CCActionMoveTo actionWithDuration:0.1 position:nodeAPosition], [CCActionDelay actionWithDuration:0.5],[CCActionMoveTo actionWithDuration:0.1 position:previousPosition],[CCActionCallBlock actionWithBlock:^{self.isEvading = NO;}],nil];
         [self runAction:protectSequence];
+        return YES;
+    }
+    else{
+        return NO;
     }
 }
 
@@ -224,7 +238,11 @@ CGFloat const outOfRightBoundThreshold = 500;
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 40;
+    self.atk = 10;
     self.elementType = @"fire";
+    if(self.isElite){
+        self.atk = 15;
+    }
 }
 
 -(void)monsterEvade{
@@ -245,11 +263,16 @@ CGFloat const outOfRightBoundThreshold = 500;
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 50;
+    self.atk = 10;
     self.elementType = @"dark";
+    if(self.isElite){
+        self.atk = 10;
+    }
 }
 
 -(void)monsterCharge{
-    if(self.isElite){
+    // when the monster is attacking, i.e., close to the player, the charge is disabled to prevent the monster penetrate the player
+    if(self.isElite && !self.isAttacking){
         self.spdBuff = 5.0;
     }
 }
@@ -284,6 +307,16 @@ CGFloat const outOfRightBoundThreshold = 500;
     [self.physicsBody applyImpulse:ccp(0,-6000)];
 }
 
+- (void)startAttack{
+    [super startAttack];
+    [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
+        [self removeFromParent];
+    }];
+}
+
+- (void)seekProtection:(CCNode *)monsterList{
+}
+
 @end
 
 @implementation MonsterSausage
@@ -306,6 +339,8 @@ CGFloat const outOfRightBoundThreshold = 500;
     [self.physicsBody applyAngularImpulse:300.0];
 }
 
+- (void)seekProtection:(CCNode *)monsterList{
+}
 
 
 @end
