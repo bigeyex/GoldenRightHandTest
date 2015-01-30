@@ -339,6 +339,7 @@
                 if(_player.playerHP<=0 && !_isLose){
                     _isLose = YES;
                     self.userInteractionEnabled = NO;
+                    [_player.animationManager runAnimationsForSequenceNamed:@"dead"];
                     [self scheduleOnce:@selector(battleLose:) delay:2.0f];
                 }
             }
