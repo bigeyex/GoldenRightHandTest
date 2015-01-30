@@ -11,6 +11,5 @@
 
 @interface BasicTutorial : Tutorial
 
-+ (void)setUp;
 
 @end

@@ -13,12 +13,6 @@ float const secondsBeforeFourthTutorial=1;
 
 @implementation EliteTutorial
 
-+ (void)setUp{
-    if(![[self alloc] init]){
-        NSLog(@"Failed to init event");
-    }
-}
-
 - (id)init{
     self = [super init];
     if (self)

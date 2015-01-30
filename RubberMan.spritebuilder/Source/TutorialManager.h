@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LevelLoader.h"
 
 @interface TutorialManager : NSObject
 
-+ (void)createTutorial:(NSString*)tutorialName;
++ (void)createTutorial:(NSString*)tutorialName withMonsterList:(LevelLoader*)monsterList;
 
 @end
