@@ -7,6 +7,7 @@
 //
 
 #import "Player.h"
+#import "GameEvent.h"
 
 @implementation Player{
     CCNode *_body;
@@ -127,6 +128,7 @@ static float controlRange = 300;
                     _isStopTimeReached = YES;
                     _isMonsterHit = NO;
                     _isGoBack = YES;
+                    [GameEvent dispatch:@"ReleaseHand"];
                 }
                 
                 if(_stopTime == 0){
@@ -185,6 +187,7 @@ static float controlRange = 300;
         
         _arrow.rotation = ccpAngleSigned(_shootDirection, ccp(0,0)) / M_PI * 180;
         [self addChild:_arrow];
+        [GameEvent dispatch:@"AimingHand"];
     }
     return _isTouched;
 }

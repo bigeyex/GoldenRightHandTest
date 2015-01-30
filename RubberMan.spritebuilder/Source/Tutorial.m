@@ -44,6 +44,7 @@
     if(![[CCDirector sharedDirector] isPaused]){
         CCScene* mainScene = [[CCDirector sharedDirector] runningScene];
         CCNode* tutorialLayer = (CCNode*)[CCBReader load:screenName];
+        self.lastTutorialNode = tutorialLayer;
         [GameEvent dispatch:@"PauseMonsters" withArgument:nil];
         [mainScene addChild:tutorialLayer];
     }
