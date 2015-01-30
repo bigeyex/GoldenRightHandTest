@@ -26,7 +26,7 @@ float const secondsBeforeFirstTutorial=1;
 
 -(void)setup{
     [GameEvent subscribe:@"MonsterDefeated" forObject:self withSelector:@selector(continueFirstLevel:)];
-    Monster *tutorialMonster = (Monster *)[CCBReader load:@"Monsters/MonsterBat"];
+    Monster *tutorialMonster = (Monster *)[CCBReader load:@"Monsters/MonsterGhost"];
     tutorialMonster.position = ccp(350,200);
     tutorialMonster.name = @"firstTutorialMonster";
     [self.monsterList addChild:tutorialMonster];

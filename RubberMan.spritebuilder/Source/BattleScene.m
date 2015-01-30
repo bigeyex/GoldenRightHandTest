@@ -126,8 +126,8 @@
                               @"Firestorm",
                               @"100% Accuracy (10sec)",
                               @"Fist of Fire",
-                              @"Fist of Ice",@"n/a",
                               @"Double Damage",@"n/a",
+                              @"Fist of Ice",@"n/a",
                               @"Icestorm",
                               @"Healing",@"n/a",@"n/a",
                               @"Instant Kill",@"n/a",@"n/a",@"n/a",@"n/a",@"n/a",
@@ -436,14 +436,14 @@
             break;
             
         case 4: // fire * ice * ice
-            // use an ice fist to deal damage to one monster and freeze all others surrounding it
-            [_player removeHand];
-            [_player addHandwithName:@"IceHand"];
+            // double the attack for 10s
+            [_player doubleAttackForDuration:10.0];
             break;
             
         case 6: // fire * ice * dark
-            // double the attack for 10s
-            [_player doubleAttackForDuration:10.0];
+            // use an ice fist to deal damage to one monster and freeze all others surrounding it
+            [_player removeHand];
+            [_player addHandwithName:@"IceHand"];
             break;
             
         case 8: // ice * ice * ice

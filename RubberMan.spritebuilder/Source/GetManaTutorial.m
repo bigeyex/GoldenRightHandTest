@@ -23,7 +23,7 @@
 
 - (void)showTutorialWithMana{
     
-    [self showTutorialScreen:@"Tutorial/tutorial1_2" afterDelay:1.0];
+    [self showTutorialScreen:@"Tutorial/tutorial1_2" afterDelay:2.5];
 }
 
 @end
