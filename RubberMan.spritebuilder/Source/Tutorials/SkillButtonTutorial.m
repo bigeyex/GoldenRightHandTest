@@ -29,7 +29,7 @@
     if(tutorialArrow==nil){
         BattleScene *mainScene = (BattleScene*)[[CCDirector sharedDirector] runningScene];
         tutorialArrow = [CCBReader load:@"TutorialArrow"];
-        tutorialArrow.position = ccp(516, 106);
+        tutorialArrow.position = ccp(mainScene.contentSize.width - 50, 106);
         [mainScene addChild:tutorialArrow];
     }
 }

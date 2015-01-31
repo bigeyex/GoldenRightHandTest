@@ -310,8 +310,8 @@
 						<string>Point</string>
 						<key>value</key>
 						<array>
-							<real>0.5</real>
-							<real>0.5</real>
+							<real>0.60855370759963989</real>
+							<real>0.5273507833480835</real>
 						</array>
 					</dict>
 					<dict>
@@ -589,6 +589,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
