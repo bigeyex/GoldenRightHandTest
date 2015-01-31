@@ -7,14 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DBManager.h"
 
 @interface GameGlobals : NSObject
 
 @property (readonly) int totalNumberOfLevels;
 @property (nonatomic) NSArray* levelNames;
+@property (nonatomic,strong) DBManager *dbManager;
 
 + (id)sharedInstance;
 - (void)setLevelNames:(NSArray *)levelNames;
 - (NSString*)levelNameAtIndex:(int)index;
+- (void)setDatabaseWithName:(NSString *)dbName;
+- (DBManager *)getDatabase;
 
 @end

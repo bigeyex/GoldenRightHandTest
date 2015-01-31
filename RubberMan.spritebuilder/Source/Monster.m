@@ -8,6 +8,7 @@
 
 #import "Monster.h"
 #import "GameEvent.h"
+#import "GameGlobals.h"
 
 CGFloat const outOfBoundThreshold=10;
 CGFloat const outOfRightBoundThreshold = 500;
@@ -17,6 +18,8 @@ CGFloat const outOfRightBoundThreshold = 500;
     CGPoint _attackPosition;
     double _attackTime;
     float _stopDuration;
+    double _aliveTime;
+    DBManager *_dbManager;
     
     CGPoint _pausedVelocity;
     
@@ -47,6 +50,18 @@ CGFloat const outOfRightBoundThreshold = 500;
 -(void)onEnter{
     [super onEnter];
     _initialHp = _hp;
+    _aliveTime = 0;
+}
+
+-(void)onExit{
+    _dbManager = [[GameGlobals sharedInstance] getDatabase];
+    NSString *query = [NSString stringWithFormat:@"INSERT INTO BATTLEDATA values(%lld, '%@', %f)", _dbManager.lastInsertedRowID + 1,self.monsterName, _aliveTime];
+    [_dbManager executeQuery:query];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithLongLong:_dbManager.lastInsertedRowID] forKey:@"lastAffectedRow"];
+    [defaults synchronize];
+    [super onExit];
 }
 
 - (void)pauseMonster{
@@ -92,6 +107,8 @@ CGFloat const outOfRightBoundThreshold = 500;
 
 -(void)update:(CCTime)delta{
     
+    _aliveTime = _aliveTime + delta;
+    
     if(!_isEvading && self.isAlive){
         _moveDirection = ccp(-1,0);
         self.physicsBody.velocity = CGPointMake((_isStopped?0:1)*self.speed*_spdBuff * _moveDirection.x,(_isStopped?0:1)*self.speed*_spdBuff * _moveDirection.y);
@@ -126,8 +143,8 @@ CGFloat const outOfRightBoundThreshold = 500;
        ub.origin.y+ub.size.height+outOfBoundThreshold < pb.origin.y ||
        ub.origin.x > pb.origin.x+pb.size.width+outOfRightBoundThreshold ||
        ub.origin.y > pb.origin.y+pb.size.height+outOfBoundThreshold){
-        [self removeFromParent];
         [GameEvent dispatch:@"MonsterRemoved" withArgument:self];
+        [self removeFromParent];
     }
     
 }
@@ -193,10 +210,15 @@ CGFloat const outOfRightBoundThreshold = 500;
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 30;
-    self.atk = 5;
     self.elementType = @"ice";
+    
     if(self.isElite){
         self.atk = 5;
+        self.monsterName = @"Elite Walker";
+    }
+    else{
+        self.atk = 5;
+        self.monsterName = @"Normal Walker";
     }
 }
 
@@ -238,10 +260,14 @@ CGFloat const outOfRightBoundThreshold = 500;
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 40;
-    self.atk = 10;
     self.elementType = @"fire";
     if(self.isElite){
         self.atk = 15;
+        self.monsterName = @"Elite Bat";
+    }
+    else{
+        self.atk = 10;
+        self.monsterName = @"Normal Bat";
     }
 }
 
@@ -263,10 +289,14 @@ CGFloat const outOfRightBoundThreshold = 500;
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
     self.speed = 50;
-    self.atk = 10;
     self.elementType = @"dark";
     if(self.isElite){
         self.atk = 10;
+        self.monsterName = @"Elite Ghost";
+    }
+    else{
+        self.atk = 10;
+        self.monsterName = @"Normal Ghost";
     }
 }
 
@@ -299,6 +329,7 @@ CGFloat const outOfRightBoundThreshold = 500;
     self.speed = 50;
     self.elementType = @"fire";
     self.atk = 50;
+    self.monsterName = @"Bomb";
 }
 
 -(void)onEnter{
@@ -330,6 +361,7 @@ CGFloat const outOfRightBoundThreshold = 500;
     [super didLoadFromCCB];
     self.speed = 50;
     self.elementType = @"fire";
+    self.monsterName = @"Sausage";
 }
 
 -(void)onEnter{

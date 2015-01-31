@@ -122,6 +122,9 @@
 		D29481F51A7408AD002B597D /* SkillButtonUI.m in Sources */ = {isa = PBXBuildFile; fileRef = D29481F41A7408AD002B597D /* SkillButtonUI.m */; };
 		D29555911A7B0A340079F5BA /* EliteTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = D29555901A7B0A340079F5BA /* EliteTutorial.m */; };
 		D29555A11A7B26940079F5BA /* GetManaTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = D29555A01A7B26940079F5BA /* GetManaTutorial.m */; };
+		D2A0A4A71A7CA4E200DEB313 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2A0A4A61A7CA4E200DEB313 /* DBManager.m */; };
+		D2A0A4AA1A7CA53B00DEB313 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D2A0A4A91A7CA53B00DEB313 /* libsqlite3.dylib */; };
+		D2A0A4AC1A7CA82F00DEB313 /* GameData.sql in Resources */ = {isa = PBXBuildFile; fileRef = D2A0A4AB1A7CA82F00DEB313 /* GameData.sql */; };
 		D2E8845E1A64D999004423FC /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E8845D1A64D999004423FC /* Player.m */; };
 		D2E884791A64F2F6004423FC /* Monster.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E884781A64F2F6004423FC /* Monster.m */; };
 		D2ECF59C1A78189500A82160 /* normalFist2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D2ECF59B1A78189500A82160 /* normalFist2.mp3 */; };
@@ -320,6 +323,10 @@
 		D29555901A7B0A340079F5BA /* EliteTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EliteTutorial.m; path = Source/EliteTutorial.m; sourceTree = "<group>"; };
 		D295559F1A7B26940079F5BA /* GetManaTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetManaTutorial.h; path = Source/GetManaTutorial.h; sourceTree = "<group>"; };
 		D29555A01A7B26940079F5BA /* GetManaTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetManaTutorial.m; path = Source/GetManaTutorial.m; sourceTree = "<group>"; };
+		D2A0A4A51A7CA4E200DEB313 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBManager.h; path = Source/DBManager.h; sourceTree = "<group>"; };
+		D2A0A4A61A7CA4E200DEB313 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBManager.m; path = Source/DBManager.m; sourceTree = "<group>"; };
+		D2A0A4A91A7CA53B00DEB313 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		D2A0A4AB1A7CA82F00DEB313 /* GameData.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = GameData.sql; sourceTree = "<group>"; };
 		D2E8845C1A64D999004423FC /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Source/Player.h; sourceTree = "<group>"; };
 		D2E8845D1A64D999004423FC /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = Source/Player.m; sourceTree = "<group>"; };
 		D2E884771A64F2F6004423FC /* Monster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Monster.h; path = Source/Monster.h; sourceTree = "<group>"; };
@@ -382,6 +389,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A0A4AA1A7CA53B00DEB313 /* libsqlite3.dylib in Frameworks */,
 				8882A96A1A687DED00458955 /* libxml2.dylib in Frameworks */,
 				7A97911819E631CD001FFC4D /* libcocos2d.a in Frameworks */,
 				8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */,
@@ -607,6 +615,9 @@
 				8898925A1A6F456C00011AE8 /* GameEvent.m */,
 				88F5CBE71A75F7A800CCB1B6 /* GameGlobals.h */,
 				88F5CBE81A75F7A800CCB1B6 /* GameGlobals.m */,
+				D2A0A4A51A7CA4E200DEB313 /* DBManager.h */,
+				D2A0A4A61A7CA4E200DEB313 /* DBManager.m */,
+				D2A0A4AB1A7CA82F00DEB313 /* GameData.sql */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -754,6 +765,7 @@
 		B77F1B3017B978D7009739AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D2A0A4A91A7CA53B00DEB313 /* libsqlite3.dylib */,
 				8882A9691A687DED00458955 /* libxml2.dylib */,
 				7A59493C19E37FB200F65F90 /* libz.dylib */,
 				7A59493A19E37F9300F65F90 /* OpenGL.framework */,
@@ -1032,6 +1044,7 @@
 				D288E0201A78507200F3AC37 /* fireSpell.mp3 in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
 				88A21F891A72172E00BC9A9C /* iceloop.mp3 in Resources */,
+				D2A0A4AC1A7CA82F00DEB313 /* GameData.sql in Resources */,
 				D24D0E8F1A6B8D3A00DA162E /* level2.xml in Resources */,
 				B71F5915188484E7003F4D28 /* iPhone-old.png in Resources */,
 				D2ECF5A31A7818E200A82160 /* iceFist.mp3 in Resources */,
@@ -1144,6 +1157,7 @@
 				B73789871807631A0076A88C /* main.m in Sources */,
 				D29555A11A7B26940079F5BA /* GetManaTutorial.m in Sources */,
 				8808EA1B1A6893AC0020AB90 /* MonsterData.m in Sources */,
+				D2A0A4A71A7CA4E200DEB313 /* DBManager.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
 				88F616991A7B1AC7000E8F44 /* SkillButtonTutorial.m in Sources */,
 				D24D0E8C1A6B88B000DA162E /* LevelSelectScene.m in Sources */,

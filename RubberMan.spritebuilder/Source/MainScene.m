@@ -1,6 +1,9 @@
 #import "MainScene.h"
+#import "GameGlobals.h"
 
-@implementation MainScene
+@implementation MainScene{
+    
+}
 
 -(void)didLoadFromCCB{
     // preload sound effects
@@ -15,6 +18,8 @@
     [audio preloadEffect:@"buff.ogg"];
     [audio preloadEffect:@"deathFist2.mp3"];
     //[audio preloadEffect:@"darkFist.mp3"];
+    
+    [[GameGlobals sharedInstance] setDatabaseWithName:@"GameData.sql"];
 }
 
 -(void) start{

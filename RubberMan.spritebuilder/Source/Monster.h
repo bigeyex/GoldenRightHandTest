@@ -22,6 +22,7 @@
 @property (nonatomic) BOOL isElite;
 @property float spdBuff;
 @property BOOL isAlive;
+@property NSString *monsterName;
 
 @property CCNode* rankIcon;
 

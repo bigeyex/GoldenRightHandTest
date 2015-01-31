@@ -35,6 +35,18 @@
     _totalNumberOfLevels = (int)[levelNames count];
 }
 
+- (void)setDatabaseWithName:(NSString *)dbName{
+    // initialize the database
+    _dbManager = [[DBManager alloc] initWithDatabaseFilename:dbName];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _dbManager.lastInsertedRowID = [[defaults objectForKey:@"lastAffectedRow"] longLongValue];
+}
+
+- (DBManager *)getDatabase{
+    return _dbManager;
+}
+
 - (id)init {
     if (self = [super init]) {
         // init shared instance.
