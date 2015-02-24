@@ -66,11 +66,13 @@
         NSArray *levelNames = @[@"level1",@"level2",@"level3",@"level4"];
         int numOfLevels = 4;
         for(int i = 0;i<=numOfLevels-1;i++){
-            NSDictionary *levelStarDefaults  = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:-1], levelNames[i], nil];
+            NSDictionary *levelStarDefaults  = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:3], levelNames[i], nil];
             [[NSUserDefaults standardUserDefaults] registerDefaults:levelStarDefaults];
         }
-        NSDictionary *lastAffectedRow  = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLongLong:0], @"lastAffectedRow", nil];
-        [[NSUserDefaults standardUserDefaults] registerDefaults:lastAffectedRow];
+        NSDictionary *totalNumOfMonster  = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLongLong:0], @"totalNumOfMonster", nil];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:totalNumOfMonster];
+         NSDictionary *totalNumOfHit  = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLongLong:0], @"totalNumOfHit", nil];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:totalNumOfHit];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     

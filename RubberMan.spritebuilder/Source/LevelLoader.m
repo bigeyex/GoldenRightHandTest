@@ -20,12 +20,20 @@
     NSMutableArray* monsterDataList;
     BOOL isLevelLoaded;
     CGFloat timeSinceStarted;
+    NSMutableDictionary *_numOfMonsters;
 }
 
 - (void)didLoadFromCCB{
+    _numOfMonsters = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:0],@"NormalWalker",
+                      [NSNumber numberWithInt:0],@"NormalBat",
+                      [NSNumber numberWithInt:0],@"NormalGhost",
+                      [NSNumber numberWithInt:0],@"EliteWalker",
+                      [NSNumber numberWithInt:0],@"EliteBat",
+                      [NSNumber numberWithInt:0],@"EliteGhost",nil];
     isLevelLoaded = NO;
     [GameEvent subscribe:@"PauseMonsters" forObject:self withSelector:@selector(pauseMonsters)];
     [GameEvent subscribe:@"ResumeMonsters" forObject:self withSelector:@selector(resumeMonsters)];
+    [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(updateNumOfMonsters:)];
 }
 
 - (void)pauseMonsters{
@@ -34,6 +42,10 @@
 
 - (void)resumeMonsters{
     self.paused = NO;
+}
+
+- (void)updateNumOfMonsters:(Monster *)monster{
+    _numOfMonsters[monster.monsterName] = [NSNumber numberWithInt:([_numOfMonsters[monster.monsterName] intValue]-1)];
 }
 
 - (BOOL)hasMoreMonsters{
@@ -53,8 +65,17 @@
     for (MonsterData *monsterData in monsterDataList){
         if([monsterData shouldRespawn:timeSinceStarted]){
             Monster *monster = [monsterData respawn];
+            monster.numOfPreviousNormalWalker = [_numOfMonsters[@"NormalWalker"] intValue];
+            monster.numOfPreviousNormalBat = [_numOfMonsters[@"NormalBat"] intValue];
+            monster.numOfPreviousNormalGhost = [_numOfMonsters[@"NormalGhost"] intValue];
+            monster.numOfPreviousEliteWalker = [_numOfMonsters[@"EliteWalker"] intValue];
+            monster.numOfPreviousEliteBat = [_numOfMonsters[@"EliteBat"] intValue];
+            monster.numOfPreviousEliteGhost = [_numOfMonsters[@"EliteGhost"] intValue];
+            
             [self addChild:monster];
 
+            _numOfMonsters[monster.monsterName] = [NSNumber numberWithInt:([_numOfMonsters[monster.monsterName] intValue]+1)];
+            
             if(![monsterData hasNextUnit]){
                 [discardedMonsterDataList addObject:monsterData];
             }
@@ -126,6 +147,24 @@
         if (health.count > 0) {
             GDataXMLElement *healthNode = (GDataXMLElement *) [health objectAtIndex:0];
             monsterData.health = [healthNode.stringValue floatValue];
+        }
+        
+        NSArray *attack = [enemyNode elementsForName:@"Attack"];
+        if (attack.count > 0) {
+            GDataXMLElement *attackNode = (GDataXMLElement *) [attack objectAtIndex:0];
+            monsterData.attack = [attackNode.stringValue floatValue];
+        }
+        
+        NSArray *speed = [enemyNode elementsForName:@"Speed"];
+        if (speed.count > 0) {
+            GDataXMLElement *speedNode = (GDataXMLElement *) [speed objectAtIndex:0];
+            monsterData.speed = [speedNode.stringValue floatValue];
+        }
+        
+        NSArray *probability = [enemyNode elementsForName:@"Probability"];
+        if (speed.count > 0) {
+            GDataXMLElement *probabilityNode = (GDataXMLElement *) [probability objectAtIndex:0];
+            monsterData.probability = [probabilityNode.stringValue floatValue];
         }
         
         NSArray *isElite = [enemyNode elementsForName:@"IsElite"];

@@ -20,6 +20,8 @@ CGFloat const outOfRightBoundThreshold = 500;
     float _stopDuration;
     double _aliveTime;
     DBManager *_dbManager;
+    double _totalDamage;
+    long long _numOfMonster;
     
     CGPoint _pausedVelocity;
     
@@ -28,11 +30,11 @@ CGFloat const outOfRightBoundThreshold = 500;
 }
 
 - (void)didLoadFromCCB {
-    _atk = 5;
     _isAttacking = NO;
     _atkPeriod = 2.0;
     _isEvading = NO;
     _spdBuff = 1.0;
+    _totalDamage = 0.0;
     self.isAlive = YES;
     self.physicsBody.collisionType = @"monster";
     self.physicsBody.collisionMask = @[@"human",@"hand"];
@@ -40,6 +42,7 @@ CGFloat const outOfRightBoundThreshold = 500;
     
     [GameEvent subscribe:@"PauseMonsters" forObject:self withSelector:@selector(pauseMonster)];
     [GameEvent subscribe:@"ResumeMonsters" forObject:self withSelector:@selector(resumeMonster)];
+    
 }
 
 - (void)setIsElite:(BOOL)isElite{
@@ -54,13 +57,19 @@ CGFloat const outOfRightBoundThreshold = 500;
 }
 
 -(void)onExit{
-    _dbManager = [[GameGlobals sharedInstance] getDatabase];
-    NSString *query = [NSString stringWithFormat:@"INSERT INTO BATTLEDATA values(%lld, '%@', %f)", _dbManager.lastInsertedRowID + 1,self.monsterName, _aliveTime];
-    [_dbManager executeQuery:query];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithLongLong:_dbManager.lastInsertedRowID] forKey:@"lastAffectedRow"];
-    [defaults synchronize];
+    if(!self.isAlive){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        _numOfMonster = [[defaults objectForKey:@"totalNumOfMonster"] longLongValue];
+
+        _numOfMonster++;
+        
+        _dbManager = [[GameGlobals sharedInstance] getDatabase];
+        NSString *query = [NSString stringWithFormat:@"INSERT INTO BATTLEDATA values(%lld, '%@', %f, %f,%d,%d,%d,%d,%d,%d)",_numOfMonster,self.monsterName, _aliveTime,_totalDamage,_numOfPreviousNormalWalker,_numOfPreviousNormalBat,_numOfPreviousNormalGhost,_numOfPreviousEliteWalker,_numOfPreviousEliteBat,_numOfPreviousEliteGhost];
+        [_dbManager executeQuery:query];
+        
+        [defaults setObject:[NSNumber numberWithLongLong:_numOfMonster] forKey:@"totalNumOfMonster"];
+        [defaults synchronize];
+    }
     [super onExit];
 }
 
@@ -154,6 +163,7 @@ CGFloat const outOfRightBoundThreshold = 500;
     _attackPosition = self.position;
     _isAttacking = YES;
     _attackTime = 0.0;
+    _totalDamage += self.atk;
     
     // running attacking animations
     [self.animationManager runAnimationsForSequenceNamed:@"attacking"];
@@ -163,12 +173,12 @@ CGFloat const outOfRightBoundThreshold = 500;
     // 1. you can use chained animation to achieve the same effect;
     // 2. this causes crash when object is removed from the stage
     
-//    [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
-//        if(!self)return;
-//        if ([self.animationManager.lastCompletedSequenceName isEqualToString:@"attacking"]) {
-//            [self.animationManager runAnimationsForSequenceNamed:@"moving"];
-//        }
-//    }];
+    //    [self.animationManager setCompletedAnimationCallbackBlock:^(id sender){
+    //        if(!self)return;
+    //        if ([self.animationManager.lastCompletedSequenceName isEqualToString:@"attacking"]) {
+    //            [self.animationManager runAnimationsForSequenceNamed:@"moving"];
+    //        }
+    //    }];
 }
 
 - (void)monsterEvade{
@@ -209,17 +219,18 @@ CGFloat const outOfRightBoundThreshold = 500;
 
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
-    self.speed = 30;
     self.elementType = @"ice";
-    
+}
+
+-(void)onEnter{
+    [super onEnter];
     if(self.isElite){
-        self.atk = 5;
-        self.monsterName = @"Elite Walker";
+        self.monsterName = @"EliteWalker";
     }
     else{
-        self.atk = 5;
-        self.monsterName = @"Normal Walker";
+        self.monsterName = @"NormalWalker";
     }
+
 }
 
 /*
@@ -259,15 +270,16 @@ CGFloat const outOfRightBoundThreshold = 500;
 
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
-    self.speed = 40;
     self.elementType = @"fire";
+}
+
+-(void)onEnter{
+    [super onEnter];
     if(self.isElite){
-        self.atk = 15;
-        self.monsterName = @"Elite Bat";
+        self.monsterName = @"EliteBat";
     }
     else{
-        self.atk = 10;
-        self.monsterName = @"Normal Bat";
+        self.monsterName = @"NormalBat";
     }
 }
 
@@ -288,22 +300,23 @@ CGFloat const outOfRightBoundThreshold = 500;
 
 -(void)didLoadFromCCB{
     [super didLoadFromCCB];
-    self.speed = 50;
     self.elementType = @"dark";
+}
+
+-(void)onEnter{
+    [super onEnter];
     if(self.isElite){
-        self.atk = 10;
-        self.monsterName = @"Elite Ghost";
+        self.monsterName = @"EliteGhost";
     }
     else{
-        self.atk = 10;
-        self.monsterName = @"Normal Ghost";
+        self.monsterName = @"NormalGhost";
     }
 }
 
 -(void)monsterCharge{
     // when the monster is attacking, i.e., close to the player, the charge is disabled to prevent the monster penetrate the player
     if(self.isElite && !self.isAttacking){
-        self.spdBuff = 5.0;
+        self.spdBuff = 3.0;
     }
 }
 

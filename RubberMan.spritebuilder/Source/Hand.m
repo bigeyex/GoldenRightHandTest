@@ -57,7 +57,7 @@
     self.atk = 10.0;
     _skillRange = 150.0;
     self.skillTimes = 1;
-    _skillDamage = 1.0*self.atk;
+    _skillDamage = 0.5*self.atk;
 }
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos{
@@ -111,7 +111,7 @@
     self.atk = 10;
     _skillRange = 150.0;
     self.skillTimes = 1;
-    _skillDuration = 5;
+    _skillDuration = 4;
 }
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos{
@@ -163,7 +163,7 @@
     
     // set up the hand type
     self.atk = 10.0;
-    self.skillTimes = 1;
+    self.skillTimes = 3;
 }
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos{
@@ -203,7 +203,7 @@
     
     // set up the hand type
     self.atk = 100.0; // this hand is designed to kill any monster upon hit
-    self.skillTimes = 1;
+    self.skillTimes = 5;
 }
 
 -(void)handParticleEffectAtPosition:(CGPoint)pos{

@@ -24,8 +24,10 @@
         self.number = 1;
         self.positionX = 1;
         self.positionY = 0.3;
-        self.health = 10;
-        self.speed = 0;
+        self.health = 5;
+        self.attack = 5;
+        self.speed = 50;
+        self.probability = 1.0;
         self.modifiers = [NSMutableArray array];
         nextRespawnTime = 0;
     }
@@ -54,7 +56,14 @@
         return NO;
     }
     if(timeSinceGameStarted > nextRespawnTime){
-        return YES;
+        double probability =((double)(arc4random() % 10000)/10000.0);
+        if(probability<self.probability){
+            return YES;
+        }
+        else{
+            nextRespawnTime += self.respawnInterval;
+            return  NO;
+        }
     }
     else{
         return NO;
@@ -84,6 +93,8 @@
     monster.position = ccp(self.positionX, self.positionY);
     monster.isElite = self.isElite;
     monster.hp = self.health;
+    monster.atk = self.attack;
+    monster.speed = self.speed;
     return monster;
 }
 

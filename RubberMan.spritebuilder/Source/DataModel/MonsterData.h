@@ -19,7 +19,9 @@
 @property CGFloat positionY;
 @property CGFloat positionX;
 @property float health;
+@property float attack;
 @property float speed;
+@property float probability;
 @property BOOL isElite;
 @property NSMutableArray *modifiers;
 

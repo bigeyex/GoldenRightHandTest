@@ -8,6 +8,8 @@
 
 #import "Player.h"
 #import "GameEvent.h"
+#import "DBManager.h"
+#import "GameGlobals.h"
 
 @implementation Player{
     CCNode *_body;
@@ -22,6 +24,9 @@
     CCSprite *_arrow;
     float _minTouchTime;
     BOOL _isMoved;
+    float _timeElapsed;
+    DBManager *_dbManager;
+    long long _numOfHit;
     
     CCNode* _hpBar;
 }
@@ -60,6 +65,10 @@ static float controlRange = 300;
     _atkBuff = 1.0;
     _damageReduction = 1.0;
     _isShooting = NO;
+    _timeElapsed = 0;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _numOfHit = [[defaults objectForKey:@"totalNumOfHit"] longLongValue];
 }
 
 -(void)addHandwithName:(NSString *)ccbName{
@@ -86,7 +95,8 @@ static float controlRange = 300;
 }
 
 -(void)update:(CCTime)delta{
-    
+
+    _timeElapsed +=delta;
     if(_isReleased){
         
         // make sure the hand moves only in the shoot directions
@@ -188,6 +198,7 @@ static float controlRange = 300;
         _arrow.rotation = ccpAngleSigned(_shootDirection, ccp(0,0)) / M_PI * 180;
         [self addChild:_arrow];
         [GameEvent dispatch:@"AimingHand"];
+        
     }
     return _isTouched;
 }
@@ -230,6 +241,18 @@ static float controlRange = 300;
         
         // remove the arrow
         [_arrow removeFromParent];
+        
+        _dbManager = [[GameGlobals sharedInstance] getDatabase];
+        NSString *query = [NSString stringWithFormat:@"INSERT INTO PlayerData values(%lld,%f)", _numOfHit + 1,_timeElapsed];
+        _numOfHit++;
+        [_dbManager executeQuery:query];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:[NSNumber numberWithLongLong:_numOfHit] forKey:@"totalNumOfHit"];
+        [defaults synchronize];
+        
+        _timeElapsed = 0.0;
+
     }
     
     if(!_isMoved){

@@ -26,6 +26,13 @@
 
 @property CCNode* rankIcon;
 
+@property int numOfPreviousNormalWalker;
+@property int numOfPreviousNormalBat;
+@property int numOfPreviousNormalGhost;
+@property int numOfPreviousEliteWalker;
+@property int numOfPreviousEliteBat;
+@property int numOfPreviousEliteGhost;
+
 - (BOOL)receiveHitWithDamage:(float)Damage;
 - (void)loadMonsterData: (MonsterData*)monsterData;
 - (void)startAttack;

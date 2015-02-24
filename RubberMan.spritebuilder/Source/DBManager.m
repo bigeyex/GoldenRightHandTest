@@ -44,6 +44,8 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         self.documentsDirectory = [paths objectAtIndex:0];
         
+        NSLog(@"%@",self.documentsDirectory);
+        
         // Keep the database filename.
         self.databaseFilename = dbFilename;
         

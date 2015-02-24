@@ -79,7 +79,7 @@
 }
 
 - (void)didLoadFromCCB {
-    [GameEvent clearEvent:@"MonsterRemoved"];
+    //[GameEvent clearEvent:@"MonsterRemoved"];
     [GameEvent clearEvent:@"FoundSausage"];
     // tell this scene to accept touches
     self.userInteractionEnabled = TRUE;
@@ -426,7 +426,7 @@
             
         case 2: // fire * fire * ice
             // hit that can't be evaded
-            [_player shootingForDuration:10.0];
+            [_player shootingForDuration:20.0];
             break;
             
         case 3: // fire * fire * dark
@@ -437,7 +437,7 @@
             
         case 4: // fire * ice * ice
             // double the attack for 10s
-            [_player doubleAttackForDuration:10.0];
+            [_player doubleAttackForDuration:20.0];
             break;
             
         case 6: // fire * ice * dark
@@ -447,13 +447,13 @@
             break;
             
         case 8: // ice * ice * ice
-            // freeze all monsters for 5.0s
-            [self freezeAllMonsters:5];
+            // freeze all monsters for 4.0s
+            [self freezeAllMonsters:4];
             break;
             
         case 9: // fire * dark * dark
-            // heal for 30 hp
-            [_player heal:30.0];
+            // heal for 50 hp
+            [_player heal:50.0];
             [_playerLifeBar setLength:_player.playerHP];
             break;
             
