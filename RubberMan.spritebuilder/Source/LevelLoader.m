@@ -33,7 +33,7 @@
     isLevelLoaded = NO;
     [GameEvent subscribe:@"PauseMonsters" forObject:self withSelector:@selector(pauseMonsters)];
     [GameEvent subscribe:@"ResumeMonsters" forObject:self withSelector:@selector(resumeMonsters)];
-    [GameEvent subscribe:@"MonsterRemoved" forObject:self withSelector:@selector(updateNumOfMonsters:)];
+    [GameEvent subscribe:@"MonsterDefeated" forObject:self withSelector:@selector(updateNumOfMonsters:)];
 }
 
 - (void)pauseMonsters{

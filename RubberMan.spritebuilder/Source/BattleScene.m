@@ -17,6 +17,7 @@
 #import "GameEvent.h"
 #import "SkillButtonUI.h"
 #import "GameGlobals.h"
+#import <Parse/Parse.h>
 
 @implementation BattleScene{
     CCPhysicsNode *_physicsNode;
@@ -28,6 +29,9 @@
     SkillButtonUI *_skillButton;
     CCLabelTTF *_skillDescription;
     NSMutableArray *_skillDescriptionArray;
+    int _score;
+    CCLabelTTF *_scoreLabel;
+    CCLabelTTF *_displayScore;
     
     BOOL foundSausage;
     BOOL _isLose;
@@ -107,8 +111,15 @@
     countOfHit = 0;
     foundSausage = NO;
     _isLose = NO;
+    _score = 0;
     [GameEvent subscribe:@"FoundSausage" forObject:self withSelector:@selector(onFoundSausage)];
+    [GameEvent subscribe:@"MonsterDefeated" forObject:self withSelector:@selector(calculateScore:)];
     
+    _displayScore = [CCLabelTTF labelWithString:@"0" fontName:@"UI/CarterOne.ttf" fontSize:18
+                                     dimensions:CGSizeMake(50,28)];
+    _displayScore.anchorPoint = ccp(0,0.5);
+    _displayScore.position = ccpAdd(_scoreLabel.position,CGPointMake(_scoreLabel.contentSize.width/2+10, 0));
+    [self addChild:_displayScore];
 }
 
 - (void)onFoundSausage{
@@ -368,14 +379,50 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         id defaultObject = [defaults objectForKey:@"EndlessHiScore"];
         if(defaultObject == nil){
-            gameOverMessage.string = [NSString stringWithFormat:@"Survival: %.2fs Hi: ---", timeSinceGameStarted];
-            [defaults setObject:[NSNumber numberWithFloat:timeSinceGameStarted] forKey:@"EndlessHiScore"];
+            gameOverMessage.string = [NSString stringWithFormat:@"Score: %d Hi: 0", _score];
+            [defaults setObject:[NSNumber numberWithInt:_score] forKey:@"EndlessHiScore"];
+            
+            //upload to the learderboard
+            PFQuery *query = [PFQuery queryWithClassName:@"GameScore"];
+            
+            [query whereKey:@"playerName" equalTo:[defaults objectForKey:@"userName"]];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                if (!error) {
+                    if([objects count]==0){
+                        PFObject *gameScore = [PFObject objectWithClassName:@"GameScore"];
+                        gameScore[@"playerName"]=[defaults objectForKey:@"userName"];
+                        gameScore[@"score"] = [NSNumber numberWithInt:_score];
+                        [gameScore saveEventually];
+                    }
+                    if([objects count]==1){
+                        PFObject *gameScore = objects[0];
+                        gameScore[@"score"] = [NSNumber numberWithInt:_score];
+                        [gameScore saveEventually];
+                    }
+                }
+            }];
+            
+            
         }
         else{
-            float hiScore = [defaultObject floatValue];
-            gameOverMessage.string = [NSString stringWithFormat:@"Survival: %.2fs Hi: %.2fs", timeSinceGameStarted, hiScore];
-            if(timeSinceGameStarted > hiScore){
-                [defaults setObject:[NSNumber numberWithFloat:timeSinceGameStarted] forKey:@"EndlessHiScore"];
+            int hiScore = [defaultObject intValue];
+            gameOverMessage.string = [NSString stringWithFormat:@"Score: %d Hi: %d", _score, hiScore];
+            if(_score > hiScore){
+                [defaults setObject:[NSNumber numberWithInt:_score] forKey:@"EndlessHiScore"];
+                
+                PFQuery *query = [PFQuery queryWithClassName:@"GameScore"];
+                
+                [query whereKey:@"playerName" equalTo:[defaults objectForKey:@"userName"]];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    if (!error) {
+                        if([objects count]==1){
+                            PFObject *gameScore = objects[0];
+                            gameScore[@"score"] = [NSNumber numberWithInt:_score];
+                            [gameScore saveEventually];
+                        }
+                    }
+                }];
+                
             }
         }
         
@@ -499,6 +546,7 @@
         Monster *_checkNode = _monsterList.children[i];
         BOOL isDefeated = [_checkNode receiveHitWithDamage:5.0];
         if(isDefeated){
+            [GameEvent dispatch:@"MonsterDefeated" withArgument:_checkNode];
             [_checkNode removeFromParent];
             i--;
             numOfMonsters--;
@@ -521,12 +569,14 @@
     int numOfMonsters = (int)[_monsterList.children count];
     for (int i = 0;i<numOfMonsters;i++){
         Monster *_checkNode = _monsterList.children[i];
+        if(!_checkNode.isStopped){
+            CCSprite* iceImage = [CCSprite spriteWithImageNamed:@"UI/ice-block.png"];
+            iceImage.name = @"iceblock";
+            iceImage.position = _checkNode.position;
+            [_checkNode addChild:iceImage];
+        }
+        
         [_checkNode stopMovingForDuration:duration];
-        CCSprite* iceImage = [CCSprite spriteWithImageNamed:@"UI/ice-block.png"];
-        iceImage.name = @"iceblock";
-        iceImage.position = _checkNode.position;
-        [_checkNode addChild:iceImage];
-
     }
 }
 
@@ -539,6 +589,16 @@
 
 - (SkillButtonUI*)skillButton{
     return _skillButton;
+}
+
+-(void) calculateScore:(Monster *)monster{
+    if(monster.isElite){
+        _score+=10;
+    }
+    else{
+        _score+=5;
+    }
+    _displayScore.string = [NSString stringWithFormat:@"%d",_score];
 }
 
 @end

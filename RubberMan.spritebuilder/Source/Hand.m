@@ -7,6 +7,7 @@
 //
 
 #import "Hand.h"
+#import "GameEvent.h"
 
 @implementation Hand
 
@@ -32,7 +33,7 @@
 -(float)handSkillwithMonster:(Monster *)nodeA MonsterList: (CCNode *)monsterList{
     // load hand particle effect
     [self handParticleEffectAtPosition:self.anchorPointInPoints];
-
+    
     return 0.0;
 }
 
@@ -86,6 +87,7 @@
         if ((distance<self.skillRange)&&(distance>0)){
             BOOL isKilled = [_checkNode receiveHitWithDamage:self.skillDamage];
             if (isKilled){
+                [GameEvent dispatch:@"MonsterDefeated" withArgument:_checkNode];
                 [_checkNode removeFromParent];
                 i--;
                 numOfMonsters--;
@@ -138,11 +140,14 @@
         Monster *_checkNode = monsterList.children[i];
         double distance = ccpDistance(_checkNode.positionInPoints,nodeA.positionInPoints);
         if (distance<self.skillRange){
+            // this is to avoid the ice image being added twice by icehand skill and icestorm skill
+            if(!_checkNode.isStopped){
+                CCSprite* iceImage = [CCSprite spriteWithImageNamed:@"UI/ice-block.png"];
+                iceImage.name = @"iceblock";
+                iceImage.position = _checkNode.position;
+                [_checkNode addChild:iceImage];
+            }
             [_checkNode stopMovingForDuration:_skillDuration];
-            CCSprite* iceImage = [CCSprite spriteWithImageNamed:@"UI/ice-block.png"];
-            iceImage.name = @"iceblock";
-            iceImage.position = _checkNode.position;
-            [_checkNode addChild:iceImage];
         }
     }
     return 0.0;
@@ -188,12 +193,12 @@
 }
 
 /*
--(void)playHitSound{
-    // play sound effect
-    OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
-    [audio playEffect:@"darkFist.mp3"];
-}
-*/
+ -(void)playHitSound{
+ // play sound effect
+ OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
+ [audio playEffect:@"darkFist.mp3"];
+ }
+ */
 @end
 
 @implementation DeathHand

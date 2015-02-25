@@ -27,6 +27,7 @@
 
 #import "AppDelegate.h"
 #import "CCBuilderReader.h"
+#import <Parse/Parse.h>
 
 @implementation AppController
 
@@ -57,8 +58,8 @@
     
     // initialize defaults
     // the next two lines are used to clean up the user defaults; only for debug
-    //NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-    //[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     
     NSNumber *stars    = (NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"level1"];
     if (stars == nil)     // App first run: set up user defaults.
@@ -69,12 +70,22 @@
             NSDictionary *levelStarDefaults  = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:3], levelNames[i], nil];
             [[NSUserDefaults standardUserDefaults] registerDefaults:levelStarDefaults];
         }
+        
         NSDictionary *totalNumOfMonster  = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLongLong:0], @"totalNumOfMonster", nil];
         [[NSUserDefaults standardUserDefaults] registerDefaults:totalNumOfMonster];
-         NSDictionary *totalNumOfHit  = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLongLong:0], @"totalNumOfHit", nil];
+        
+        NSDictionary *totalNumOfHit  = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLongLong:0], @"totalNumOfHit", nil];
         [[NSUserDefaults standardUserDefaults] registerDefaults:totalNumOfHit];
+        
+        NSDictionary *userName  = [NSDictionary dictionaryWithObjectsAndKeys:@"Guoqiang", @"userName", nil];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:userName];
+        
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    
+    // Initialize Parse.
+    [Parse setApplicationId:@"fwrPuqk1WNX11ubQXfHPIyrF7dVvfmo5plS8iD00"
+                  clientKey:@"klXVkm3C2CIx6THynIsfWvJdINFRPCOKkFto8At5"];
     
     return YES;
 }
